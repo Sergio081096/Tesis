@@ -11,7 +11,7 @@
   <arg name="use_task" default="true" />
   <arg name="use_teleop" default="false" />
   <arg name="use_web" default="false" />
-  <arg name="use_laser_odom" default="true" />
+  <arg name="use_laser_odom" default="false" />
   <arg name="paused" default="true" />
   <arg name="fast_physics" default="false" />
 
@@ -20,7 +20,7 @@
 
   <include file="$(find hsrb_gazebo_launch)/launch/include/hsrb_gazebo_common.xml" pass_all_args="true" >
     <arg name="map" default="$(find tmc_potential_maps)/maps/apartment/map.yaml" />
-    <arg name="world_name" value="$(find takeshi_start)/worlds/takeshi_apartment_objects_remasterized.world" />
+    <arg name="world_name" value="$(find takeshi)/worlds/takeshi_apartment_objects_remasterized.world" />
     <arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />
   </include>
 </launch>
