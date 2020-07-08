@@ -352,7 +352,7 @@ class MobileOmniBaseNode:
         #self.pubJointStates = rospy.Publisher("/joint_states", JointState, queue_size = 1)
         #self.subSpeeds  = rospy.Subscriber("/hardware/mobile_base/speeds",  Float32MultiArray, self.cmd_speeds_callback, queue_size=1);
         self.subCmdVel  = rospy.Subscriber("/hardware/mobile_base/cmd_vel", Twist, self.cmd_vel_callback, queue_size=1);
-        self.subCurrentPose  = rospy.Subscriber("/hsrb/omni_base_controller/state", Twist, self.baseCurrentPoseCallback, queue_size=1);
+        #self.subCurrentPose  = rospy.Subscriber("/hsrb/omni_base_controller/state", Twist, self.baseCurrentPoseCallback, queue_size=1);
         #self.subSimul   = rospy.Subscriber("/simulated", Bool, self.callback_simulated, queue_size = 1);
    
     def run(self):
