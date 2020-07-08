@@ -45,7 +45,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/libxml2"
   "/usr/include/jsoncpp"
   "/usr/include/tcl"
-  "/home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include"
   "/home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
@@ -65,7 +64,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/sergio/Tesis/catkin_ws/build/tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/DependInfo.cmake"
-  "/home/sergio/Tesis/catkin_ws/build/tools/justina_tools/CMakeFiles/justina_tools.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

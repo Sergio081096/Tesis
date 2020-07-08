@@ -16,10 +16,15 @@ find_package(catkin REQUIRED COMPONENTS
   knowledge_msgs
   tf
   tf_conversions
-  justina_tools
+  #justina_tools
   cv_bridge
   geometry_msgs
+  point_cloud_manager
+  pcl_conversions
 )
+
+find_package(PCL 1.2 REQUIRED)
+find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -113,7 +118,7 @@ add_service_files(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES takeshi_tools
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime hri_msgs justina_tools
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime hri_msgs pcl_conversions
 #  DEPENDS system_lib
 )
 
@@ -126,6 +131,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -220,5 +226,7 @@ add_library(takeshi_tools
 add_dependencies(takeshi_tools ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(takeshi_tools
+  ${OpenCV_LIBS}
+  ${PCL_LIBRARIES}
   ${catkin_LIBRARIES}
 )

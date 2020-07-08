@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/install
-
-Name: line_finder
-Description: Description of line_finder
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

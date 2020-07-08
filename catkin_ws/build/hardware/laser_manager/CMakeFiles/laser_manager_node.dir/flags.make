@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"laser_manager\"
 
-CXX_INCLUDES = -I/home/sergio/Tesis/catkin_ws/devel/include -I/home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -isystem /opt/ros/melodic/include/opencv-3.3.1-dev -isystem /opt/ros/melodic/include/opencv-3.3.1-dev/opencv 
+CXX_INCLUDES = -I/home/sergio/Tesis/catkin_ws/devel/include -I/home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include -I/opt/ros/melodic/include -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/bullet -isystem /opt/ros/melodic/include/opencv-3.3.1-dev -isystem /opt/ros/melodic/include/opencv-3.3.1-dev/opencv 
 

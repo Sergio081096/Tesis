@@ -5,4 +5,4 @@ Description: Description of takeshi_tools
 Version: 0.0.0
 Cflags: -I${prefix}/include
 Libs: -L${prefix}/lib -ltakeshi_tools
-Requires: roscpp rospy std_msgs message_runtime hri_msgs justina_tools
+Requires: roscpp rospy std_msgs message_runtime hri_msgs pcl_conversions

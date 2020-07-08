@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/install
-
-Name: circle_detector
-Description: Description of circle_detector
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

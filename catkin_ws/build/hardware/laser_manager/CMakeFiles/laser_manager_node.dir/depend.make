@@ -4,10 +4,10 @@
 hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/occupancy_grid_utils/LocalizedCloud.h
 hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/occupancy_grid_utils/OverlayClouds.h
 hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/hardware/laser_manager/src/laser_manager_node.cpp
-hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/coordinate_conversions.h
-hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/exceptions.h
-hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/impl/ray_trace_iterator.h
-hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/ray_tracer.h
+hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/coordinate_conversions.h
+hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/exceptions.h
+hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/impl/ray_trace_iterator.h
+hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/ray_tracer.h
 hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /opt/ros/melodic/include/class_loader/class_loader.hpp
 hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /opt/ros/melodic/include/class_loader/class_loader_core.hpp
 hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.cpp.o: /opt/ros/melodic/include/class_loader/exceptions.hpp

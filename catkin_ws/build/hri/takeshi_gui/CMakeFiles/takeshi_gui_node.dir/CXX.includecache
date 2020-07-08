@@ -1877,8 +1877,6 @@ vision_msgs/RecognizeFlattenedObjects.h
 /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/vision_msgs/RecognizeFlattenedObjects.h
 vision_msgs/ObjectCoordinatesForDetection.h
 /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/vision_msgs/ObjectCoordinatesForDetection.h
-point_cloud_manager/GetRgbd.h
-/home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/point_cloud_manager/GetRgbd.h
 vision_msgs/FindLines.h
 /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/vision_msgs/FindLines.h
 vision_msgs/FindLines.h
@@ -8158,6 +8156,10 @@ qapplication.h
 qbuttongroup.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qbuttongroup.h
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox
+qcombobox.h
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcombobox.h
+
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDoubleSpinBox
 qspinbox.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qspinbox.h
@@ -8185,10 +8187,6 @@ qlineedit.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
 qmainwindow.h
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QProgressBar
-qprogressbar.h
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qprogressbar.h
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 qpushbutton.h
@@ -8306,6 +8304,20 @@ QtWidgets/qtwidgetsglobal.h
 QtCore/qobject.h
 -
 
+/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcombobox.h
+QtWidgets/qtwidgetsglobal.h
+-
+QtWidgets/qwidget.h
+-
+QtWidgets/qabstractitemdelegate.h
+-
+QtCore/qabstractitemmodel.h
+-
+QtCore/qvariant.h
+-
+QtGui/qvalidator.h
+-
+
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
 QtWidgets/qtwidgetsglobal.h
 -
@@ -8372,12 +8384,6 @@ QtWidgets/qtwidgetsglobal.h
 QtWidgets/qwidget.h
 -
 QtWidgets/qtabwidget.h
--
-
-/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qprogressbar.h
-QtWidgets/qtwidgetsglobal.h
--
-QtWidgets/qframe.h
 -
 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
@@ -8535,6 +8541,8 @@ QtWidgets/QApplication
 -
 QtWidgets/QButtonGroup
 -
+QtWidgets/QComboBox
+-
 QtWidgets/QDoubleSpinBox
 -
 QtWidgets/QGroupBox
@@ -8546,8 +8554,6 @@ QtWidgets/QLabel
 QtWidgets/QLineEdit
 -
 QtWidgets/QMainWindow
--
-QtWidgets/QProgressBar
 -
 QtWidgets/QPushButton
 -

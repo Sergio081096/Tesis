@@ -199,7 +199,6 @@ takeshi_gui_node_EXTERNAL_OBJECTS =
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libmap_server_image_loader.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libtf2.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /home/sergio/Tesis/catkin_ws/devel/lib/libtakeshi_tools.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /home/sergio/Tesis/catkin_ws/devel/lib/libjustina_tools.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_common.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_octree.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_io.so
@@ -617,10 +616,6 @@ takeshi_gui_node_EXTERNAL_OBJECTS =
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_apps.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_outofcore.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_people.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libroslib.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/librospack.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libboost_program_options.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libtinyxml2.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libtf_conversions.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libkdl_conversions.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/liborocos-kdl.so.1.4.0
@@ -629,6 +624,10 @@ takeshi_gui_node_EXTERNAL_OBJECTS =
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libactionlib.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libmessage_filters.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libtf2.so
+/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libcv_bridge.so
+/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libopencv_core.so.3.2.0
+/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2.0
+/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.3.2.0
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_common.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_octree.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libpcl_io.so
@@ -797,16 +796,12 @@ takeshi_gui_node_EXTERNAL_OBJECTS =
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libvtkWrappingJava-6.3.so.6.3.0
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libroscpp.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libxmlrpcpp.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libcv_bridge.so
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libopencv_core.so.3.2.0
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.3.2.0
-/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libopencv_imgcodecs.so.3.2.0
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/librosconsole.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/librosconsole_log4cxx.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/librosconsole_backend_interface.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so
+/home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libxmlrpcpp.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libroscpp_serialization.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/librostime.so
 /home/sergio/Tesis/catkin_ws/devel/lib/takeshi_gui/takeshi_gui_node: /opt/ros/melodic/lib/libcpp_common.so

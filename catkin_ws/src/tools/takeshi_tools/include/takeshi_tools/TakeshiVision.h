@@ -20,7 +20,7 @@
 #include "vision_msgs/RecognizeFlattenedObjects.h"
 #include "vision_msgs/ObjectCoordinatesForDetection.h"
 
-#include "point_cloud_manager/GetRgbd.h"
+//#include "point_cloud_manager/GetRgbd.h"
 #include "vision_msgs/FindLines.h"
 #include "vision_msgs/FindLines.h"
 #include "vision_msgs/FindPlane.h"

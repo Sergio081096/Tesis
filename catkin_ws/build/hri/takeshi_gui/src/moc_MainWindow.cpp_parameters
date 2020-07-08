@@ -2,7 +2,6 @@
 -I/home/sergio/Tesis/catkin_ws/build/hri/takeshi_gui
 -I/home/sergio/Tesis/catkin_ws/devel/include
 -I/home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include
--I/home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include
 -I/opt/ros/melodic/include
 -I/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp
 -I/usr/include

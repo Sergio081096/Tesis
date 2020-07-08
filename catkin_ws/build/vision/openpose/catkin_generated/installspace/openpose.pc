@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/install
-
-Name: openpose
-Description: Description of openpose
-Version: 0.0.0
-Cflags: -I${prefix}/include -I/usr/include
-Libs: -L${prefix}/lib /usr/lib/x86_64-linux-gnu/libtinyxml.so
-Requires: 

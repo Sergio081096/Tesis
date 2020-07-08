@@ -5,10 +5,10 @@ hardware/laser_manager/CMakeFiles/laser_manager_node.dir/src/laser_manager_node.
  /home/sergio/Tesis/catkin_ws/devel/include/occupancy_grid_utils/LocalizedCloud.h
  /home/sergio/Tesis/catkin_ws/devel/include/occupancy_grid_utils/OverlayClouds.h
  /home/sergio/Tesis/catkin_ws/src/hardware/laser_manager/src/laser_manager_node.cpp
- /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/coordinate_conversions.h
- /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/exceptions.h
- /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/impl/ray_trace_iterator.h
- /home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/ray_tracer.h
+ /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/coordinate_conversions.h
+ /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/exceptions.h
+ /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/impl/ray_trace_iterator.h
+ /home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/ray_tracer.h
  /opt/ros/melodic/include/class_loader/class_loader.hpp
  /opt/ros/melodic/include/class_loader/class_loader_core.hpp
  /opt/ros/melodic/include/class_loader/exceptions.hpp

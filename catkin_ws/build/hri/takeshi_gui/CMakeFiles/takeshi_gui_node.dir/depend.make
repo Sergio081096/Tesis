@@ -768,6 +768,7 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/inclu
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QAction
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QButtonGroup
+hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDoubleSpinBox
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFileDialog
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox
@@ -775,7 +776,6 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/inclu
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
-hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QProgressBar
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTabWidget
@@ -791,6 +791,7 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/inclu
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qbuttongroup.h
+hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcombobox.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qfiledialog.h
@@ -800,7 +801,6 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/inclu
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
-hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qprogressbar.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
 hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h

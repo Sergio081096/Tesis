@@ -1809,6 +1809,8 @@ tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiTools.cpp.o: /usr/in
 tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiTools.cpp.o: /usr/include/pcl-1.8/pcl/point_types.h
 tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiTools.cpp.o: /usr/include/pcl-1.8/pcl/register_point_struct.h
 
+tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiVision.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/darknet_ros_msgs/BoundingBox.h
+tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiVision.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/darknet_ros_msgs/BoundingBoxes.h
 tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiVision.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbd.h
 tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiVision.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdRequest.h
 tools/takeshi_tools/CMakeFiles/takeshi_tools.dir/src/TakeshiVision.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdResponse.h

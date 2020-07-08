@@ -85,39 +85,27 @@ install/strip/fast: preinstall/fast
 	/usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-.PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
+.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -130,27 +118,39 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
-.PHONY : list_install_components/fast
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target test
+test/fast: test
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+.PHONY : test/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -185,21 +185,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_py: navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-# Convenience name for target.
 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule:
 	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
 .PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_eus.dir/rule
@@ -213,51 +198,6 @@ visualization_msgs_generate_messages_eus: navigation/obs_avoidance/pot_fields/CM
 visualization_msgs_generate_messages_eus/fast:
 	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build
 .PHONY : visualization_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_nodejs: navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_nodejs: navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-visualization_msgs_generate_messages_nodejs/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
-.PHONY : visualization_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_py: navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_py
-
-# fast build rule for target.
-visualization_msgs_generate_messages_py/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
-.PHONY : visualization_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule:
@@ -275,49 +215,49 @@ visualization_msgs_generate_messages_cpp/fast:
 .PHONY : visualization_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule:
+	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
+.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_cpp: navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
+visualization_msgs_generate_messages_lisp: navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_cpp
+.PHONY : visualization_msgs_generate_messages_lisp
 
 # fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
+visualization_msgs_generate_messages_lisp/fast:
+	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
+.PHONY : visualization_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule:
+	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
+.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_eus: navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
+visualization_msgs_generate_messages_py: navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_eus
+.PHONY : visualization_msgs_generate_messages_py
 
 # fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
+visualization_msgs_generate_messages_py/fast:
+	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
+.PHONY : visualization_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
+.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-sensor_msgs_generate_messages_lisp: navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+visualization_msgs_generate_messages_nodejs: navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : sensor_msgs_generate_messages_lisp
+.PHONY : visualization_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
+visualization_msgs_generate_messages_nodejs/fast:
+	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
+.PHONY : visualization_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 navigation/obs_avoidance/pot_fields/CMakeFiles/pot_fields_node.dir/rule:
@@ -333,21 +273,6 @@ pot_fields_node: navigation/obs_avoidance/pot_fields/CMakeFiles/pot_fields_node.
 pot_fields_node/fast:
 	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/pot_fields_node.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/pot_fields_node.dir/build
 .PHONY : pot_fields_node/fast
-
-# Convenience name for target.
-navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-.PHONY : navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_lisp: navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : visualization_msgs_generate_messages_lisp
-
-# fast build rule for target.
-visualization_msgs_generate_messages_lisp/fast:
-	cd /home/sergio/Tesis/catkin_ws/build && $(MAKE) -f navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make navigation/obs_avoidance/pot_fields/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
-.PHONY : visualization_msgs_generate_messages_lisp/fast
 
 src/pot_fields_node.o: src/pot_fields_node.cpp.o
 
@@ -389,11 +314,6 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... sensor_msgs_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... visualization_msgs_generate_messages_eus"
 	@echo "... visualization_msgs_generate_messages_lisp"

@@ -4,8 +4,11 @@
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbd.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdRequest.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdResponse.h
+hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/vision_msgs/Bounding_Box.h
+hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/vision_msgs/VisionObject.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/src/hardware/xtion/src/test_pcl.cpp
-hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaTools.h
+hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiTools.h
+hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/cv_bridge/cv_bridge.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/geometry_msgs/Point.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/geometry_msgs/Point32.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/geometry_msgs/PointStamped.h
@@ -216,11 +219,13 @@ hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/incl
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/ros/wall_timer_options.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/rosconsole/macros_generated.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/ChannelFloat32.h
+hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/CompressedImage.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/Image.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/LaserScan.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/PointCloud.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/PointCloud2.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/PointField.h
+hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/sensor_msgs/image_encodings.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/std_msgs/Empty.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/std_msgs/Header.h
 hardware/xtion/CMakeFiles/test_pcl.dir/src/test_pcl.cpp.o: /opt/ros/melodic/include/tf/FrameGraph.h

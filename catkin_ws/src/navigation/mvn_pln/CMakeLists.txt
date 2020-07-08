@@ -12,10 +12,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   tf
-  justina_tools
+  #justina_tools
   sensor_msgs
   message_generation
-  point_cloud_manager
+  #point_cloud_manager
   pcl_ros
   takeshi_tools
 )

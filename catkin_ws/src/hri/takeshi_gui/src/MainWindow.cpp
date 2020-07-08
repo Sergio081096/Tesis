@@ -378,7 +378,7 @@ void MainWindow::hdPanTiltChanged(double)
 {
     float goalPan = this->ui->hdTxtPan->value();
     float goalTilt = this->ui->hdTxtTilt->value();
-    std::cout << "QMainWindow.->Setting new head goal pose: " << goalPan << "  " << goalTilt  << std::endl;
+    //std::cout << "QMainWindow.->Setting new head goal pose: " << goalPan << "  " << goalTilt  << std::endl;
     //::setHeadGoalPose(goalPan, goalTilt);
     TakeshiManip::startHdGoTo(goalPan, goalTilt);
 }

@@ -14,7 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   sensor_msgs
   geometry_msgs
-  justina_tools
+  #justina_tools
+  takeshi_tools
   tf
   tf_conversions
 )

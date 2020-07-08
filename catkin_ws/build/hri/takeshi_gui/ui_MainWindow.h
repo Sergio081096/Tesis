@@ -13,13 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
@@ -45,6 +45,8 @@ public:
     QLabel *navLblStatus;
     QLabel *navLblMove;
     QLineEdit *navTxtMove;
+    QComboBox *navCbPlanningMethod;
+    QLabel *navLblPlanningMethod;
     QGroupBox *gbManip;
     QLabel *laLblStatus;
     QLabel *laLblOpenGripper;
@@ -65,10 +67,6 @@ public:
     QLabel *hdLblStatus;
     QLabel *hdLblHeadPoseLbl;
     QLabel *hdLblHeadPose;
-    QGroupBox *gbGeneralStatus;
-    QProgressBar *pgbBatt1;
-    QLabel *lblBatt1;
-    QLabel *lblBatt1Level;
     QGroupBox *gbTorso;
     QLabel *trsLblSpine;
     QDoubleSpinBox *trsTxtSpine;
@@ -116,7 +114,7 @@ public:
         tabGeneral->setObjectName(QStringLiteral("tabGeneral"));
         gbNavig = new QGroupBox(tabGeneral);
         gbNavig->setObjectName(QStringLiteral("gbNavig"));
-        gbNavig->setGeometry(QRect(320, 220, 301, 151));
+        gbNavig->setGeometry(QRect(320, 220, 301, 201));
         gbNavig->setStyleSheet(QStringLiteral(""));
         navBtnExecPath = new QPushButton(gbNavig);
         navBtnExecPath->setObjectName(QStringLiteral("navBtnExecPath"));
@@ -138,19 +136,25 @@ public:
         navLblGoalPose->setGeometry(QRect(10, 45, 81, 17));
         navLblRobotPose = new QLabel(gbNavig);
         navLblRobotPose->setObjectName(QStringLiteral("navLblRobotPose"));
-        navLblRobotPose->setGeometry(QRect(10, 100, 231, 17));
+        navLblRobotPose->setGeometry(QRect(10, 150, 231, 17));
         navLblStatus = new QLabel(gbNavig);
         navLblStatus->setObjectName(QStringLiteral("navLblStatus"));
-        navLblStatus->setGeometry(QRect(10, 120, 271, 17));
+        navLblStatus->setGeometry(QRect(10, 170, 271, 17));
         navLblMove = new QLabel(gbNavig);
         navLblMove->setObjectName(QStringLiteral("navLblMove"));
-        navLblMove->setGeometry(QRect(10, 70, 101, 17));
+        navLblMove->setGeometry(QRect(10, 120, 101, 17));
         navTxtMove = new QLineEdit(gbNavig);
         navTxtMove->setObjectName(QStringLiteral("navTxtMove"));
-        navTxtMove->setGeometry(QRect(110, 70, 181, 27));
+        navTxtMove->setGeometry(QRect(110, 120, 185, 27));
+        navCbPlanningMethod = new QComboBox(gbNavig);
+        navCbPlanningMethod->setObjectName(QStringLiteral("navCbPlanningMethod"));
+        navCbPlanningMethod->setGeometry(QRect(160, 80, 135, 27));
+        navLblPlanningMethod = new QLabel(gbNavig);
+        navLblPlanningMethod->setObjectName(QStringLiteral("navLblPlanningMethod"));
+        navLblPlanningMethod->setGeometry(QRect(10, 80, 131, 17));
         gbManip = new QGroupBox(tabGeneral);
         gbManip->setObjectName(QStringLiteral("gbManip"));
-        gbManip->setGeometry(QRect(10, 0, 271, 161));
+        gbManip->setGeometry(QRect(10, 10, 271, 171));
         laLblStatus = new QLabel(gbManip);
         laLblStatus->setObjectName(QStringLiteral("laLblStatus"));
         laLblStatus->setGeometry(QRect(10, 20, 181, 17));
@@ -248,21 +252,6 @@ public:
         hdLblHeadPose = new QLabel(gbHead);
         hdLblHeadPose->setObjectName(QStringLiteral("hdLblHeadPose"));
         hdLblHeadPose->setGeometry(QRect(170, 40, 111, 16));
-        gbGeneralStatus = new QGroupBox(tabGeneral);
-        gbGeneralStatus->setObjectName(QStringLiteral("gbGeneralStatus"));
-        gbGeneralStatus->setGeometry(QRect(320, 380, 301, 71));
-        pgbBatt1 = new QProgressBar(gbGeneralStatus);
-        pgbBatt1->setObjectName(QStringLiteral("pgbBatt1"));
-        pgbBatt1->setGeometry(QRect(110, 30, 118, 23));
-        pgbBatt1->setValue(24);
-        lblBatt1 = new QLabel(gbGeneralStatus);
-        lblBatt1->setObjectName(QStringLiteral("lblBatt1"));
-        lblBatt1->setGeometry(QRect(10, 30, 81, 16));
-        lblBatt1Level = new QLabel(gbGeneralStatus);
-        lblBatt1Level->setObjectName(QStringLiteral("lblBatt1Level"));
-        lblBatt1Level->setGeometry(QRect(230, 30, 51, 20));
-        lblBatt1Level->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lblBatt1Level->setWordWrap(false);
         gbTorso = new QGroupBox(tabGeneral);
         gbTorso->setObjectName(QStringLiteral("gbTorso"));
         gbTorso->setGeometry(QRect(320, 110, 301, 101));
@@ -287,7 +276,7 @@ public:
         trsLblCurrPos->setGeometry(QRect(110, 20, 121, 20));
         groupBox = new QGroupBox(tabGeneral);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(10, 200, 271, 201));
+        groupBox->setGeometry(QRect(10, 200, 271, 221));
         btnLeft = new QPushButton(groupBox);
         btnLeft->setObjectName(QStringLiteral("btnLeft"));
         btnLeft->setGeometry(QRect(40, 90, 50, 40));
@@ -323,7 +312,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "TAKESHI GUI - By Marcosoft", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "TAKESHI GUI ", Q_NULLPTR));
         gbNavig->setTitle(QApplication::translate("MainWindow", "Mobile base and navigation", Q_NULLPTR));
         navBtnExecPath->setText(QApplication::translate("MainWindow", "Exec Path", Q_NULLPTR));
         navLblStartPose->setText(QApplication::translate("MainWindow", "Start Pose:", Q_NULLPTR));
@@ -332,6 +321,13 @@ public:
         navLblRobotPose->setText(QApplication::translate("MainWindow", "Robot Pose: 0.000 0.000 0.0000", Q_NULLPTR));
         navLblStatus->setText(QApplication::translate("MainWindow", "Robot Status: Moving to goal pose ...", Q_NULLPTR));
         navLblMove->setText(QApplication::translate("MainWindow", "Simple Move:", Q_NULLPTR));
+        navCbPlanningMethod->clear();
+        navCbPlanningMethod->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "A Star", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "RRT-Ext", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "RRT-Connect", Q_NULLPTR)
+        );
+        navLblPlanningMethod->setText(QApplication::translate("MainWindow", "Planning Method:", Q_NULLPTR));
         gbManip->setTitle(QApplication::translate("MainWindow", "Arm and Manipulation", Q_NULLPTR));
         laLblStatus->setText(QApplication::translate("MainWindow", "Arm: Moving to pose", Q_NULLPTR));
         laLblOpenGripper->setText(QApplication::translate("MainWindow", "Open:", Q_NULLPTR));
@@ -344,9 +340,6 @@ public:
         hdLblStatus->setText(QApplication::translate("MainWindow", "Status: Moving to pose...", Q_NULLPTR));
         hdLblHeadPoseLbl->setText(QApplication::translate("MainWindow", "Head Pose:", Q_NULLPTR));
         hdLblHeadPose->setText(QApplication::translate("MainWindow", "0.0000  0.0000", Q_NULLPTR));
-        gbGeneralStatus->setTitle(QApplication::translate("MainWindow", "General Status", Q_NULLPTR));
-        lblBatt1->setText(QApplication::translate("MainWindow", "Battery 12V:", Q_NULLPTR));
-        lblBatt1Level->setText(QApplication::translate("MainWindow", "0.0 V", Q_NULLPTR));
         gbTorso->setTitle(QApplication::translate("MainWindow", "Torso", Q_NULLPTR));
         trsLblSpine->setText(QApplication::translate("MainWindow", "Spine: 0.0", Q_NULLPTR));
         trsLblLoc->setText(QApplication::translate("MainWindow", "Goal position: ", Q_NULLPTR));

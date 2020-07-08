@@ -769,6 +769,7 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QAction
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QButtonGroup
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QComboBox
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QDoubleSpinBox
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QFileDialog
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGroupBox
@@ -776,7 +777,6 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLabel
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QLineEdit
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QProgressBar
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QStatusBar
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QTabWidget
@@ -792,6 +792,7 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qactiongroup.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qbuttongroup.h
+ /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qcombobox.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdialog.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qfiledialog.h
@@ -801,7 +802,6 @@ hri/takeshi_gui/CMakeFiles/takeshi_gui_node.dir/src/MainWindow.cpp.o
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlabel.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qlineedit.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h
- /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qprogressbar.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qrubberband.h
  /usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h

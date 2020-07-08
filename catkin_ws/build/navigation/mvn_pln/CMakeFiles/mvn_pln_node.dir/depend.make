@@ -442,10 +442,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/MvnPln.cpp.o: /usr/include/pc
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/MvnPln.cpp.o: /usr/include/pcl-1.8/pcl/point_types.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/MvnPln.cpp.o: /usr/include/pcl-1.8/pcl/register_point_struct.h
 
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/Default_ROS_BB_Bridge.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/Default_ROS_BB_BridgeRequest.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/Default_ROS_BB_BridgeResponse.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/RecognizedSpeech.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/env_msgs/AddUpdateObjectViz.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/env_msgs/AddUpdateObjectVizRequest.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/env_msgs/AddUpdateObjectVizResponse.h
@@ -453,9 +449,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/ser
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/AddUpdateKnownLoc.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/AddUpdateKnownLocRequest.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/AddUpdateKnownLocResponse.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedArmsPoses.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedArmsPosesRequest.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedArmsPosesResponse.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedQuestions.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedQuestionsRequest.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedQuestionsResponse.h
@@ -467,18 +460,9 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/ser
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/KnownLocationsResponse.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/MapKnownLocation.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/MapPredefinedQuestions.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/DirectKinematics.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/DirectKinematicsRequest.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/DirectKinematicsResponse.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsFloatArray.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsFloatArrayRequest.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsFloatArrayResponse.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPath.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPathRequest.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPathResponse.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPose.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPoseRequest.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPoseResponse.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/moveit_services/moveitPosition.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/moveit_services/moveitPositionRequest.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/moveit_services/moveitPositionResponse.h
@@ -494,9 +478,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/ser
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdResponse.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/src/MvnPln.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/src/mvn_pln_node.cpp
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaKnowledge.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaManip.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaNavigation.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiHardware.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiKnowledge.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiManip.h
@@ -613,8 +594,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/FrameGraph.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/FrameGraphRequest.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/FrameGraphResponse.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/LinearMath/Matrix3x3.h
-navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/LinearMath/Quaternion.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/LinearMath/Transform.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/exceptions.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/tf.h
@@ -622,6 +601,7 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/time_cache.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/transform_datatypes.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf/transform_listener.h
+navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf2/LinearMath/Matrix3x3.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf2/LinearMath/MinMax.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf2/LinearMath/QuadWord.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o: /opt/ros/melodic/include/tf2/LinearMath/Quaternion.h

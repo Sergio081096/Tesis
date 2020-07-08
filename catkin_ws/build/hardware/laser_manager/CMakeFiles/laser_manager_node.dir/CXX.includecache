@@ -72,7 +72,7 @@ rosbag/view.h
 boost/foreach.hpp
 -
 
-/home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/coordinate_conversions.h
+/home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/coordinate_conversions.h
 occupancy_grid_utils/exceptions.h
 -
 tf/transform_datatypes.h
@@ -88,7 +88,7 @@ cstdlib
 ostream
 -
 
-/home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/exceptions.h
+/home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/exceptions.h
 boost/format.hpp
 -
 stdexcept
@@ -96,7 +96,7 @@ stdexcept
 geometry_msgs/Point.h
 -
 
-/home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/impl/ray_trace_iterator.h
+/home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/impl/ray_trace_iterator.h
 occupancy_grid_utils/coordinate_conversions.h
 -
 ros/assert.h
@@ -104,7 +104,7 @@ ros/assert.h
 boost/iterator/iterator_facade.hpp
 -
 
-/home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include/occupancy_grid_utils/ray_tracer.h
+/home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include/occupancy_grid_utils/ray_tracer.h
 occupancy_grid_utils/impl/ray_trace_iterator.h
 -
 occupancy_grid_utils/LocalizedCloud.h

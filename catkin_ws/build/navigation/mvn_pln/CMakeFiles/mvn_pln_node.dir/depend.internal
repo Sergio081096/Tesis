@@ -443,10 +443,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/MvnPln.cpp.o
  /usr/include/pcl-1.8/pcl/point_types.h
  /usr/include/pcl-1.8/pcl/register_point_struct.h
 navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o
- /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/Default_ROS_BB_Bridge.h
- /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/Default_ROS_BB_BridgeRequest.h
- /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/Default_ROS_BB_BridgeResponse.h
- /home/sergio/Tesis/catkin_ws/devel/include/bbros_bridge/RecognizedSpeech.h
  /home/sergio/Tesis/catkin_ws/devel/include/env_msgs/AddUpdateObjectViz.h
  /home/sergio/Tesis/catkin_ws/devel/include/env_msgs/AddUpdateObjectVizRequest.h
  /home/sergio/Tesis/catkin_ws/devel/include/env_msgs/AddUpdateObjectVizResponse.h
@@ -454,9 +450,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/AddUpdateKnownLoc.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/AddUpdateKnownLocRequest.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/AddUpdateKnownLocResponse.h
- /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedArmsPoses.h
- /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedArmsPosesRequest.h
- /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedArmsPosesResponse.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedQuestions.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedQuestionsRequest.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/GetPredefinedQuestionsResponse.h
@@ -468,18 +461,9 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/KnownLocationsResponse.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/MapKnownLocation.h
  /home/sergio/Tesis/catkin_ws/devel/include/knowledge_msgs/MapPredefinedQuestions.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/DirectKinematics.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/DirectKinematicsRequest.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/DirectKinematicsResponse.h
  /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsFloatArray.h
  /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsFloatArrayRequest.h
  /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsFloatArrayResponse.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPath.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPathRequest.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPathResponse.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPose.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPoseRequest.h
- /home/sergio/Tesis/catkin_ws/devel/include/manip_msgs/InverseKinematicsPoseResponse.h
  /home/sergio/Tesis/catkin_ws/devel/include/moveit_services/moveitPosition.h
  /home/sergio/Tesis/catkin_ws/devel/include/moveit_services/moveitPositionRequest.h
  /home/sergio/Tesis/catkin_ws/devel/include/moveit_services/moveitPositionResponse.h
@@ -495,9 +479,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o
  /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdResponse.h
  /home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/src/MvnPln.h
  /home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/src/mvn_pln_node.cpp
- /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaKnowledge.h
- /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaManip.h
- /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaNavigation.h
  /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiHardware.h
  /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiKnowledge.h
  /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiManip.h
@@ -614,8 +595,6 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o
  /opt/ros/melodic/include/tf/FrameGraph.h
  /opt/ros/melodic/include/tf/FrameGraphRequest.h
  /opt/ros/melodic/include/tf/FrameGraphResponse.h
- /opt/ros/melodic/include/tf/LinearMath/Matrix3x3.h
- /opt/ros/melodic/include/tf/LinearMath/Quaternion.h
  /opt/ros/melodic/include/tf/LinearMath/Transform.h
  /opt/ros/melodic/include/tf/exceptions.h
  /opt/ros/melodic/include/tf/tf.h
@@ -623,6 +602,7 @@ navigation/mvn_pln/CMakeFiles/mvn_pln_node.dir/src/mvn_pln_node.cpp.o
  /opt/ros/melodic/include/tf/time_cache.h
  /opt/ros/melodic/include/tf/transform_datatypes.h
  /opt/ros/melodic/include/tf/transform_listener.h
+ /opt/ros/melodic/include/tf2/LinearMath/Matrix3x3.h
  /opt/ros/melodic/include/tf2/LinearMath/MinMax.h
  /opt/ros/melodic/include/tf2/LinearMath/QuadWord.h
  /opt/ros/melodic/include/tf2/LinearMath/Quaternion.h

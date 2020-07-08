@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/install
-
-Name: planning_open_challenge
-Description: Description of planning_open_challenge
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: roscpp knowledge_msgs

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>TAKESHI GUI - By Marcosoft</string>
+   <string>TAKESHI GUI </string>
   </property>
   <property name="styleSheet">
    <string notr="true">QGroupBox {
@@ -57,7 +57,7 @@ QRadioButton::indicator{
         <x>320</x>
         <y>220</y>
         <width>301</width>
-        <height>151</height>
+        <height>201</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -142,7 +142,7 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>100</y>
+         <y>150</y>
          <width>231</width>
          <height>17</height>
         </rect>
@@ -155,7 +155,7 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>120</y>
+         <y>170</y>
          <width>271</width>
          <height>17</height>
         </rect>
@@ -168,7 +168,7 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>70</y>
+         <y>120</y>
          <width>101</width>
          <height>17</height>
         </rect>
@@ -181,10 +181,48 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>110</x>
-         <y>70</y>
-         <width>181</width>
+         <y>120</y>
+         <width>185</width>
          <height>27</height>
         </rect>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="navCbPlanningMethod">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>80</y>
+         <width>135</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>A Star</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RRT-Ext</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RRT-Connect</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="navLblPlanningMethod">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Planning Method:</string>
        </property>
       </widget>
      </widget>
@@ -192,9 +230,9 @@ QRadioButton::indicator{
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>0</y>
+        <y>10</y>
         <width>271</width>
-        <height>161</height>
+        <height>171</height>
        </rect>
       </property>
       <property name="title">
@@ -544,64 +582,6 @@ QRadioButton::indicator{
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="gbGeneralStatus">
-      <property name="geometry">
-       <rect>
-        <x>320</x>
-        <y>380</y>
-        <width>301</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>General Status</string>
-      </property>
-      <widget class="QProgressBar" name="pgbBatt1">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>30</y>
-         <width>118</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="value">
-        <number>24</number>
-       </property>
-      </widget>
-      <widget class="QLabel" name="lblBatt1">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>81</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Battery 12V:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="lblBatt1Level">
-       <property name="geometry">
-        <rect>
-         <x>230</x>
-         <y>30</y>
-         <width>51</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>0.0 V</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </widget>
      <widget class="QGroupBox" name="gbTorso">
       <property name="geometry">
        <rect>
@@ -695,7 +675,7 @@ QRadioButton::indicator{
         <x>10</x>
         <y>200</y>
         <width>271</width>
-        <height>201</height>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">

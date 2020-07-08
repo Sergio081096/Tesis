@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/devel
-
-Name: pocketsphinx
-Description: Description of pocketsphinx
-Version: 0.4.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

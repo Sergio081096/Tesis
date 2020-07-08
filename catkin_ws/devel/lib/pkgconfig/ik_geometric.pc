@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/devel
-
-Name: ik_geometric
-Description: Description of ik_geometric
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -18,7 +18,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/sergio/Tesis/catkin_ws/devel/include"
-  "/home/sergio/Tesis/catkin_ws/src/tools/occupancy_grid_utils/include"
+  "/home/sergio/Tesis/catkin_ws/src/navigation/occupancy_grid_utils/include"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/eigen3"
@@ -29,7 +29,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/sergio/Tesis/catkin_ws/build/tools/occupancy_grid_utils/CMakeFiles/grid_utils.dir/DependInfo.cmake"
+  "/home/sergio/Tesis/catkin_ws/build/navigation/occupancy_grid_utils/CMakeFiles/grid_utils.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

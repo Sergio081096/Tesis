@@ -65,7 +65,6 @@ void armGoalPoseCallback(const std_msgs::Float32MultiArray::ConstPtr& msg)
     for(int i = 0; i < 4; i++)
     {
       arm_goal_pose[i] = msg->data[i];
-      std::cout << "Goal " << arm_goal_pose[i] << std::endl;
     }
   }
 }
@@ -307,7 +306,7 @@ int main(int argc, char **argv)
         arm_d=arm_d+pow(traj_arm.points[0].positions[i+1] - msg_arm_current_pose.data[i],2);
       arm_d=pow(arm_d,0.5);
       if(arm_d < 0.01){
-        std::cout << "Wait for arm goal pose: true" << std::endl;
+        //std::cout << "Wait for arm goal pose: true" << std::endl;
         msg_arm_goal_pose.data=true;
         pub_arm_goal_pose.publish(msg_arm_goal_pose);
         wait_for_arm_goal_pose = false;
@@ -318,7 +317,7 @@ int main(int argc, char **argv)
       float torso_d=0;
       torso_d=fabs(traj_arm.points[0].positions[0] - msg_torso_current_pose.data);
       if(torso_d < 0.01){
-        std::cout << "Wait for torso goal pose: true " << torso_d << std::endl;
+        //std::cout << "Wait for torso goal pose: true " << torso_d << std::endl;
         msg_torso_goal_pose.data=true;
         pub_torso_goal_pose.publish(msg_torso_goal_pose);
         wait_for_torso_goal_pose = false;

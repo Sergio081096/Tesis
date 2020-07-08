@@ -5,8 +5,11 @@ hardware/xtion/CMakeFiles/xtion_node.dir/src/xtion_node.cpp.o
  /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbd.h
  /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdRequest.h
  /home/sergio/Tesis/catkin_ws/devel/include/point_cloud_manager/GetRgbdResponse.h
+ /home/sergio/Tesis/catkin_ws/devel/include/vision_msgs/Bounding_Box.h
+ /home/sergio/Tesis/catkin_ws/devel/include/vision_msgs/VisionObject.h
  /home/sergio/Tesis/catkin_ws/src/hardware/xtion/src/xtion_node.cpp
- /home/sergio/Tesis/catkin_ws/src/tools/justina_tools/include/justina_tools/JustinaTools.h
+ /home/sergio/Tesis/catkin_ws/src/tools/takeshi_tools/include/takeshi_tools/TakeshiTools.h
+ /opt/ros/melodic/include/cv_bridge/cv_bridge.h
  /opt/ros/melodic/include/geometry_msgs/Point.h
  /opt/ros/melodic/include/geometry_msgs/Point32.h
  /opt/ros/melodic/include/geometry_msgs/PointStamped.h
@@ -218,11 +221,13 @@ hardware/xtion/CMakeFiles/xtion_node.dir/src/xtion_node.cpp.o
  /opt/ros/melodic/include/ros/wall_timer_options.h
  /opt/ros/melodic/include/rosconsole/macros_generated.h
  /opt/ros/melodic/include/sensor_msgs/ChannelFloat32.h
+ /opt/ros/melodic/include/sensor_msgs/CompressedImage.h
  /opt/ros/melodic/include/sensor_msgs/Image.h
  /opt/ros/melodic/include/sensor_msgs/LaserScan.h
  /opt/ros/melodic/include/sensor_msgs/PointCloud.h
  /opt/ros/melodic/include/sensor_msgs/PointCloud2.h
  /opt/ros/melodic/include/sensor_msgs/PointField.h
+ /opt/ros/melodic/include/sensor_msgs/image_encodings.h
  /opt/ros/melodic/include/std_msgs/Empty.h
  /opt/ros/melodic/include/std_msgs/Header.h
  /opt/ros/melodic/include/tf/FrameGraph.h
