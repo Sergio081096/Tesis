@@ -1,2 +1,0 @@
-set(mvn_pln_MESSAGE_FILES "")
-set(mvn_pln_SERVICE_FILES "/home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/srv/mp_getclose.srv;/home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/srv/mp_getclose_xy.srv;/home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/srv/mp_getclose_xya.srv;/home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/srv/mp_move_dist.srv;/home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/srv/mp_move_dist_angle.srv;/home/sergio/Tesis/catkin_ws/src/navigation/mvn_pln/srv/mp_obstacle.srv")

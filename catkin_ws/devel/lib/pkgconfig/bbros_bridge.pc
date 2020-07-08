@@ -1,8 +1,0 @@
-prefix=/home/sergio/Tesis/catkin_ws/devel
-
-Name: bbros_bridge
-Description: Description of bbros_bridge
-Version: 0.0.0
-Cflags: -I/home/sergio/Tesis/catkin_ws/devel/include
-Libs: -L${prefix}/lib 
-Requires: message_runtime
