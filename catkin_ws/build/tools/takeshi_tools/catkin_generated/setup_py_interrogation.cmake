@@ -1,0 +1,7 @@
+set(takeshi_tools_SETUP_PY_SETUP_MODULE "distutils.core")
+set(takeshi_tools_SETUP_PY_VERSION "0.0.0")
+set(takeshi_tools_SETUP_PY_SCRIPTS "")
+set(takeshi_tools_SETUP_PY_PACKAGES "takeshi_tools")
+set(takeshi_tools_SETUP_PY_PACKAGE_DIRS "src/takeshi_tools")
+set(takeshi_tools_SETUP_PY_MODULES "")
+set(takeshi_tools_SETUP_PY_MODULE_DIRS "")

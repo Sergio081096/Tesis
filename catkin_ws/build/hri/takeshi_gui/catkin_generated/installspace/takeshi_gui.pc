@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: takeshi_gui
+Description: Description of takeshi_gui
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/devel
+
+Name: simple_color
+Description: Description of simple_color
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

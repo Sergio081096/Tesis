@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/devel
+
+Name: joystick_teleop
+Description: Description of joystick_teleop
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

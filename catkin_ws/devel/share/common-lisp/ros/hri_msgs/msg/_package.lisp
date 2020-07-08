@@ -1,0 +1,13 @@
+(cl:defpackage hri_msgs-msg
+  (:use )
+  (:export
+   "<RECOGNITIONRESULT>"
+   "RECOGNITIONRESULT"
+   "<RECOGNIZEDSPEECH>"
+   "RECOGNIZEDSPEECH"
+   "<SPHINXSETFILE>"
+   "SPHINXSETFILE"
+   "<SPHINXSETSEARCH>"
+   "SPHINXSETSEARCH"
+  ))
+

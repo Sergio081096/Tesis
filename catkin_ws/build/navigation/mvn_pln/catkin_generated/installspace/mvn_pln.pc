@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: mvn_pln
+Description: Description of mvn_pln
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

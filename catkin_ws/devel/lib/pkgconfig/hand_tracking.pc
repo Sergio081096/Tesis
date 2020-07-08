@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/devel
+
+Name: hand_tracking
+Description: Description of hand_tracking
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

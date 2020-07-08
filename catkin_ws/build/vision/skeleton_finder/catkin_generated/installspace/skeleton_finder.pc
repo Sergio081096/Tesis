@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: skeleton_finder
+Description: Description of skeleton_finder
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

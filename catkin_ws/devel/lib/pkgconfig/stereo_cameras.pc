@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/devel
+
+Name: stereo_cameras
+Description: Description of stereo_cameras
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

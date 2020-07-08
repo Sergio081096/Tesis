@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: handle_detector
+Description: Description of handle_detector
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs pcl pcl_conversions pcl_ros roscpp sensor_msgs std_msgs tf vision_msgs point_cloud_manager

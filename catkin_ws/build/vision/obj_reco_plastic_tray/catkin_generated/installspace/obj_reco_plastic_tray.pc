@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: obj_reco_plastic_tray
+Description: Description of obj_reco_plastic_tray
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

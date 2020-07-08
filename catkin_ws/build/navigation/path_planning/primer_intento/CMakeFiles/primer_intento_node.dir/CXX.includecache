@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/main.cpp
+iostream
+-
+tileadaptor.hpp
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/tileadaptor.hpp
+
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/pathfinding.hpp
+vector
+-
+numeric
+-
+algorithm
+-
+functional
+-
+
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/tileadaptor.hpp
+utility.hpp
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/utility.hpp
+pathfinding.hpp
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/pathfinding.hpp
+
+/home/sergio/Tesis/catkin_ws/src/navigation/path_planning/primer_intento/src/utility.hpp
+cmath
+-
+vector
+-
+algorithm
+-
+

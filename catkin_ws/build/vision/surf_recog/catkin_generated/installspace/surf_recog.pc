@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: surf_recog
+Description: Description of surf_recog
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

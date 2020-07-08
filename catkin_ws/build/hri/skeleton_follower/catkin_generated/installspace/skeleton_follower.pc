@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: skeleton_follower
+Description: Description of skeleton_follower
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy roslib vision_msgs sensor_msgs trajectory_msgs

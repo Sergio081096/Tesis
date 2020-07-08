@@ -1,0 +1,8 @@
+prefix=/home/sergio/Tesis/catkin_ws/install
+
+Name: hsrb_wrs_gazebo_launch
+Description: Description of hsrb_wrs_gazebo_launch
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

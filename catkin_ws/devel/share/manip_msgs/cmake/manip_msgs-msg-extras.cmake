@@ -1,0 +1,2 @@
+set(manip_msgs_MESSAGE_FILES "")
+set(manip_msgs_SERVICE_FILES "/home/sergio/Tesis/catkin_ws/src/manipulation/manip_msgs/srv/InverseKinematicsFloatArray.srv;/home/sergio/Tesis/catkin_ws/src/manipulation/manip_msgs/srv/DirectKinematicsFloatArray.srv;/home/sergio/Tesis/catkin_ws/src/manipulation/manip_msgs/srv/InverseKinematicsPath.srv;/home/sergio/Tesis/catkin_ws/src/manipulation/manip_msgs/srv/InverseKinematicsPose.srv;/home/sergio/Tesis/catkin_ws/src/manipulation/manip_msgs/srv/DirectKinematics.srv")
