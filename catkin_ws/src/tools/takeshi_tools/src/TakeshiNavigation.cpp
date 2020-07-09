@@ -260,7 +260,10 @@ void TakeshiNavigation::getRobotPose(float& currentX, float& currentY, float& cu
   TakeshiNavigation::currentRobotY = transform.getOrigin().y();
   q = transform.getRotation();
   TakeshiNavigation::currentRobotTheta = atan2((float)q.z(), (float)q.w()) * 2;
-
+  if(TakeshiNavigation::currentRobotTheta < 0)
+  {
+    TakeshiNavigation::currentRobotTheta = 2*M_PI + TakeshiNavigation::currentRobotTheta;
+  }
   currentX = TakeshiNavigation::currentRobotX;
   currentY = TakeshiNavigation::currentRobotY;
   currentTheta = TakeshiNavigation::currentRobotTheta;

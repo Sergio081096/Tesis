@@ -24,7 +24,10 @@ from std_msgs.msg import Float32MultiArray
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Bool
 from sensor_msgs.msg import JointState
-
+from control_msgs.msg import JointTrajectoryControllerState
+posGoalX = 0
+posGoalY = 0
+posGoalT = 0
 
 class EncoderOdom:
     def __init__(self, ticks_per_meter_frontal, ticks_per_meter_lateral, base_width):
@@ -102,8 +105,9 @@ class EncoderOdom:
         else: 
             delta_x = dist_x
             delta_y = dist_y
-        self.robot_x += delta_x * cos(self.robot_t) - delta_y * sin(self.robot_t)
-        self.robot_y += delta_x * sin(self.robot_t) + delta_y * cos(self.robot_t)
+        self.robot_t = posGoalT
+        self.robot_x = posGoalX + delta_x * cos(self.robot_t) - delta_y * sin(self.robot_t)
+        self.robot_y = posGoalY + delta_x * sin(self.robot_t) + delta_y * cos(self.robot_t)
         self.robot_t  = self.normalize_angle(self.robot_t + delta_theta)
 
         #vel_y = 0.0
@@ -167,15 +171,7 @@ class EncoderOdom:
         traj = trajectory_msgs.msg.JointTrajectory()
         traj.joint_names = ["odom_x", "odom_y", "odom_t"]
         p = trajectory_msgs.msg.JointTrajectoryPoint()
-        
-        #print "R", robot_t
-        if(robot_t < 0):
-            #print "Y",math.tan(robot_t+(2*pi))
-            robot_y = robot_x*math.tan(robot_t+(2*pi))
-        else: 
-            #print "Y",math.tan(robot_t)
-            robot_y = robot_x*math.tan(robot_t)
-        p.positions = [robot_x, 0, robot_t ]
+        p.positions = [robot_x, robot_y, robot_t ]
         p.velocities = [0, 0, 0]
         p.time_from_start = rospy.Time(0.05)
         traj.points = [p]
@@ -247,6 +243,10 @@ class MobileOmniBaseNode:
         self.speed_right = 0
         self.speed_front = 0
         self.speed_rear  = 0
+
+        self.posGoalX = 0;
+        self.posGoalY = 0;
+        self.posGoalT = 0;
 
         if not self.simul:
             #self.rc_frontal = roboclaw.Roboclaw(port_name_frontal, baud_rate_frontal); #Roboclaw controling motors for frontal movement (left and right)
@@ -352,7 +352,7 @@ class MobileOmniBaseNode:
         #self.pubJointStates = rospy.Publisher("/joint_states", JointState, queue_size = 1)
         #self.subSpeeds  = rospy.Subscriber("/hardware/mobile_base/speeds",  Float32MultiArray, self.cmd_speeds_callback, queue_size=1);
         self.subCmdVel  = rospy.Subscriber("/hardware/mobile_base/cmd_vel", Twist, self.cmd_vel_callback, queue_size=1);
-        #self.subCurrentPose  = rospy.Subscriber("/hsrb/omni_base_controller/state", Twist, self.baseCurrentPoseCallback, queue_size=1);
+        self.subCurrentPose  = rospy.Subscriber("/hsrb/omni_base_controller/state", JointTrajectoryControllerState, self.baseCurrentPoseCallback, queue_size=1);
         #self.subSimul   = rospy.Subscriber("/simulated", Bool, self.callback_simulated, queue_size = 1);
    
     def run(self):
@@ -533,13 +533,15 @@ class MobileOmniBaseNode:
         self.speed_front = (self.speed_right - self.speed_left) /2.0;
         self.speed_rear  = (self.speed_left  - self.speed_right)/2.0;
         self.newData = True
-        self.no_new_data_counter = 5;
+        self.no_new_data_counter = 6;
 
-    def baseCurrentPoseCallback(self,var):
-        self.positionX = 0;
-        self.positionY = 0;
-        self.positionT = 0;
-
+    def baseCurrentPoseCallback(self, joint):
+        global posGoalX
+        global posGoalY
+        global posGoalT
+        posGoalX = joint.actual.positions[0]
+        posGoalY = joint.actual.positions[1]
+        posGoalT = joint.actual.positions[2]
             
     
     def cmd_vel_callback(self, twist):

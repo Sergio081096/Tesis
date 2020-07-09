@@ -697,7 +697,7 @@ void MainWindow::updateGraphicsReceived()
     TakeshiManip::getTorsoCurrentPos(trsCurrPos);
     //std::cout << "UI->TakeshiManip::TorsoCurrentPos: " << trsCurrPos << std::endl;
     //std::cout << "MainWindow.->Current pose: " << currentX << "  " << currentY << "  " << currentTheta << std::endl;
-    QString robotTxt = "Robot Pose: "+ QString::number(rX,'f',3) + "  " + QString::number(rY,'f',3) + "  " + QString::number(rT,'f',4);
+    QString robotTxt = "Robot Pose: "+ QString::number(rX,'f',3) + "  " + QString::number(rY,'f',3) + "  " + QString::number(rT,'f',3);
     //QString trsTxt = "Current pos: "+ QString::number(trCp[0],'f',3);
     QString trsTxt = "spine:  "+ QString::number(trsCurrPos,'f',2);
     this->ui->navLblRobotPose->setText(robotTxt);
