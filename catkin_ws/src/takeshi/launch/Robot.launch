@@ -84,5 +84,18 @@
 	<group ns="hri">
 	    	<node name="takeshi_gui" pkg="takeshi_gui" type="takeshi_gui_node" output="screen"/>
 	</group>
+	<group ns="path_planning">
+		<node name="simple_move" pkg="simple_move" type="simple_move_node" output="screen" args="--move_head"/>
+		<node name="path_calculator" pkg="path_calculator" type="path_calculator_node" output="screen">
+		<param name="calculate_diagonal_paths" value="false"/>
+		</node>
+	</group>
+
+	<!--<group ns="obs_avoid">
+		<node name="mvn_pln" pkg="mvn_pln" type="mvn_pln_node" output="screen">
+		<param name="move_lateral" value="false"/>
+		<param name="max_attempts" value="25"/>
+		</node>
+	</group>-->
 	
 </launch>

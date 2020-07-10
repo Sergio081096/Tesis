@@ -33,11 +33,11 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
     ros::Rate loop(10);
 
-    TakeshiNavigation::setNodeHandle(&n);
+    //TakeshiNavigation::setNodeHandle(&n);
     ros::Duration(20.0).sleep();
     //std::cout << "Aqui truena...." << std::endl;
-    TakeshiManip::setNodeHandle(&n);
-    TakeshiKnowledge::setNodeHandle(&n);
+    //TakeshiManip::setNodeHandle(&n);
+    //TakeshiKnowledge::setNodeHandle(&n);
     MvnPln mvnPln;
     mvnPln.allow_move_lateral(allow_move_lateral);
     mvnPln.initROSConnection(&n);

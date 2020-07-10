@@ -49,6 +49,7 @@ class EncoderOdom:
         self.last_enc_rear  = 0
         
         # initialize action client
+        #self.pubPos = rospy.Publisher("/hardware/mobile_base/cmd_vel", Twist, queue_size = 1);
         self.cli = actionlib.SimpleActionClient('/hsrb/omni_base_controller/follow_joint_trajectory',control_msgs.msg.FollowJointTrajectoryAction)
         # wait for the action server to establish connection
         self.cli.wait_for_server()
@@ -105,10 +106,16 @@ class EncoderOdom:
         else: 
             delta_x = dist_x
             delta_y = dist_y
+        """   
+        self.robot_x += delta_x * cos(self.robot_t) - delta_y * sin(self.robot_t)
+        self.robot_y += delta_x * sin(self.robot_t) + delta_y * cos(self.robot_t)
+        self.robot_t  = self.normalize_angle(self.robot_t + delta_theta)
+
+        """
         self.robot_t = posGoalT
         self.robot_x = posGoalX + delta_x * cos(self.robot_t) - delta_y * sin(self.robot_t)
         self.robot_y = posGoalY + delta_x * sin(self.robot_t) + delta_y * cos(self.robot_t)
-        self.robot_t  = self.normalize_angle(self.robot_t + delta_theta)
+        self.robot_t  = self.normalize_angle(self.robot_t + delta_theta)#"""
 
         #vel_y = 0.0
         #if left_ticks == right_ticks:
@@ -166,6 +173,9 @@ class EncoderOdom:
         #odom = Odometry()
         #odom.header.stamp = current_time
         #odom.header.frame_id = 'odom'"""
+        #print "X->", robot_x
+        #print "Y->", robot_y
+        #print "T->", robot_t
         
         goal = control_msgs.msg.FollowJointTrajectoryGoal()
         traj = trajectory_msgs.msg.JointTrajectory()
@@ -173,7 +183,7 @@ class EncoderOdom:
         p = trajectory_msgs.msg.JointTrajectoryPoint()
         p.positions = [robot_x, robot_y, robot_t ]
         p.velocities = [0, 0, 0]
-        p.time_from_start = rospy.Time(0.05)
+        p.time_from_start = rospy.Time(0.06)
         traj.points = [p]
         goal.trajectory = traj
         # send message to the action server
@@ -200,7 +210,8 @@ class EncoderOdom:
         odom.twist.twist.angular.z = vth
         odom.twist.covariance = odom.pose.covariance
 
-        self.odom_pub.publish(odom)#"""
+        self.odom_pub.publish(odom)#"""    
+
         
 class MobileOmniBaseNode:
     def __init__(self):
@@ -498,8 +509,8 @@ class MobileOmniBaseNode:
             jointStates.position[1] = 0
             jointStates.position[2] = 0
             jointStates.position[3] = 0
-            self.pubJointStates.publish(jointStates)
-            rate.sleep();"""
+            self.pubJointStates.publish(jointStates)"""
+            rate.sleep();
 
     def shutdown(self):
         rospy.loginfo("Shutting down")
@@ -533,7 +544,7 @@ class MobileOmniBaseNode:
         self.speed_front = (self.speed_right - self.speed_left) /2.0;
         self.speed_rear  = (self.speed_left  - self.speed_right)/2.0;
         self.newData = True
-        self.no_new_data_counter = 6;
+        self.no_new_data_counter = 5;
 
     def baseCurrentPoseCallback(self, joint):
         global posGoalX

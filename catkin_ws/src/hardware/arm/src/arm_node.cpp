@@ -303,8 +303,8 @@ int main(int argc, char **argv)
     if(wait_for_arm_goal_pose){
       float arm_d=0;
       for(size_t i=0; i < msg_arm_current_pose.data.size(); i++)
-        arm_d=arm_d+pow(traj_arm.points[0].positions[i+1] - msg_arm_current_pose.data[i],2);
-      arm_d=pow(arm_d,0.5);
+        arm_d = arm_d + pow(traj_arm.points[0].positions[i+1] - msg_arm_current_pose.data[i],2);
+      arm_d = pow(arm_d,0.5);
       if(arm_d < 0.01){
         //std::cout << "Wait for arm goal pose: true" << std::endl;
         msg_arm_goal_pose.data=true;

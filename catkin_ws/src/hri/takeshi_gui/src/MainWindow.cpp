@@ -171,7 +171,7 @@ void MainWindow::stopRobot()
 }
 void MainWindow::btnFwdPressed()
 {
-    qtRosNode->linearSpeed = 0.5;
+    qtRosNode->linearSpeed = 0.6;
     qtRosNode->angularSpeed = 0.0;
 }
 
@@ -183,7 +183,7 @@ void MainWindow::btnFwdReleased()
 
 void MainWindow::btnBwdPressed()
 {
-    qtRosNode->linearSpeed = -0.5;
+    qtRosNode->linearSpeed = -0.6;
     qtRosNode->angularSpeed = 0.0;
 }
 
@@ -196,7 +196,7 @@ void MainWindow::btnBwdReleased()
 void MainWindow::btnLeftPressed()
 {
     qtRosNode->linearSpeed = 0.0;
-    qtRosNode->angularSpeed = 0.5;
+    qtRosNode->angularSpeed = 0.8;
 }
 
 void MainWindow::btnLeftReleased()
@@ -208,7 +208,7 @@ void MainWindow::btnLeftReleased()
 void MainWindow::btnRightPressed()
 {
     qtRosNode->linearSpeed = 0.0;
-    qtRosNode->angularSpeed = -0.5;
+    qtRosNode->angularSpeed = -0.8;
 }
 
 void MainWindow::btnRightReleased()

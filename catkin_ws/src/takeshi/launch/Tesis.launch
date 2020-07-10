@@ -28,8 +28,6 @@
 		<node name="head" pkg="head" type="head_node" output="screen"/>
 		<node name="mobile_base" pkg="mobile_base" type="omni_base.py" output="screen"/>
   	</group>
-
-
 	
 
 	<group ns="hri">
