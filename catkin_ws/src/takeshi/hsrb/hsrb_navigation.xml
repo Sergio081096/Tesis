@@ -4,7 +4,7 @@
   <arg name="personal_name" default="" />
   <arg name="sim" default="false" />
 
-  <remap from="$(arg namespace)/camera/depth_registered/points" to="$(arg namespace)/head_rgbd_sensor/depth_registered/rectified_pointsbase_b_bumper_link"/>
+  <!--<remap from="$(arg namespace)/camera/depth_registered/points" to="$(arg namespace)/head_rgbd_sensor/depth_registered/rectified_pointsbase_b_bumper_link"/>-->
   <!-- ##### Navigation settings ##### -->
   <!-- map file setting (can be overriden) -->
   <arg name="map" default="$(optenv ROS_HOME ~/.ros)/map/map.yaml" />
