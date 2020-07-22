@@ -23,7 +23,8 @@
   <rosparam ns="/hsrb" command="load" file="$(find hsrb_rviz_simulator)/params/mock_controller_config.yaml"/>
   <rosparam ns="/hsrb" command="load" file="$(find hsrb_rviz_simulator)/params/hsrb_hw_config.yaml" />
 
-  
+  <node name="xtion_link_to_rgb_frame" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /head_rgbd_sensor_link /head_rgbd_sensor_rgb_frame 100" />
+  <node name="xtion_link_to_depth_frame" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /head_rgbd_sensor_link /head_rgbd_sensor_depth_frame 100" />
 
 
   <node name="base_footprint_to_base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /base_footprint /base_link 100" />
@@ -38,7 +39,10 @@
     <param name="odom_child_frame" value="base_footprint"/>
   </node>
 
-  
+  <node name="move_base_sim" pkg="tmc_rviz_simulator" type="move_base_sim" args=" odom base_footprint">
+    <remap from="command_velocity" to="hsrb/command_velocity" />
+  </node>
+
   <node name="joint_state_pub" pkg="joint_state_publisher" type="joint_state_publisher">
     <remap from="/joint_states" to="/hsrb/robot_state/joint_states" />
     <param name="publish_default_velocities" value="true" />
@@ -78,7 +82,7 @@
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
 		<node name="head" pkg="head" type="head_node" output="screen"/>
-		<node name="mobile_base" pkg="mobile_base" type="omni_base.py" output="screen"/>
+		<!--<node name="mobile_base" pkg="mobile_base" type="omni_base.py" output="screen"/>-->
   	</group>
 
 	<group ns="hri">

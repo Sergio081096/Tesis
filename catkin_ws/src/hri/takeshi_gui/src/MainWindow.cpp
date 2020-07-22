@@ -782,11 +782,11 @@ void MainWindow::updateGraphicsReceived()
     //QString batt2Txt = QString::number((TakeshiHardware::headBattery() + TakeshiHardware::baseBattery())/2, 'f', 2) + " V";
     //this->ui->lblBatt1Level->setText(batt1Txt);
 
-    TakeshiKnowledge::getInitKnownLoc(initKnownLoacations);
-    if(defInitKnownLoacations || initKnownLoacations){
-      std::cout << "QMainWindow.->Init know location" << std::endl;
-      std::cout << "QMainWindow.->defInitKnownLoacations:" << defInitKnownLoacations << std::endl;
-      std::cout << "QMainWindow.->initKnownLoacations:" << initKnownLoacations << std::endl;
+    //TakeshiKnowledge::getInitKnownLoc(initKnownLoacations);
+    //if(defInitKnownLoacations || initKnownLoacations){
+    // std::cout << "QMainWindow.->Init know location" << std::endl;
+    //  std::cout << "QMainWindow.->defInitKnownLoacations:" << defInitKnownLoacations << std::endl;
+    //  std::cout << "QMainWindow.->initKnownLoacations:" << initKnownLoacations << std::endl;
       /*this->ui->locTableWidget->setRowCount(0);
 
       std::map<std::string, std::vector<float> > loc;
@@ -808,17 +808,17 @@ void MainWindow::updateGraphicsReceived()
       this->ui->locTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
       this->ui->locTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
       this->ui->locTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);*/
-      defInitKnownLoacations = false;
-      initKnownLoacations = false;
-    }
-    else{
-      TakeshiKnowledge::getUpdateKnownLoc(updateKnownLoacations);
+    //  defInitKnownLoacations = false;
+    //  initKnownLoacations = false;
+    //}
+    //else{
+    //  TakeshiKnowledge::getUpdateKnownLoc(updateKnownLoacations);
       //std::cout << "QMainWindow.->updateKnownLoacations:" << updateKnownLoacations << std::endl;
-      if(updateKnownLoacations){
-        std::map<std::string, std::vector<float> > loc;
-        TakeshiKnowledge::getKnownLocations(loc);
+    //  if(updateKnownLoacations){
+    //    std::map<std::string, std::vector<float> > loc;
+    //    TakeshiKnowledge::getKnownLocations(loc);
         //std::cout << "QMainWindow.->loc size:" << loc.size() << std::endl;
-        int row = 0;
+    //    int row = 0;
         /*for(std::map<std::string, std::vector<float> >::iterator it = loc.begin(); it != loc.end(); ++it){
           this->ui->locTableWidget->item(row, X)->setText(QString::number(it->second[0]));
           this->ui->locTableWidget->item(row, Y)->setText(QString::number(it->second[1]));
@@ -830,13 +830,13 @@ void MainWindow::updateGraphicsReceived()
         }
         this->ui->locTableWidget->resizeRowsToContents();
         this->ui->locTableWidget->resizeColumnsToContents();*/
-        updateKnownLoacations = false;
-      }
-    }
+    //    updateKnownLoacations = false;
+    //  }
+    //}
 
 }
 
-void MainWindow::on_enInteractiveEdit_clicked()
+/*void MainWindow::on_enInteractiveEdit_clicked()
 {
   if(!enableInteractiveEdit){
     TakeshiKnowledge::enableInteractiveUpdate(true);
@@ -848,16 +848,16 @@ void MainWindow::on_enInteractiveEdit_clicked()
     //this->ui->enInteractiveEdit->setText("Enable Interactive");
     enableInteractiveEdit = false;
   }
-}
+}*/
 
-void MainWindow::on_removeLoc_clicked()
+/*void MainWindow::on_removeLoc_clicked()
 {
   std::cout << "QMainWindow.->on_removeLoc_clicked:" << std::endl;
   //std::string name = this->ui->addNameLoc->text().toStdString();
   //TakeshiKnowledge::deleteKnownLoc(name);
-}
+}*/
 
-void MainWindow::on_locTableWidget_itemSelectionChanged()
+/*void MainWindow::on_locTableWidget_itemSelectionChanged()
 {
   std::cout << "QMainWindow.->on_locTableWidget_itemSelectionChanged:" << std::endl;
 
@@ -870,10 +870,10 @@ void MainWindow::on_locTableWidget_itemSelectionChanged()
     this->ui->addXLoc->setText(this->ui->locTableWidget->item(index.row(), X)->text());
     this->ui->addYLoc->setText(this->ui->locTableWidget->item(index.row(), Y)->text());
     this->ui->addALoc->setText(this->ui->locTableWidget->item(index.row(), A)->text());
-  }*/
-}
+  }
+}*/
 
-void MainWindow::on_addLoc_clicked()
+/*void MainWindow::on_addLoc_clicked()
 {
     std::cout << "QMainWindow.->on_addLoc_clicked:" << std::endl;
     /*std::cout << "QMainWindow.->on_addLoc_clicked:" << this->ui->addALoc->text().toStdString() << std::endl;
@@ -884,19 +884,19 @@ void MainWindow::on_addLoc_clicked()
     values.push_back(this->ui->addYLoc->text().toFloat());
     if(this->ui->addALoc->text().compare("") != 0)
       values.push_back(this->ui->addALoc->text().toFloat());
-    TakeshiKnowledge::addUpdateKnownLoc(name, values);*/
-}
+    TakeshiKnowledge::addUpdateKnownLoc(name, values);
+}*/
 
-void MainWindow::on_GetRobotPose_clicked()
+/*void MainWindow::on_GetRobotPose_clicked()
 {
     float x, y, theta;
     TakeshiNavigation::getRobotPose(x, y, theta);
     /*this->ui->addXLoc->setText(QString::number(x));
     this->ui->addYLoc->setText(QString::number(y));
-    this->ui->addALoc->setText(QString::number(theta));*/
-}
+    this->ui->addALoc->setText(QString::number(theta));
+}*/
 
-void MainWindow::on_loadFromFile_clicked()
+/*void MainWindow::on_loadFromFile_clicked()
 {
   QString pathFile = QFileDialog::getOpenFileName(
         this,
@@ -906,9 +906,9 @@ void MainWindow::on_loadFromFile_clicked()
         );
   std::cout << "QMainWindow.->pathFile:" << pathFile.toStdString() << std::endl;
   TakeshiKnowledge::loadFromFile(pathFile.toStdString());
-}
+}*/
 
-void MainWindow::on_SaveInFile_clicked()
+/*void MainWindow::on_SaveInFile_clicked()
 {
   QString pathFile = QFileDialog::getSaveFileName(
         this,
@@ -918,7 +918,7 @@ void MainWindow::on_SaveInFile_clicked()
         );
   std::cout << "QMainWindow.->pathFile:" << pathFile.toStdString() << std::endl;
   TakeshiKnowledge::saveInFile(pathFile.toStdString());
-}
+}*/
 
 void MainWindow::quesReqChanged(){
   /*std::cout << "QMainWindow.->quesReq:" << this->ui->quesReq->text().toStdString() << std::endl;
@@ -939,7 +939,7 @@ void MainWindow::quesReqChanged(){
   //sb->setValue(sb->maximum());
 }
 
-void MainWindow::on_runCLIPS_clicked()
+/*void MainWindow::on_runCLIPS_clicked()
 {
     TakeshiRepresentation::runCLIPS(true);
 }
@@ -962,7 +962,7 @@ void MainWindow::on_rulesCLIPS_clicked()
 void MainWindow::on_agendaCLIPS_clicked()
 {
     TakeshiRepresentation::agendaCLIPS(true);
-}
+}*/
 
 void MainWindow::enterCommandChanged(){
     //std::cout << "QMainWindow.->enterCommand:" << this->ui->enterCommand->text().toStdString() << std::endl;
@@ -970,7 +970,7 @@ void MainWindow::enterCommandChanged(){
 }
 
 
-void MainWindow::on_openFileCommand_clicked()
+/*void MainWindow::on_openFileCommand_clicked()
 {
     std::string path;
     path = ros::package::getPath("knowledge_representation");
@@ -983,7 +983,7 @@ void MainWindow::on_openFileCommand_clicked()
           );
     std::cout << "QMainWindow.->pathFile:" << pathFile.toStdString() << std::endl;
     //this->ui->loadCommand->setText( pathFile);
-}
+}*/
 
 void MainWindow::setPathKR()
 {
@@ -1003,7 +1003,7 @@ void MainWindow::loadCommandChanged()
 
 void MainWindow::setlocClips()
 {
-    std::string path;
+    /*std::string path;
     path = ros::package::getPath("knowledge_representation");
     std::cout << path << std::endl;
     std::stringstream ss;
@@ -1033,7 +1033,7 @@ void MainWindow::setlocClips()
     this->ui->locCLIPStab->setSelectionBehavior(QAbstractItemView::SelectRows);
     this->ui->locCLIPStab->setEditTriggers(QAbstractItemView::NoEditTriggers);
     */
-    ss.str("");
+    /*ss.str("");
     ss << path << "/scripts/base_data/Objects.txt";
 
     TakeshiRepresentation::getObjects(ss.str(), objects);
@@ -1061,7 +1061,7 @@ void MainWindow::setlocClips()
     */
 }
 
-void MainWindow::on_addCLIPSloc_clicked()
+/*void MainWindow::on_addCLIPSloc_clicked()
 {
     std::cout << "QMainWindow.->on_addCLIPSLoc_clicked:" << std::endl;
     //std::cout << "QMainWindow.->name:" << this->ui->nameCLIPSloc->text().toStdString() << std::endl;
@@ -1098,10 +1098,10 @@ void MainWindow::on_addCLIPSloc_clicked()
     this->ui->locCLIPStab->resizeColumnsToContents();
     this->ui->locCLIPStab->setSelectionMode(QAbstractItemView::SingleSelection);
     this->ui->locCLIPStab->setSelectionBehavior(QAbstractItemView::SelectRows);
-    this->ui->locCLIPStab->setEditTriggers(QAbstractItemView::NoEditTriggers);*/
-}
+    this->ui->locCLIPStab->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}*/
 
-void MainWindow::on_addCLIPSobj_clicked()
+/*void MainWindow::on_addCLIPSobj_clicked()
 {
     /*std::cout << "QMainWindow.->on_addCLIPSLoc_clicked:" << std::endl;
     std::cout << "QMainWindow.->name:" << this->ui->nameCLIPSobj->text().toStdString() << std::endl;
@@ -1128,8 +1128,6 @@ void MainWindow::on_addCLIPSobj_clicked()
 
     TakeshiRepresentation::addObjects(objects,name,values);
 
-
-
     //for(std::map<std::string, std::vector<std::string> >::iterator it2 = objects.begin(); it2 != objects.end(); it2++){
     //    std::cout << "SECOND:" << it2->first << std::endl;
     //}
@@ -1151,10 +1149,10 @@ void MainWindow::on_addCLIPSobj_clicked()
     this->ui->objCLIPStab->resizeColumnsToContents();
     this->ui->objCLIPStab->setSelectionMode(QAbstractItemView::SingleSelection);
     this->ui->objCLIPStab->setSelectionBehavior(QAbstractItemView::SelectRows);
-    this->ui->objCLIPStab->setEditTriggers(QAbstractItemView::NoEditTriggers);*/
-}
+    this->ui->objCLIPStab->setEditTriggers(QAbstractItemView::NoEditTriggers);
+}*/
 
-void MainWindow::on_locCLIPStab_itemSelectionChanged()
+/*void MainWindow::on_locCLIPStab_itemSelectionChanged()
 {
     std::cout << "QMainWindow.->on_locTableWidget_itemSelectionChanged:" << std::endl;
 
@@ -1167,10 +1165,10 @@ void MainWindow::on_locCLIPStab_itemSelectionChanged()
       this->ui->nameCLIPSloc->setText(this->ui->locCLIPStab->item(index.row(), X)->text());
       this->ui->quantCLIPSloc->setText(this->ui->locCLIPStab->item(index.row(), Y)->text());
       this->ui->roomCLIPSloc->setText(this->ui->locCLIPStab->item(index.row(), A)->text());
-    }*/
-}
+    }
+}*/
 
-void MainWindow::on_objCLIPStab_itemSelectionChanged()
+/*void MainWindow::on_objCLIPStab_itemSelectionChanged()
 {
     std::cout << "QMainWindow.->on_locTableWidget_itemSelectionChanged:" << std::endl;
 
@@ -1187,10 +1185,10 @@ void MainWindow::on_objCLIPStab_itemSelectionChanged()
       this->ui->sizeCLIPSobj->setText(this->ui->objCLIPStab->item(index.row(), C2)->text());
       this->ui->colorCLIPSobj->setText(this->ui->objCLIPStab->item(index.row(), C3)->text());
       this->ui->quantCLIPSobj->setText(this->ui->objCLIPStab->item(index.row(), C4)->text());
-    }*/
-}
+    }
+}*/
 
-void MainWindow::on_trainObjButton_clicked()
+/*void MainWindow::on_trainObjButton_clicked()
 {
     std::vector<vision_msgs::VisionObject> recoObjList;
     if(false) //!TakeshiVision::detectObjects(recoObjList))
@@ -1204,4 +1202,4 @@ void MainWindow::on_trainObjButton_clicked()
         //TakeshiVision::trainObject(obj_name);
     }
 
-}
+}*/

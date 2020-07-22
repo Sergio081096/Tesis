@@ -123,43 +123,43 @@ public slots:
     //Slots for signals emitted in the QtRosNode (e.g. a topic is received)
     void updateGraphicsReceived();
     //Slots for signad to tab knowledge
-    void on_enInteractiveEdit_clicked();
-    void on_removeLoc_clicked();
-    void on_locTableWidget_itemSelectionChanged();
-    void on_addLoc_clicked();
-    void on_GetRobotPose_clicked();
-    void on_loadFromFile_clicked();
-    void on_SaveInFile_clicked();
+    //void on_enInteractiveEdit_clicked();
+    //void on_removeLoc_clicked();
+    //void on_locTableWidget_itemSelectionChanged();
+    //void on_addLoc_clicked();
+    //void on_GetRobotPose_clicked();
+    //void on_loadFromFile_clicked();
+    //void on_SaveInFile_clicked();
     void quesReqChanged();
     //slots for knowledge representation
     void enterCommandChanged();
     void loadCommandChanged();
-    void on_runCLIPS_clicked();
+    //void on_runCLIPS_clicked();
     void setPathKR();
     void setlocClips();
 
 private slots:
 
 
-    void on_resetCLIPS_clicked();
+    //void on_resetCLIPS_clicked();
 
-    void on_factsCLIPS_clicked();
+    //void on_factsCLIPS_clicked();
 
-    void on_rulesCLIPS_clicked();
+    //void on_rulesCLIPS_clicked();
 
-    void on_agendaCLIPS_clicked();
+    //void on_agendaCLIPS_clicked();
 
-    void on_openFileCommand_clicked();
+    //void on_openFileCommand_clicked();
 
-    void on_addCLIPSloc_clicked();
+    //void on_addCLIPSloc_clicked();
 
-    void on_addCLIPSobj_clicked();
+    //void on_addCLIPSobj_clicked();
 
-    void on_locCLIPStab_itemSelectionChanged();
+    //void on_locCLIPStab_itemSelectionChanged();
 
-    void on_objCLIPStab_itemSelectionChanged();
+    //void on_objCLIPStab_itemSelectionChanged();
 
-    void on_trainObjButton_clicked();
+    //void on_trainObjButton_clicked();
 
 private:
     Ui::MainWindow *ui;

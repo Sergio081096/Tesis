@@ -42,7 +42,7 @@ bool TakeshiHardware::setNodeHandle(ros::NodeHandle *nh)
         TakeshiHardware::pubRestartTimeMonitor = nh->advertise<std_msgs::Empty>("/planning/restart_time", 1);
         TakeshiHardware::subTasksStop = nh->subscribe("/planning/tasks_stop", 1, &TakeshiHardware::taskStop);
         //Publishers and subscribers for operating mobile base
-        pubBaseCmdVel = nh->advertise<geometry_msgs::Twist>("/hardware/mobile_base/cmd_vel", 1);
+        pubBaseCmdVel = nh->advertise<geometry_msgs::Twist>("/hsrb/command_velocity", 1);
         TakeshiHardware::is_node_set = true;
         return true;
 }
