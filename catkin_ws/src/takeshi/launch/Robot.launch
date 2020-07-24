@@ -5,6 +5,8 @@
   <include file="$(find hsrb_gazebo_bringup)/launch/include/upload_urdf_$(arg robot_name).xml" />
 
   <node name="hsrb_mock_hardware" pkg="hsrb_mock_hardware" type="hsrb_mock_hardware_main" output="screen" />
+  <node unless="false" name="map_server" pkg="map_server" type="map_server" output="screen"
+				args="$(find takeshi)/maps/biorobotica1.yaml"/>
 
   <node name="controller_spawner"
         pkg="controller_manager"
@@ -82,7 +84,6 @@
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
 		<node name="head" pkg="head" type="head_node" output="screen"/>
-		<!--<node name="mobile_base" pkg="mobile_base" type="omni_base.py" output="screen"/>-->
   	</group>
 
 	<group ns="hri">
@@ -95,11 +96,11 @@
 		</node>
 	</group>
 
-	<!--<group ns="obs_avoid">
+	<group ns="obs_avoid">
 		<node name="mvn_pln" pkg="mvn_pln" type="mvn_pln_node" output="screen">
 		<param name="move_lateral" value="false"/>
 		<param name="max_attempts" value="25"/>
 		</node>
-	</group>-->
+	</group><!---->
 	
 </launch>

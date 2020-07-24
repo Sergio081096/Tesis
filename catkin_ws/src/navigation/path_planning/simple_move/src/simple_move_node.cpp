@@ -8,7 +8,6 @@
 #include "std_msgs/Bool.h"
 #include "std_msgs/Empty.h"
 #include "tf/transform_listener.h"
-#include "std_msgs/Float32.h"
 
 #define SM_INIT 0
 #define SM_GOAL_POSE_ACCEL 1
@@ -31,11 +30,6 @@ bool  collision_risk = false;
 nav_msgs::Path goal_path;
 bool stop = false;
 
-bool pot_fields = false;
-bool pot_fields_aux = false;
-float rej_force=0.0;
-
-
 void callback_robot_stop(const std_msgs::Empty::ConstPtr& msg)
 {
     std::cout << "SimpleMove.->Stop signal received" << std::endl;
@@ -53,7 +47,6 @@ void callback_goal_dist(const std_msgs::Float32::ConstPtr& msg)
     new_pose = true;
     new_path = false;
     stop     = false;
-    pot_fields_aux = false;
 }
 
 void callback_goal_dist_angle(const std_msgs::Float32MultiArray::ConstPtr& msg)
@@ -65,7 +58,6 @@ void callback_goal_dist_angle(const std_msgs::Float32MultiArray::ConstPtr& msg)
     new_pose = true;
     new_path = false;
     stop     = false;
-    pot_fields_aux = false;
 }
 
 void callback_goal_path(const nav_msgs::Path::ConstPtr& msg)
@@ -76,7 +68,6 @@ void callback_goal_path(const nav_msgs::Path::ConstPtr& msg)
     new_pose = false;
     new_path = true;
     stop     = false;
-    pot_fields_aux = true;
 }
 
 void callback_goal_lateral_dist(const std_msgs::Float32::ConstPtr& msg)
@@ -95,16 +86,9 @@ void callback_collision_risk(const std_msgs::Bool::ConstPtr& msg)
     collision_risk = msg->data;
 }
 
-void callback_pot_fields(const std_msgs::Float32::ConstPtr& msg){
-    rej_force=msg->data;
-}
-
 geometry_msgs::Twist calculate_speeds(float robot_x, float robot_y, float robot_t, float goal_x, float goal_y,
-				      float cruise_speed, bool backwards)
+        float cruise_speed, bool backwards)
 {
-    //pot field constant
-    float k_linear_y=1.1;
-
     //Control constants
     float alpha = 0.6548;
     float beta = 0.1;
@@ -120,13 +104,13 @@ geometry_msgs::Twist calculate_speeds(float robot_x, float robot_y, float robot_
     if(backwards) cruise_speed *= -1;
     geometry_msgs::Twist result;
     result.linear.x  = cruise_speed * exp(-(angle_error * angle_error) / alpha);
-    result.linear.y  = pot_fields&&pot_fields_aux? k_linear_y*rej_force:0;
+    result.linear.y  = 0;
     result.angular.z = max_angular * (2 / (1 + exp(-angle_error / beta)) - 1);
     return result;
 }
 
 geometry_msgs::Twist calculate_speeds_lateral(float robot_x, float robot_y, float robot_t, float goal_x,
-					      float goal_y, float cruise_speed)
+        float goal_y, float cruise_speed)
 {
     //Control constants
     float alpha = 0.6548;
@@ -147,7 +131,7 @@ geometry_msgs::Twist calculate_speeds_lateral(float robot_x, float robot_y, floa
     result.linear.y  = cruise_speed * exp(-(angle_error * angle_error) / alpha);
     result.angular.z = max_angular * (2 / (1 + exp(-angle_error / beta)) - 1);
     return result;
-    
+
 }
 
 geometry_msgs::Twist calculate_speeds(float robot_angle, float goal_angle)
@@ -188,7 +172,7 @@ void get_robot_position_wrt_odom(tf::TransformListener& tf_listener, float& robo
 }
 
 void get_goal_position_wrt_odom(float goal_distance, float goal_angle, tf::TransformListener& tf_listener,
-				float& goal_x, float& goal_y, float& goal_t, bool lateral)
+        float& goal_x, float& goal_y, float& goal_t, bool lateral)
 {
     tf::StampedTransform transform;
     tf_listener.lookupTransform("odom", "base_link", ros::Time(0), transform);
@@ -207,7 +191,7 @@ void get_goal_position_wrt_odom(float goal_distance, float goal_angle, tf::Trans
 }
 
 void get_next_goal_from_path(float& robot_x, float& robot_y, float& robot_t, float& goal_x, float& goal_y,
-                             int& next_pose_idx, tf::TransformListener& tf_listener)
+        int& next_pose_idx, tf::TransformListener& tf_listener)
 {
     get_robot_position_wrt_map(tf_listener, robot_x, robot_y, robot_t);
     if(next_pose_idx >= goal_path.poses.size()) next_pose_idx = goal_path.poses.size() - 1;
@@ -242,10 +226,6 @@ int main(int argc, char** argv)
         std::string str_param(argv[i]);
         if(str_param.compare("--move_head") == 0)
             move_head = true;
-        if(str_param.compare("--pot_fields")==0){
-            pot_fields = true;
-            std::cout<<"pot fields activated"<<std::endl;
-        }
     }
     std::cout << "INITIALIZING A REALLY GOOD SIMPLE MOVE NODE BY MARCOSOFT..." << std::endl;
 
@@ -255,7 +235,7 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
     ros::Publisher  pub_goal_reached     = n.advertise<std_msgs::Bool>("/navigation/goal_reached", 1);                           
     ros::Publisher  pub_speeds           = n.advertise<std_msgs::Float32MultiArray>("/hardware/mobile_base/speeds", 1);          
-    ros::Publisher  pub_cmd_vel          = n.advertise<geometry_msgs::Twist>("/hardware/mobile_base/cmd_vel", 1);  
+    ros::Publisher  pub_cmd_vel          = n.advertise<geometry_msgs::Twist>("/hsrb/command_velocity", 1);  
     ros::Publisher  pub_head             = n.advertise<std_msgs::Float32MultiArray>("/manipulation/manip_pln/hd_goto_angles", 1); 
     ros::Subscriber sub_robotStop        = n.subscribe("/hardware/robot_state/stop", 1, callback_robot_stop);               
     ros::Subscriber sub_goalDistance     = n.subscribe("simple_move/goal_dist", 1, callback_goal_dist);                     
@@ -263,7 +243,6 @@ int main(int argc, char** argv)
     ros::Subscriber sub_goalPath         = n.subscribe("simple_move/goal_path", 1, callback_goal_path);                     
     ros::Subscriber sub_goalLateralDist  = n.subscribe("simple_move/goal_lateral", 1, callback_goal_lateral_dist);           
     ros::Subscriber sub_gollisionRisk    = n.subscribe("/navigation/obs_avoid/collision_risk", 10, callback_collision_risk);
-    ros::Subscriber sub_potFields        = n.subscribe("/navigation/obs_avoid/pot_fields/rejective_force", 1, callback_pot_fields);
     tf::TransformListener tf_listener;
     ros::Rate loop(20);
 
@@ -278,8 +257,8 @@ int main(int argc, char** argv)
     }
     catch(...)
     {
-	    std::cout << "SimpleMove.->Cannot get tranforms for robot's pose calculation... :'(" << std::endl;
-	    return -1;
+        std::cout << "SimpleMove.->Cannot get tranforms for robot's pose calculation... :'(" << std::endl;
+        return -1;
     }
 
     int state = SM_INIT;
@@ -303,7 +282,7 @@ int main(int argc, char** argv)
     float global_goal_y = 0;
     int next_pose_idx = 0;
     int attempts = 0;
-	    
+
     while(ros::ok())
     {
         if(stop)
@@ -314,214 +293,211 @@ int main(int argc, char** argv)
             pub_cmd_vel.publish(zero_twist);
             pub_goal_reached.publish(msg_goal_reached);
         }
+        if(new_pose || new_path)
+            state = SM_INIT;
         //
         //STATE MACHINE FOR PLANNING MOVEMENTS
         switch(state)
         {
-        case SM_INIT:
-            cruise_speed = 0;
-            if(new_pose)
-            {
-                get_goal_position_wrt_odom(goal_distance, goal_angle, tf_listener, goal_x, goal_y, goal_t, move_lateral);
-                state = SM_GOAL_POSE_ACCEL;
-                new_pose = false;
-		attempts = (int)((fabs(goal_distance)+0.1)/0.2*60 + fabs(goal_angle)/0.5*60);
-            }
-            else if(new_path)
-            {
-                state = SM_GOAL_PATH_ACCEL;
-                new_path = false;
-                next_pose_idx = 0;
-                global_goal_x = goal_path.poses[goal_path.poses.size() - 1].pose.position.x;
-                global_goal_y = goal_path.poses[goal_path.poses.size() - 1].pose.position.y;
-            }
-            break;
+            case SM_INIT:
+                cruise_speed = 0;
+                if(new_pose)
+                {
+                    get_goal_position_wrt_odom(goal_distance, goal_angle, tf_listener, goal_x, goal_y, goal_t, move_lateral);
+                    state = SM_GOAL_POSE_ACCEL;
+                    new_pose = false;
+                    attempts = (int)((fabs(goal_distance)+0.1)/0.2*60 + fabs(goal_angle)/0.5*60);
+                    msg_goal_reached.data = false;
+                    pub_goal_reached.publish(msg_goal_reached);
+                }
+                else if(new_path)
+                {
+                    state = SM_GOAL_PATH_ACCEL;
+                    new_path = false;
+                    next_pose_idx = 0;
+                    global_goal_x = goal_path.poses[goal_path.poses.size() - 1].pose.position.x;
+                    global_goal_y = goal_path.poses[goal_path.poses.size() - 1].pose.position.y;
+                    msg_goal_reached.data = false;
+                    pub_goal_reached.publish(msg_goal_reached);
+                }
+                break;
 
-            
-        case SM_GOAL_POSE_ACCEL:
-            cruise_speed += 0.007;
-            get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
-            error = sqrt((goal_x - robot_x)*(goal_x - robot_x) + (goal_y - robot_y)*(goal_y - robot_y));
-            if(error < 0.035)
-                state = SM_GOAL_POSE_CORRECT_ANGLE;
-            else
-            {
+
+            case SM_GOAL_POSE_ACCEL:
+                cruise_speed += 0.007;
+                get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
+                error = sqrt((goal_x - robot_x)*(goal_x - robot_x) + (goal_y - robot_y)*(goal_y - robot_y));
+                if(error < 0.035)
+                    state = SM_GOAL_POSE_CORRECT_ANGLE;
+                else
+                {
+                    if(error < cruise_speed)
+                        state = SM_GOAL_POSE_DECCEL;
+                    else if(cruise_speed >= 0.2)
+                        state = SM_GOAL_POSE_CRUISE;
+                    else
+                        state = SM_GOAL_POSE_ACCEL;
+
+                    if(move_lateral)
+                        twist = calculate_speeds_lateral(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed);
+                    else
+                        twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, goal_distance < 0);
+                    pub_cmd_vel.publish(twist);
+                }
+                if(--attempts <= 0)
+                    state = SM_GOAL_POSE_FINISH;
+                break;
+
+
+            case SM_GOAL_POSE_CRUISE:
+                get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
+                error = sqrt((goal_x - robot_x)*(goal_x - robot_x) + (goal_y - robot_y)*(goal_y - robot_y));
                 if(error < cruise_speed)
                     state = SM_GOAL_POSE_DECCEL;
-                else if(cruise_speed >= 0.2)
-                    state = SM_GOAL_POSE_CRUISE;
-                else
-                    state = SM_GOAL_POSE_ACCEL;
 
                 if(move_lateral)
                     twist = calculate_speeds_lateral(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed);
                 else
                     twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, goal_distance < 0);
                 pub_cmd_vel.publish(twist);
-            }
-            if(--attempts <= 0)
-                state = SM_GOAL_POSE_FINISH;
-            break;
+                if(--attempts <= 0)
+                    state = SM_GOAL_POSE_FINISH;
+                break;
 
-            
-        case SM_GOAL_POSE_CRUISE:
-            get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
-            error = sqrt((goal_x - robot_x)*(goal_x - robot_x) + (goal_y - robot_y)*(goal_y - robot_y));
-            if(error < cruise_speed)
-                state = SM_GOAL_POSE_DECCEL;
 
-            if(move_lateral)
-                twist = calculate_speeds_lateral(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed);
-            else
-                twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, goal_distance < 0);
-            pub_cmd_vel.publish(twist);
-	    if(--attempts <= 0)
-                state = SM_GOAL_POSE_FINISH;
-            break;
+            case SM_GOAL_POSE_DECCEL:
+                cruise_speed -= 0.007;
+                get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
+                error = sqrt((goal_x - robot_x)*(goal_x - robot_x) + (goal_y - robot_y)*(goal_y - robot_y));
+                if(error < 0.035 || cruise_speed <= 0)
+                    state = SM_GOAL_POSE_CORRECT_ANGLE;
 
-            
-        case SM_GOAL_POSE_DECCEL:
-            cruise_speed -= 0.007;
-            get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
-            error = sqrt((goal_x - robot_x)*(goal_x - robot_x) + (goal_y - robot_y)*(goal_y - robot_y));
-            if(error < 0.035 || cruise_speed <= 0)
-                state = SM_GOAL_POSE_CORRECT_ANGLE;
-
-            if(move_lateral)
-                twist = calculate_speeds_lateral(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed);
-            else
-                twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, goal_distance < 0);
-            pub_cmd_vel.publish(twist);
-	    if(--attempts <= 0)
-                state = SM_GOAL_POSE_FINISH;
-            break;
-
-            
-        case SM_GOAL_POSE_CORRECT_ANGLE:
-            get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
-            error = fabs(goal_t - robot_t);
-            if(error < 0.015)
-                state = SM_GOAL_POSE_FINISH;
-            else
-            {
-                twist = calculate_speeds(robot_t, goal_t);
+                if(move_lateral)
+                    twist = calculate_speeds_lateral(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed);
+                else
+                    twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, goal_distance < 0);
                 pub_cmd_vel.publish(twist);
-            }
-	    if(--attempts <= 0)
-                state = SM_GOAL_POSE_FINISH;
-            break;
+                if(--attempts <= 0)
+                    state = SM_GOAL_POSE_FINISH;
+                break;
 
 
-	case SM_GOAL_POSE_FINISH:
-            std::cout << "SimpleMove.->Successful move with dist=" << goal_distance << " angle=" << goal_angle << std::endl;
-            state = SM_INIT;
-            msg_goal_reached.data = true;
-            pub_goal_reached.publish(msg_goal_reached);
-	    pub_cmd_vel.publish(zero_twist);
-	    break;
+            case SM_GOAL_POSE_CORRECT_ANGLE:
+                get_robot_position_wrt_odom(tf_listener, robot_x, robot_y, robot_t);
+                error = fabs(goal_t - robot_t);
+                if(error < 0.015)
+                    state = SM_GOAL_POSE_FINISH;
+                else
+                {
+                    twist = calculate_speeds(robot_t, goal_t);
+                    pub_cmd_vel.publish(twist);
+                }
+                if(--attempts <= 0)
+                    state = SM_GOAL_POSE_FINISH;
+                break;
 
 
-        case SM_GOAL_PATH_ACCEL:
-            cruise_speed += 0.01;
-            get_next_goal_from_path(robot_x, robot_y, robot_t, goal_x, goal_y, next_pose_idx, tf_listener);
-            error =sqrt((global_goal_x - robot_x)*(global_goal_x - robot_x) + (global_goal_y - robot_y)*(global_goal_y - robot_y));
-            if(error < 0.05)
-                state = SM_GOAL_PATH_FINISH;
-            else if(collision_risk)
-            {
-                std::cout << "SimpleMove.->Collision risk detected!!!!!!" << std::endl;
-                msg_goal_reached.data = false;
-                pub_cmd_vel.publish(zero_twist);
-                pub_goal_reached.publish(msg_goal_reached);
+            case SM_GOAL_POSE_FINISH:
+                std::cout << "SimpleMove.->Successful move with dist=" << goal_distance << " angle=" << goal_angle << std::endl;
                 state = SM_INIT;
-            }
-            else
-            {
-                if(error < cruise_speed*1.5)
-                    state = SM_GOAL_PATH_DECCEL;
-                else if(cruise_speed >= 0.35)
-                    state = SM_GOAL_PATH_CRUISE;
-
-                twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, false);
-                pub_cmd_vel.publish(twist);
-            }
-            break;
-
-            
-        case SM_GOAL_PATH_CRUISE:
-            if(collision_risk)
-            {
-                std::cout << "SimpleMove.->Collision risk detected!!!!!!" << std::endl;
-                msg_goal_reached.data = false;
-                pub_cmd_vel.publish(zero_twist);
+                msg_goal_reached.data = true;
                 pub_goal_reached.publish(msg_goal_reached);
-                state = SM_INIT;
-            }
-            else
-            {
+                pub_cmd_vel.publish(zero_twist);
+                break;
+
+
+            case SM_GOAL_PATH_ACCEL:
+                cruise_speed += 0.01;
                 get_next_goal_from_path(robot_x, robot_y, robot_t, goal_x, goal_y, next_pose_idx, tf_listener);
-                error =sqrt((global_goal_x-robot_x)*(global_goal_x-robot_x) + (global_goal_y-robot_y)*(global_goal_y-robot_y));
-                if(error < cruise_speed*1.5)
-                    state = SM_GOAL_PATH_DECCEL;
-                twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, false);
-                pub_cmd_vel.publish(twist);
-            }
-	    if(move_head)
-	    {
-                get_head_angles(robot_x, robot_y, robot_t, next_pose_idx, msg_head.data[0], msg_head.data[1]);
-		pub_head.publish(msg_head);
-	    }
-            break;
-
-
-        case SM_GOAL_PATH_DECCEL:
-            if(collision_risk)
-            {
-                std::cout << "SimpleMove.->Collision risk detected!!!!!!" << std::endl;
-                msg_goal_reached.data = false;
-                pub_cmd_vel.publish(zero_twist);
-                pub_goal_reached.publish(msg_goal_reached);
-                state = SM_INIT;
-            }
-            else
-            {
-                
-                get_next_goal_from_path(robot_x, robot_y, robot_t, goal_x, goal_y, next_pose_idx, tf_listener);
-                error =sqrt((global_goal_x-robot_x)*(global_goal_x-robot_x) + (global_goal_y-robot_y)*(global_goal_y-robot_y));
-                
-                std::cout<<"---------------------------------------"<<std::endl;
-                std::cout<<"error for end the move: "<<error<<std::endl;
-                std::cout<<"speed for end the move: "<<cruise_speed<<std::endl;
-                std::cout<<"---------------------------------------"<<std::endl;
-                /*if(cruise_speed>0.1)
-                    cruise_speed -= 0.01;
+                error =sqrt((global_goal_x - robot_x)*(global_goal_x - robot_x) + (global_goal_y - robot_y)*(global_goal_y - robot_y));
                 if(error < 0.05)
-                    state = SM_GOAL_PATH_FINISH;*/
-                cruise_speed=(0.01 - 0.36) / (0.05 - 0.54)*(error - 0.54) + 0.36;
-                if(error < 0.05 || cruise_speed<=0)
-                    state=SM_GOAL_PATH_FINISH;
-                twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, false);
-                pub_cmd_vel.publish(twist);
-            }
-	    if(move_head)
-	    {
-                get_head_angles(robot_x, robot_y, robot_t, next_pose_idx, msg_head.data[0], msg_head.data[1]);
-		pub_head.publish(msg_head);
-	    }
-            break;
+                    state = SM_GOAL_PATH_FINISH;
+                else if(collision_risk)
+                {
+                    std::cout << "SimpleMove.->Collision risk detected!!!!!!" << std::endl;
+                    msg_goal_reached.data = false;
+                    pub_cmd_vel.publish(zero_twist);
+                    pub_goal_reached.publish(msg_goal_reached);
+                    state = SM_INIT;
+                }
+                else
+                {
+                    if(error < cruise_speed*1.5)
+                        state = SM_GOAL_PATH_DECCEL;
+                    else if(cruise_speed >= 0.35)
+                        state = SM_GOAL_PATH_CRUISE;
+
+                    twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, false);
+                    pub_cmd_vel.publish(twist);
+                }
+                break;
 
 
-        case SM_GOAL_PATH_FINISH:
-            std::cout << "SimpleMove.->Path succesfully executed. (Y)" << std::endl;
-            msg_goal_reached.data = true;
-            pub_cmd_vel.publish(zero_twist);
-            pub_goal_reached.publish(msg_goal_reached);
-            state = SM_INIT;
-            break;
+            case SM_GOAL_PATH_CRUISE:
+                if(collision_risk)
+                {
+                    std::cout << "SimpleMove.->Collision risk detected!!!!!!" << std::endl;
+                    msg_goal_reached.data = false;
+                    pub_cmd_vel.publish(zero_twist);
+                    pub_goal_reached.publish(msg_goal_reached);
+                    state = SM_INIT;
+                }
+                else
+                {
+                    get_next_goal_from_path(robot_x, robot_y, robot_t, goal_x, goal_y, next_pose_idx, tf_listener);
+                    error =sqrt((global_goal_x-robot_x)*(global_goal_x-robot_x) + (global_goal_y-robot_y)*(global_goal_y-robot_y));
+                    if(error < cruise_speed*1.5)
+                        state = SM_GOAL_PATH_DECCEL;
+                    twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, false);
+                    pub_cmd_vel.publish(twist);
+                }
+                if(move_head)
+                {
+                    get_head_angles(robot_x, robot_y, robot_t, next_pose_idx, msg_head.data[0], msg_head.data[1]);
+                    pub_head.publish(msg_head);
+                }
+                break;
 
-        default:
-            std::cout << "SimpleMove.->A VERY STUPID PERSON PROGRAMMED THIS SHIT. SORRY. :'(" << std::endl;
-            return -1;
+
+            case SM_GOAL_PATH_DECCEL:
+                if(collision_risk)
+                {
+                    std::cout << "SimpleMove.->Collision risk detected!!!!!!" << std::endl;
+                    msg_goal_reached.data = false;
+                    pub_cmd_vel.publish(zero_twist);
+                    pub_goal_reached.publish(msg_goal_reached);
+                    state = SM_INIT;
+                }
+                else
+                {
+                    get_next_goal_from_path(robot_x, robot_y, robot_t, goal_x, goal_y, next_pose_idx, tf_listener);
+                    error =sqrt((global_goal_x-robot_x)*(global_goal_x-robot_x) + (global_goal_y-robot_y)*(global_goal_y-robot_y));
+                    //cruise_speed -= 0.01;
+                    cruise_speed = (0.01 - 0.36) / (0.05 - 0.54) * (error - 0.54) + 0.36;
+                    if(error < 0.05 || cruise_speed <= 0)
+                        state = SM_GOAL_PATH_FINISH;
+                    twist = calculate_speeds(robot_x, robot_y, robot_t, goal_x, goal_y, cruise_speed, false);
+                    pub_cmd_vel.publish(twist);
+                }
+                if(move_head)
+                {
+                    get_head_angles(robot_x, robot_y, robot_t, next_pose_idx, msg_head.data[0], msg_head.data[1]);
+                    pub_head.publish(msg_head);
+                }
+                break;
+
+
+            case SM_GOAL_PATH_FINISH:
+                std::cout << "SimpleMove.->Path succesfully executed. (Y)" << std::endl;
+                msg_goal_reached.data = true;
+                pub_cmd_vel.publish(zero_twist);
+                pub_goal_reached.publish(msg_goal_reached);
+                state = SM_INIT;
+                break;
+
+            default:
+                std::cout << "SimpleMove.->A VERY STUPID PERSON PROGRAMMED THIS SHIT. SORRY. :'(" << std::endl;
+                return -1;
         }
         ros::spinOnce();
         loop.sleep();

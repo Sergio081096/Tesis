@@ -266,15 +266,16 @@ void MainWindow::navBtnCalcPath_pressed()
     }
     else
         goal_location = parts[0];
-
+    
+    int method = this->ui->navCbPlanningMethod->currentIndex();
     if(start_location.compare("") == 0 && goal_location.compare("") == 0)
-        TakeshiNavigation::planPath(startX, startY, goalX, goalY, this->calculatedPath);
+        TakeshiNavigation::planPath(startX, startY, goalX, goalY, this->calculatedPath, method);
     else if(start_location.compare("") == 0 && goal_location.compare("") != 0)
-        TakeshiNavigation::planPath(startX, startY, goal_location, this->calculatedPath);
+        TakeshiNavigation::planPath(startX, startY, goal_location, this->calculatedPath, method);
     else if(start_location.compare("") != 0 && goal_location.compare("") == 0)
-        TakeshiNavigation::planPath(start_location, goalX, goalY, this->calculatedPath);
+        TakeshiNavigation::planPath(start_location, goalX, goalY, this->calculatedPath, method);
     else
-        TakeshiNavigation::planPath(start_location, goal_location, this->calculatedPath);
+        TakeshiNavigation::planPath(start_location, goal_location, this->calculatedPath, method);
 }
 
 void MainWindow::navBtnExecPath_pressed()

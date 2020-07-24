@@ -10,6 +10,7 @@ MvnPln::MvnPln()
         this->isLastPathPublished = false;
         this->_allow_move_lateral = false;
         this->max_attempts = 0;
+        this->path_planning_method = 0;
 }
 
 MvnPln::~MvnPln()
@@ -31,8 +32,10 @@ void MvnPln::initROSConnection(ros::NodeHandle* nh)
         this->subCollisionRisk = nh->subscribe("/navigation/obs_avoid/collision_risk", 10, &MvnPln::callbackCollisionRisk, this);
         this->subCollisionPoint = nh->subscribe("/navigation/obs_avoid/collision_point", 10, &MvnPln::callbackCollisionPoint, this);
 
-        this->cltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/localization/static_map");
-        this->cltPathFromMapAStar = nh->serviceClient<navig_msgs::PathFromMap>("/navigation/path_planning/path_calculator/a_star_from_map");
+        this->cltGetMap = nh->serviceClient<nav_msgs::GetMap>("/static_map");
+        this->cltPathFromMapAStar = nh->serviceClient<navig_msgs::PathFromMap>("/path_planning/path_calculator/a_star_from_map");
+        this->cltPathFromMapRRTExt = nh->serviceClient<navig_msgs::PathFromMap>("/path_planning/path_calculator/rrt_ext_from_map");
+        this->cltPathFromMapRRTConnect = nh->serviceClient<navig_msgs::PathFromMap>("/path_planning/path_calculator/rrt_con_from_map");
         this->cltGetRgbdWrtRobot = nh->serviceClient<point_cloud_manager::GetRgbd>("/hardware/point_cloud_man/get_rgbd_wrt_robot");
         tf_listener.waitForTransform("map", "base_link", ros::Time(0), ros::Duration(5.0));
 }
@@ -86,8 +89,8 @@ void MvnPln::spin()
                         TakeshiManip::hdGoTo(0, -0.9, 2500);
                         //TakeshiManip::hdGoTo(0, -0.9, 2500);
                         //TakeshiManip::hdGoTo(0, -0.9, 2500);
-                        TakeshiKnowledge::getRobotPose(robotX, robotY, robotTheta);
-                        pathSuccess = this->planPath(robotX, robotY, this->goalX, this->goalY, this->lastCalcPath);
+                        TakeshiNavigation::getRobot(robotX, robotY, robotTheta);
+                        pathSuccess = this->planPath(robotX, robotY, this->goalX, this->goalY, this->lastCalcPath, path_planning_method);
                         if(!pathSuccess)
                         {
                                 cout << "\033[1;37m     MvnPln.->Cannot calc path to "<<this->goalX<<" "<<this->goalY<<" after several attempts\033[0m" << endl;
@@ -142,7 +145,7 @@ void MvnPln::spin()
                         break;
                 case SM_COLLISION_DETECTED:
                         cout << "\033[1;37m     MvnPln.->Current state: " << currentState << ". Stopping robot smoothly\033[0m" << endl;
-                        TakeshiKnowledge::getRobotPose(robotX, robotY, robotTheta);
+                        TakeshiNavigation::getRobot(robotX, robotY, robotTheta);
                         //If robot is 0.6 near the goal, it is considered that it has reached the goal
 
                         if(sqrt((robotX - this->goalX)*(robotX - this->goalX) + (robotY - this->goalY)*(robotY - this->goalY)) < reachThreshold)
@@ -190,7 +193,7 @@ void MvnPln::spin()
                         break;
                 case SM_CORRECT_FINAL_ANGLE:
                         cout << "\033[1;37m     MvnPln.->CurrentState: " << currentState << ". Correcting final angle\033[0m" << endl;
-                        TakeshiKnowledge::getRobotPose(robotX, robotY, robotTheta);
+                        TakeshiNavigation::getRobot(robotX, robotY, robotTheta);
                         angleError = this->goalAngle - robotTheta;
                         if(angleError > M_PI) angleError -= 2*M_PI;
                         if(angleError <= -M_PI) angleError += 2*M_PI;
@@ -226,24 +229,24 @@ void MvnPln::allow_move_lateral(bool _allow_move_lateral)
         this->_allow_move_lateral = _allow_move_lateral;
 }
 
-bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path)
+bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path, int method)
 {
         //bool pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, true, true);
         //if(!pathSuccess)
-        bool pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, false, true);
+        bool pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, false, true, method);
         if(!pathSuccess)
-                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, true, false);
+                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, true, false, method);
         if(!pathSuccess)
-                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, true);
+                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, true, method);
         if(!pathSuccess)
-                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, false, true);
+                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, false, true, method);
         if(!pathSuccess)
-                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, false);
+                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, false, method);
         return pathSuccess;
 }
 
 bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path,
-                      bool useMap, bool useLaser, bool useKinect)
+                      bool useMap, bool useLaser, bool useKinect, int method)
 {
         cout << "\033[1;37m     MvnPln.->Calculating path with augmented map...\033[0m" << endl;
         nav_msgs::OccupancyGrid augmentedMap;
@@ -286,7 +289,7 @@ bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_
                 float robotX, robotY, robotTheta;
                 float angle, laserX, laserY;
                 int idx;
-                TakeshiKnowledge::getRobotPose(robotX, robotY, robotTheta);
+                TakeshiNavigation::getRobot(robotX, robotY, robotTheta);
                 for(int i=0; i < lastLaserScan.ranges.size(); i++)
                 {
                         if(lastLaserScan.ranges[i] > 0.8 ||  lastLaserScan.ranges[i] < 0.3)
@@ -315,7 +318,7 @@ bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_
                 }
         }
 
-        if(useKinect)
+        /*if(useKinect)
         {
                 cout << "\033[1;37m     MvnPln.->Using cloud to augment map\033[0m" << endl;
                 point_cloud_manager::GetRgbd srvGetRgbd;
@@ -353,7 +356,7 @@ bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_
                                 //augmentedMap.data[idx] = 0;
                         }
                 }
-        }
+        }//*/
 
         navig_msgs::PathFromMap srvPathFromMap;
         srvPathFromMap.request.map = augmentedMap;
@@ -363,10 +366,25 @@ bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_
         srvPathFromMap.request.goal_pose.position.y = goalY;
 
         bool success;
-        if((success = this->cltPathFromMapAStar.call(srvPathFromMap)))
-                cout << "\033[1;37m     MvnPln.->Path calculated succesfully by path_calculator using A* using map and laser\033[0m" << endl;
+        switch(method)
+        {
+        case 0: //navig_msgs::PlanPath::A_STAR:
+            success = this->cltPathFromMapAStar.call(srvPathFromMap);
+            break;
+        case 1: //navig_msgs::PlanPath::RRT:
+            success = this->cltPathFromMapRRTExt.call(srvPathFromMap);
+            break;
+        case 2:
+            success = this->cltPathFromMapRRTConnect.call(srvPathFromMap);
+            break;
+
+        default:
+            break;
+        }
+        if(success)
+                cout << "\033[1;37m     MvnPln.->Path calculated succesfully \033[0m" << endl;
         else
-                cout << "\033[1;37m     MvnPln.->Cannot calculate path by path_calculator using A* using map and laser\033[0m" << endl;
+                cout << "\033[1;37m     MvnPln.->Cannot calculate path by path_calculator using \033[0m" << endl;
         ros::spinOnce();
 
         path = srvPathFromMap.response.path;
@@ -382,7 +400,7 @@ void MvnPln::callbackRobotStop(const std_msgs::Empty::ConstPtr& msg)
 
 bool MvnPln::callbackPlanPath(navig_msgs::PlanPath::Request& req, navig_msgs::PlanPath::Response& resp)
 {
-        TakeshiKnowledge::getKnownLocations(locations);
+        //TakeshiKnowledge::getKnownLocations(locations);
         //If Id is "", then, the metric values are used
         cout << "\033[1;37m     MvnPln.->Plan Path from \033[0m" << endl;
         if(req.start_location_id.compare("") == 0)
@@ -425,7 +443,8 @@ bool MvnPln::callbackPlanPath(navig_msgs::PlanPath::Request& req, navig_msgs::Pl
                 goalY = req.goal_pose.position.y;
         }
 
-        return this->planPath(startX, startY, goalX, goalY, resp.path);
+        path_planning_method = req.method;
+        return this->planPath(startX, startY, goalX, goalY, resp.path, req.method);
 }
 
 void MvnPln::callbackClickedPoint(const geometry_msgs::PointStamped::ConstPtr& msg)
@@ -435,7 +454,7 @@ void MvnPln::callbackClickedPoint(const geometry_msgs::PointStamped::ConstPtr& m
 
 void MvnPln::callbackGetCloseLoc(const std_msgs::String::ConstPtr& msg)
 {
-        TakeshiKnowledge::getKnownLocations(locations);
+        //TakeshiKnowledge::getKnownLocations(locations);
         if(this->locations.find(msg->data) == this->locations.end())
         {
                 cout << "\033[1;37m     MvnPln.->Cannot get close to \"" << msg->data << "\". It is not a known location. \033[0m" << endl;
@@ -502,3 +521,9 @@ void MvnPln::callbackCollisionPoint(const geometry_msgs::PointStamped::ConstPtr&
         this->collisionPointX = msg->point.x;
         this->collisionPointY = msg->point.y;
 }
+
+
+/*<!-- rviz-->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find takeshi)/rviz/hsrb_display_simple_hsrb.rviz" if="$(arg rviz)"/>//*/
+
+  

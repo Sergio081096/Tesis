@@ -21,8 +21,8 @@
   <arg name="world_suffix" default="" />
   <arg name="robot_name" default="hsrb" />
 
-  <!-- prepare params.yaml(param command hack)  
-  <param name="$(arg namespace)/tmp" command="rosrun tmc_roslaunch_tools symboliclink $(arg param_file) $(find hsrb_common_launch)/params/empty_params.yaml" />-->
+  <!-- prepare params.yaml(param command hack)-->  
+  <param name="$(arg namespace)/tmp" command="rosrun tmc_roslaunch_tools symboliclink $(arg param_file) $(find hsrb_common_launch)/params/empty_params.yaml" />
 
   <!-- gazebo -->
   <include file="$(find takeshi)/hsrb/hsrb_empty_world.launch">
@@ -53,7 +53,7 @@
   </include>
 
   <!-- rviz-->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find hsrb_common_launch)/config/hsrb_display_simple_$(arg robot_name).rviz" if="$(arg rviz)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find takeshi)/rviz/hsrb_display_simple_hsrb.rviz" if="$(arg rviz)"/>
 
   <!-- load override parameters-->
   <rosparam command="load" file="$(arg param_file)" />

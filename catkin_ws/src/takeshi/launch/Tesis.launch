@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="namespace" default="/hsrb"/>
+	<arg name="namespace" default="hsrb"/>
 	<arg name="debug" default="false"/>
 	<arg name="gui" default="true" />
 	<arg name="rviz" default="true"/>
@@ -19,10 +19,12 @@
 	
 	
 	<include file="$(find takeshi)/hsrb/hsrb_gazebo_common.xml" pass_all_args="true">
-		<arg name="map" default="$(find takeshi)/maps/mega-web/map.yaml" />
-                --<arg name="world_name" value="$(find tmc_gazebo_worlds)/worlds/megaweb2015_fast.world" />
-		<arg name="robot_pos" value="-x -1 -y -7.5 -z 0.32 -Y 1.57"/>
+		<arg name="map" default="$(find takeshi)/maps/apartment/map.yaml" />
+                <arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
+		<arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />
 	</include>
+		<node unless="false" name="map_server" pkg="map_server" type="map_server" output="screen"
+		args="$(find takeshi)/maps/apartment/map.yaml"/>
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
 		<node name="head" pkg="head" type="head_node" output="screen"/>
@@ -31,6 +33,17 @@
 	<group ns="hri">
 	    	<node name="takeshi_gui" pkg="takeshi_gui" type="takeshi_gui_node" output="screen"/>    
 	</group>
+
+	<group ns="path_planning">
+		<node name="simple_move" pkg="simple_move" type="simple_move_node" output="screen" args="--move_head"/>
+		<node name="path_calculator" pkg="path_calculator" type="path_calculator_node" output="screen">
+		<param name="calculate_diagonal_paths" value="false"/>
+		</node>
+	</group>
 	
+		<node name="mvn_pln" pkg="mvn_pln" type="mvn_pln_node" output="screen">
+		<param name="move_lateral" value="false"/>
+		<param name="max_attempts" value="25"/>
+		</node>
 
 </launch>

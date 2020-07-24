@@ -42,11 +42,12 @@ void QtRosNode::setNodeHandle(ros::NodeHandle* nh)
 {
     this->n = nh;
     TakeshiNavigation::setNodeHandle(nh);
+    TakeshiHardware::setNodeHandle(nh);
+    //TakeshiKnowledge::setNodeHandle(nh);
     /*TakeshiHardware::setNodeHandle(nh);
     TakeshiHRI::setNodeHandle(nh);
     TakeshiManip::setNodeHandle(nh);
     TakeshiVision::setNodeHandle(nh);
     TakeshiTools::setNodeHandle(nh);
-    TakeshiKnowledge::setNodeHandle(nh);
     TakeshiRepresentation::setNodeHandle(nh);*/
 }

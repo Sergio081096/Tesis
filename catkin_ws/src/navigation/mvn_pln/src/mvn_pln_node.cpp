@@ -31,11 +31,11 @@ int main(int argc, char** argv)
     std::cout << "INITIALIZING MOVING PLANNER BY MARCOSOFT..." << std::endl;
     ros::init(argc, argv, "mvn_pln");
     ros::NodeHandle n;
-    ros::Rate loop(10);
-
-    //TakeshiNavigation::setNodeHandle(&n);
-    ros::Duration(20.0).sleep();
+    ros::Rate loop(10);    
+    TakeshiNavigation::setNodeHandle(&n);
+    ros::Duration(2.0).sleep();
     //std::cout << "Aqui truena...." << std::endl;
+    //TakeshiKnowledge::setNodeHandle(&n);
     //TakeshiManip::setNodeHandle(&n);
     //TakeshiKnowledge::setNodeHandle(&n);
     MvnPln mvnPln;

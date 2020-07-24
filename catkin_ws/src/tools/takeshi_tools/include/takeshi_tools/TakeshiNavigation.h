@@ -6,6 +6,7 @@
 #include "std_msgs/Float32MultiArray.h"
 #include "takeshi_tools/TakeshiManip.h"
 #include "takeshi_tools/TakeshiHardware.h"
+#include "takeshi_tools/TakeshiKnowledge.h"
 #include "navig_msgs/PlanPath.h"
 #include "navig_msgs/PathFromMap.h"
 #include "nav_msgs/Path.h"
@@ -85,17 +86,18 @@ class TakeshiNavigation
   static bool getClose(std::vector<std::string> location, int timeOut_ms);
   static bool getClose(float x, float y,float th, int timeOut_ms);
   static void getRobotPose(float& currentX, float& currentY, float& currentTheta);
+  static void getRobot(float& currentX, float& currentY, float& currentTheta);
   static void getRobotPoseFromOdom(float& currentX, float& currentY, float& currentTheta);  
   static bool moveDist(float distance, int timeOut_ms);
   static bool moveLateral(float distance, int timeOut_ms);
   static bool movePath(nav_msgs::Path& path, int timeOut_ms);
   static bool goToPose(float x, float y, float angle, int timeOut_ms);
   static bool goToRelPose(float relX, float relY, float relTheta, int timeOut_ms);
-  static bool planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path);
-  static bool planPath(float goalX, float goalY, nav_msgs::Path& path);
-  static bool planPath(std::string start_location, std::string goal_location, nav_msgs::Path& path);
-  static bool planPath(std::string start_location, float goalX, float goalY,  nav_msgs::Path& path);
-  static bool planPath(float startX, float startY, std::string goal_location, nav_msgs::Path& path);
+  static bool planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path, int method);
+  static bool planPath(float goalX, float goalY, nav_msgs::Path& path, int method);
+  static bool planPath(std::string start_location, std::string goal_location, nav_msgs::Path& path, int method);
+  static bool planPath(std::string start_location, float goalX, float goalY,  nav_msgs::Path& path, int method);
+  static bool planPath(float startX, float startY, std::string goal_location, nav_msgs::Path& path, int method);
   static bool moveDistAngle(float distance, float angle, int timeOut_ms);
   
 

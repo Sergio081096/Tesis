@@ -48,44 +48,27 @@ bool TakeshiKnowledge::setNodeHandle(ros::NodeHandle* nh) {
         tf_listener = new tf::TransformListener();
 
 	//Subscriber declarations
-	subUpdateKnowmLoc = new ros::Subscriber(
-		nh->subscribe("/knowledge/update_location_markers", 1, &TakeshiKnowledge::callBackUpdateKnownLoc));
-	subInitKnowmLoc = new ros::Subscriber(
-		nh->subscribe("/knowledge/init_location_markers", 1, &TakeshiKnowledge::callBackInitKnownLoc));
-	TakeshiKnowledge::subStopButton = nh->subscribe(
-		"/hsrb/runstop_button", 1,&TakeshiKnowledge::callbackStop_AndSaveLocation);
+	/*subUpdateKnowmLoc = new ros::Subscriber(nh->subscribe("/knowledge/update_location_markers", 1, &TakeshiKnowledge::callBackUpdateKnownLoc));
+	subInitKnowmLoc = new ros::Subscriber(nh->subscribe("/knowledge/init_location_markers", 1, &TakeshiKnowledge::callBackInitKnownLoc));
+	TakeshiKnowledge::subStopButton = nh->subscribe("/hsrb/runstop_button", 1,&TakeshiKnowledge::callbackStop_AndSaveLocation);
 	
 	cout << "\033[1;35m     TakeshiKnowledge.-> Subscribers has been declared... \033[0m" << endl;
 	//Publishers declarations
-	pubEnableEdit = new ros::Publisher(
-		nh->advertise<std_msgs::Bool>("/knowledge/edit_known_loc", 1));
-	pubLoadFromFile = new ros::Publisher(
-		nh->advertise<std_msgs::String>("/knowledge/load_from_file", 1));
-	pubDeleteKnownLoc = new ros::Publisher(
-		nh->advertise<std_msgs::String>("/knowledge/delete_known_locations", 1));
-	pubSaveInFile = new ros::Publisher(
-		nh->advertise<std_msgs::String>("/knowledge/save_in_file", 1));
+	pubEnableEdit = new ros::Publisher(nh->advertise<std_msgs::Bool>("/knowledge/edit_known_loc", 1));
+	pubLoadFromFile = new ros::Publisher(nh->advertise<std_msgs::String>("/knowledge/load_from_file", 1));
+	pubDeleteKnownLoc = new ros::Publisher(nh->advertise<std_msgs::String>("/knowledge/delete_known_locations", 1));
+	pubSaveInFile = new ros::Publisher(nh->advertise<std_msgs::String>("/knowledge/save_in_file", 1));
 	
 	cout << "\033[1;35m     TakeshiKnowledge.-> Publishers has been declared... \033[0m" << endl;
 	//Client Services declarations
-	cliKnownLoc = new ros::ServiceClient(
-		nh->serviceClient<knowledge_msgs::KnownLocations>(
-		    "/knowledge/known_locations"));
-	cliAddUpKnownLoc =  new ros::ServiceClient(
-	        nh->serviceClient<knowledge_msgs::AddUpdateKnownLoc>(
-		    "/knowledge/add_update_known_locations"));
-	cliGetPredQues = new ros::ServiceClient(
-		nh->serviceClient<knowledge_msgs::GetPredefinedQuestions>(
-		    "/knowledge/get_predefined_questions"));
-	cliAddUpdateObjectViz = new ros::ServiceClient(
-		nh->serviceClient<env_msgs::AddUpdateObjectViz>(
-		    "/knowledge/object_description")); 
-	cliIsInArea = new ros::ServiceClient(
-		nh->serviceClient<knowledge_msgs::IsPointInKnownArea>(
-		    "/knowledge/is_point_in_area"));
+	cliKnownLoc = new ros::ServiceClient(	nh->serviceClient<knowledge_msgs::KnownLocations>("/knowledge/known_locations"));
+	cliAddUpKnownLoc =  new ros::ServiceClient( nh->serviceClient<knowledge_msgs::AddUpdateKnownLoc>("/knowledge/add_update_known_locations"));
+	cliGetPredQues = new ros::ServiceClient( nh->serviceClient<knowledge_msgs::GetPredefinedQuestions>("/knowledge/get_predefined_questions"));
+	cliAddUpdateObjectViz = new ros::ServiceClient( nh->serviceClient<env_msgs::AddUpdateObjectViz>("/knowledge/object_description")); 
+	cliIsInArea = new ros::ServiceClient( nh->serviceClient<knowledge_msgs::IsPointInKnownArea>( "/knowledge/is_point_in_area"));
 
 	cout << "\033[1;35m     TakeshiKnowledge.-> Client Services has been declared... \033[0m" << endl;
-	tf_listener->waitForTransform("map", "base_link", ros::Time(0), ros::Duration(5.0));
+	tf_listener->waitForTransform("map", "base_link", ros::Time(0), ros::Duration(5.0));//*/
         return true;
 }
 
@@ -124,21 +107,21 @@ void TakeshiKnowledge::getRobotPose(float &currentX, float &currentY, float &cur
         currentTheta = atan2((float)q.z(), (float)q.w()) * 2;
 }
 
-void TakeshiKnowledge::getKnownLocations(
-        std::map<std::string, std::vector<float> >& known_locations) {
-        known_locations.clear();
-        knowledge_msgs::KnownLocations srv;
-        if (cliKnownLoc->call(srv)) {
-                for (std::vector<knowledge_msgs::MapKnownLocation>::iterator it =
-                             srv.response.locations.begin();
-                     it != srv.response.locations.end(); ++it) {
-                        known_locations.insert(
-                                std::pair<std::string, std::vector<float> >(it->name,
-                                                                            it->value));
-                }
-        } else {
-                ROS_ERROR("Failed to call service known_locations");
-        }
+void TakeshiKnowledge::getKnownLocations(std::map<std::string, std::vector<float> >&known_locations) 
+{
+  known_locations.clear();
+  knowledge_msgs::KnownLocations srv;
+  if (cliKnownLoc->call(srv)) 
+  {
+    for (std::vector<knowledge_msgs::MapKnownLocation>::iterator it = srv.response.locations.begin(); it != srv.response.locations.end(); ++it) 
+    {
+      known_locations.insert(std::pair<std::string, std::vector<float> >(it->name, it->value));
+    }
+  } 
+  else 
+  {
+    ROS_ERROR("Failed to call service known_locations");
+  }
 }
 
 void TakeshiKnowledge::getKnownLocation(std::string location, float &x, float& y, float &a){

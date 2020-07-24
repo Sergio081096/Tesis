@@ -86,7 +86,8 @@ bool TakeshiNavigation::setNodeHandle(ros::NodeHandle* nh)
 	tf_listener->waitForTransform("map", "base_link", ros::Time(0), ros::Duration(5.0));
 	
   TakeshiManip::setNodeHandle(nh);
-  TakeshiHardware::setNodeHandle(nh);
+  //TakeshiHardware::setNodeHandle(nh);
+  //TakeshiKnowledge::setNodeHandle(nh);
   TakeshiNavigation::is_node_set = true;
   return true;
 }
@@ -269,6 +270,18 @@ void TakeshiNavigation::getRobotPose(float& currentX, float& currentY, float& cu
   currentTheta = TakeshiNavigation::currentRobotTheta;
 }
 
+void TakeshiNavigation::getRobot(float &currentX, float &currentY, float &currentTheta)
+{
+  //would it kill you to using poses instead of every compoenent?
+  tf::StampedTransform transform;
+  tf::Quaternion q;
+  tf_listener->lookupTransform("map", "base_link", ros::Time(0), transform);
+  q = transform.getRotation();
+  currentX = transform.getOrigin().x();
+  currentY = transform.getOrigin().y();
+  currentTheta = atan2((float)q.z(), (float)q.w()) * 2;
+}
+
 void TakeshiNavigation::getRobotPoseFromOdom(float& currentX, float& currentY,
 					     float& currentTheta) {
   tf::StampedTransform transform;
@@ -363,7 +376,7 @@ bool TakeshiNavigation::goToRelPose(float relX, float relY, float relTheta, int 
 }
 
 //These methods use the mvn_pln node.
-bool TakeshiNavigation::planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path)
+bool TakeshiNavigation::planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path, int method)
 {
   navig_msgs::PlanPath srv;
   srv.request.start_location_id = "";
@@ -372,47 +385,51 @@ bool TakeshiNavigation::planPath(float startX, float startY, float goalX, float 
   srv.request.start_pose.position.y = startY;
   srv.request.goal_pose.position.x = goalX;
   srv.request.goal_pose.position.y = goalY;
+  srv.request.method = method;
   bool success = TakeshiNavigation::cltPlanPath.call(srv);
   path = srv.response.path;
   return success;
 }
 
-bool TakeshiNavigation::planPath(float goalX, float goalY, nav_msgs::Path& path)
+bool TakeshiNavigation::planPath(float goalX, float goalY, nav_msgs::Path& path, int method)
 {
   float robotX, robotY, robotTheta;
   TakeshiNavigation::getRobotPose(robotX, robotY, robotTheta);
-  return TakeshiNavigation::planPath(robotX, robotY, goalX, goalY, path);
+  return TakeshiNavigation::planPath(robotX, robotY, goalX, goalY, path, method);
 }
 
-bool TakeshiNavigation::planPath(std::string start_location, std::string goal_location, nav_msgs::Path& path)
+bool TakeshiNavigation::planPath(std::string start_location, std::string goal_location, nav_msgs::Path& path, int method)
 {
   navig_msgs::PlanPath srv;
   srv.request.start_location_id = start_location;
-  srv.request.goal_location_id = goal_location;
+  srv.request.goal_location_id = goal_location;  
+  srv.request.method = method;
   bool success = TakeshiNavigation::cltPlanPath.call(srv);
   path = srv.response.path;
   return success;
 }
 
-bool TakeshiNavigation::planPath(std::string start_location, float goalX, float goalY, nav_msgs::Path& path)
+bool TakeshiNavigation::planPath(std::string start_location, float goalX, float goalY, nav_msgs::Path& path, int method)
 {
   navig_msgs::PlanPath srv;
   srv.request.start_location_id = start_location;
   srv.request.goal_location_id = "";
   srv.request.goal_pose.position.x = goalX;
   srv.request.goal_pose.position.y = goalY;
+  srv.request.method = method;
   bool success = TakeshiNavigation::cltPlanPath.call(srv);
   path = srv.response.path;
   return success;
 }
 
-bool TakeshiNavigation::planPath(float startX, float startY, std::string goal_location, nav_msgs::Path& path)
+bool TakeshiNavigation::planPath(float startX, float startY, std::string goal_location, nav_msgs::Path& path, int method)
 {
   navig_msgs::PlanPath srv;
   srv.request.start_location_id = "";
   srv.request.goal_location_id = goal_location;
   srv.request.start_pose.position.x = startX;
   srv.request.start_pose.position.y = startY;
+  srv.request.method = method;
   bool success = TakeshiNavigation::cltPlanPath.call(srv);
   path = srv.response.path;
   return success;

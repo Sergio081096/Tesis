@@ -68,6 +68,8 @@ private:
     //Ros stuff for path planning
     ros::ServiceClient cltGetMap;
     ros::ServiceClient cltPathFromMapAStar; //Path calculation using only the occupancy grid
+    ros::ServiceClient cltPathFromMapRRTExt;
+    ros::ServiceClient cltPathFromMapRRTConnect;
     ros::ServiceClient cltGetRgbdWrtRobot;
     tf::TransformListener tf_listener;
 
@@ -84,6 +86,7 @@ private:
     float collisionPointY;
     bool stopReceived;
     bool _allow_move_lateral;
+    int path_planning_method;
     sensor_msgs::LaserScan lastLaserScan;
 
 public:
@@ -94,9 +97,9 @@ public:
     int max_attempts;
 
 private:
-    bool planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path);
+    bool planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path, int method = 0);
     bool planPath(float startX, float startY, float goalX, float goalY, nav_msgs::Path& path,
-                  bool useMap, bool useLaser, bool useKinect);
+                  bool useMap, bool useLaser, bool useKinect, int method = 0);
     void callbackRobotStop(const std_msgs::Empty::ConstPtr& msg);
     bool callbackPlanPath(navig_msgs::PlanPath::Request& req, navig_msgs::PlanPath::Response& resp);
     void callbackClickedPoint(const geometry_msgs::PointStamped::ConstPtr& msg);
