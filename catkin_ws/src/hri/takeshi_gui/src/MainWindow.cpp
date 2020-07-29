@@ -172,7 +172,7 @@ void MainWindow::stopRobot()
 void MainWindow::btnFwdPressed()
 {
     qtRosNode->linearSpeed = 0.6;
-    qtRosNode->angularSpeed = 0.0;
+    qtRosNode->angularSpeed = 0.9;
 }
 
 void MainWindow::btnFwdReleased()
@@ -289,6 +289,7 @@ void MainWindow::navBtnExecPath_pressed()
     std::string str = this->ui->navTxtGoalPose->text().toStdString();
     boost::algorithm::to_lower(str);
     boost::split(parts, str, boost::is_any_of(" ,\t\r\n"), boost::token_compress_on);
+    int method = this->ui->navCbPlanningMethod->currentIndex();
     if(parts.size() >= 2)
     {
         std::stringstream ssGoalX(parts[0]);
@@ -307,12 +308,14 @@ void MainWindow::navBtnExecPath_pressed()
                 return;
             }
             //this->ui->navLblStatus->setText("Base Status: Moving to goal point...");
-            TakeshiNavigation::startGetClose(goalX, goalY, goalTheta);
+            this->ui->navTxtStartPose->setText("Robot");
+            TakeshiNavigation::startGetClose(goalX, goalY, goalTheta, method);
         }
         else
         {
             // this->ui->navLblStatus->setText("Base Status: Moving to goal point...");
-            TakeshiNavigation::startGetClose(goalX, goalY);
+            this->ui->navTxtStartPose->setText("Robot");
+            TakeshiNavigation::startGetClose(goalX, goalY, method);
         }
         return;
     }
@@ -320,6 +323,7 @@ void MainWindow::navBtnExecPath_pressed()
     {
         goal_location = parts[0];
         //this->ui->navLblStatus->setText("Base Status: Moving to goal point...");
+        this->ui->navTxtStartPose->setText("Robot");
         TakeshiNavigation::startGetClose(goal_location);
     }
 }
@@ -465,7 +469,7 @@ void MainWindow::torsoPoseChanged(double d)
     float goalSpine = this->ui->trsTxtSpine->value();
     //std::cout << "QMainWindow.->Setting new torso pose: " << goalSpine << std::endl;
     TakeshiManip::startTorsoGoTo(goalSpine);
-    this->ui->trsLblStatus->setText("Status: Moving to ...");
+    //this->ui->trsLblStatus->setText("Status: Moving to ...");
 }
 
 void MainWindow::torsoLocChanged()
@@ -740,6 +744,8 @@ void MainWindow::updateGraphicsReceived()
 
     if(TakeshiManip::isTorsoGoalReached())
         this->ui->trsLblStatus->setText("Status: Goal Reached!");
+    else
+        this->ui->trsLblStatus->setText("Status: Moving to ...");
 
     std::string faceId = "";
     float facePosX = 0, facePosY = 0, facePosZ = 0;
@@ -747,7 +753,7 @@ void MainWindow::updateGraphicsReceived()
     float faceConfidence = -1;
     int faceGender = -1;
     bool faceSmiling = false;
-    if(TakeshiVision::getLastRecognizedFaces(faces))
+    /*if(TakeshiVision::getLastRecognizedFaces(faces))
     {
         QString faceIdQ = QString::fromStdString("ResultID: " + faceId);
         //this->ui->facLblResultID->setText(faceIdQ);
@@ -762,8 +768,8 @@ void MainWindow::updateGraphicsReceived()
         if(faceSmiling)
             this->ui->facLblResultSmile->setText("Smiling: Yes");
         else
-            this->ui->facLblResultSmile->setText("Smiling: No");*/
-    }
+            this->ui->facLblResultSmile->setText("Smiling: No");
+    }//*/
 
     /*if(TakeshiNavigation::obstacleInFront())
         this->ui->navLblObstacleInFront->setText("Obs In Front: True");

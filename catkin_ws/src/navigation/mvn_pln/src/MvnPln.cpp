@@ -4,6 +4,7 @@ using namespace std;
 MvnPln::MvnPln()
 {
         this->newTask = false;
+        this->resetTask = false;
         this->correctFinalAngle = false;
         this->collisionDetected = false;
         this->stopReceived = false;
@@ -32,7 +33,7 @@ void MvnPln::initROSConnection(ros::NodeHandle* nh)
         this->subCollisionRisk = nh->subscribe("/navigation/obs_avoid/collision_risk", 10, &MvnPln::callbackCollisionRisk, this);
         this->subCollisionPoint = nh->subscribe("/navigation/obs_avoid/collision_point", 10, &MvnPln::callbackCollisionPoint, this);
 
-        this->cltGetMap = nh->serviceClient<nav_msgs::GetMap>("/static_map");
+        this->cltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/static_map");
         this->cltPathFromMapAStar = nh->serviceClient<navig_msgs::PathFromMap>("/path_planning/path_calculator/a_star_from_map");
         this->cltPathFromMapRRTExt = nh->serviceClient<navig_msgs::PathFromMap>("/path_planning/path_calculator/rrt_ext_from_map");
         this->cltPathFromMapRRTConnect = nh->serviceClient<navig_msgs::PathFromMap>("/path_planning/path_calculator/rrt_con_from_map");
@@ -53,13 +54,18 @@ void MvnPln::spin()
         float reachThreshold = 0.10;
         while(ros::ok())
         {
-                if(this->stopReceived)
-                {
-                        this->stopReceived = false;
-                        currentState = SM_INIT;
-                }
-                switch(currentState)
-                {
+            if(this->stopReceived)
+            {
+                this->stopReceived = false;
+                currentState = SM_INIT;
+            }
+            if(resetTask)
+            {
+                resetTask = false;
+                currentState = SM_INIT;
+            }
+            switch(currentState)
+            {
                 case SM_INIT:
                         cout << "\033[1;37m     MvnPln.->Current state: " << currentState << ". Waiting for new task...\033[0m" << endl;
                         currentState = SM_WAITING_FOR_NEW_TASK;
@@ -75,7 +81,7 @@ void MvnPln::spin()
                         break;
                 case SM_CALCULATE_PATH:
                         cout << "\033[1;37m     MvnPln.->Current state: " << currentState << ". Calculating path using map, kinect and laser\033[0m" << endl;
-                        cout << "\033[1;37m     MvnPl.->Moving backwards if there is an obstacle before calculating path\033[0m" << endl;
+                        cout << "\033[1;37m     MvnPln.->Moving backwards if there is an obstacle before calculating path\033[0m" << endl;
                         if(TakeshiNavigation::obstacleInFront())
                                 TakeshiNavigation::moveDist(-0.2, 5000);
                         if(TakeshiNavigation::obstacleInFront())
@@ -86,7 +92,7 @@ void MvnPln::spin()
                         //    JustinaNavigation::moveDist(-0.15, 5000);
                         cout << "\033[1;37m     MvnPln.->Moving head to search for obstacles in front of the robot\033[0m" << endl;
 
-                        TakeshiManip::hdGoTo(0, -0.9, 2500);
+                        TakeshiManip::hdGoTo(0, -0.6, 2500);
                         //TakeshiManip::hdGoTo(0, -0.9, 2500);
                         //TakeshiManip::hdGoTo(0, -0.9, 2500);
                         TakeshiNavigation::getRobot(robotX, robotY, robotTheta);
@@ -212,7 +218,7 @@ void MvnPln::spin()
                                 currentState = SM_INIT;
                         }
                         break;
-                }
+            }
 
                 if(!this->isLastPathPublished)
                 {
@@ -233,15 +239,15 @@ bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_
 {
         //bool pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, true, true);
         //if(!pathSuccess)
-        bool pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, false, true, method);
-        if(!pathSuccess)
+        bool pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, false, false, method);
+        /*if(!pathSuccess)
                 pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, true, true, false, method);
         if(!pathSuccess)
                 pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, true, method);
         if(!pathSuccess)
                 pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, false, true, method);
         if(!pathSuccess)
-                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, false, method);
+                pathSuccess =  this->planPath(startX, startY, goalX, goalY, path, false, true, false, method);*/
         return pathSuccess;
 }
 
@@ -382,9 +388,12 @@ bool MvnPln::planPath(float startX, float startY, float goalX, float goalY, nav_
             break;
         }
         if(success)
+        {
                 cout << "\033[1;37m     MvnPln.->Path calculated succesfully \033[0m" << endl;
+                cout << "\033[1;37m     -------------------------------------\033[0m" << endl;
+        }
         else
-                cout << "\033[1;37m     MvnPln.->Cannot calculate path by path_calculator using \033[0m" << endl;
+                cout << "\033[1;37m     MvnPln.->Cannot calculate path by path_calculator\033[0m" << endl;
         ros::spinOnce();
 
         path = srvPathFromMap.response.path;
@@ -402,12 +411,12 @@ bool MvnPln::callbackPlanPath(navig_msgs::PlanPath::Request& req, navig_msgs::Pl
 {
         //TakeshiKnowledge::getKnownLocations(locations);
         //If Id is "", then, the metric values are used
-        cout << "\033[1;37m     MvnPln.->Plan Path from \033[0m" << endl;
+        cout << "\033[1;37m     MvnPln.->Plan Path from " ;
         if(req.start_location_id.compare("") == 0)
-                std::cout << req.start_pose.position.x << " " << req.start_pose.position.y << " to ";
+                std::cout << fixed << setprecision(2) << req.start_pose.position.x << " " << req.start_pose.position.y << " to ";
         else std::cout << "\"" << req.start_location_id << "\" to ";
         if(req.goal_location_id.compare("") == 0)
-                std::cout << req.goal_pose.position.x << " " << req.goal_pose.position.y << std::endl;
+                std::cout << req.goal_pose.position.x << " " << req.goal_pose.position.y << "\033[0m"<<std::endl;
         else std::cout << "\"" << req.goal_location_id << "\"" << std::endl;
 
         float startX, startY, goalX, goalY;
@@ -465,6 +474,8 @@ void MvnPln::callbackGetCloseLoc(const std_msgs::String::ConstPtr& msg)
         if(this->correctFinalAngle = this->locations[msg->data].size() > 2)
                 this->goalAngle = this->locations[msg->data][2];
         this->newTask = true;
+        this->resetTask = true;
+
 
         cout << "\033[1;37m     MvnPln.->Received desired goal pose: " << msg->data << ": " << this->goalX << " " << this->goalY;
         if(this->correctFinalAngle)
@@ -481,16 +492,18 @@ void MvnPln::callbackGetCloseXYA(const std_msgs::Float32MultiArray::ConstPtr& ms
 
         //If msg has two values, the robot will try to reach the goal point without correcting the final angle
         //If it has three values, the third one will be the final desired angle.
-        if(msg->data.size() < 2)
+        if(msg->data.size() < 3)
         {
                 cout << "\033[1;37m     MvnPln.->Cannot get close to given coordinates. At least two values are required.\033[0m" << endl;
                 return;
         }
         this->goalX = msg->data[0];
         this->goalY = msg->data[1];
-        if(this->correctFinalAngle = msg->data.size() > 2)
-                this->goalAngle = msg->data[2];
+        path_planning_method = msg->data[2];
+        if(this->correctFinalAngle = msg->data.size() > 3)
+                this->goalAngle = msg->data[3];
         this->newTask = true;
+        this->resetTask = true;
 
         cout << "\033[1;37m     MvnPln.->Received desired goal pose: " << this->goalX << " " << this->goalY;
         if(this->correctFinalAngle)
@@ -522,8 +535,3 @@ void MvnPln::callbackCollisionPoint(const geometry_msgs::PointStamped::ConstPtr&
         this->collisionPointY = msg->point.y;
 }
 
-
-/*<!-- rviz-->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find takeshi)/rviz/hsrb_display_simple_hsrb.rviz" if="$(arg rviz)"/>//*/
-
-  

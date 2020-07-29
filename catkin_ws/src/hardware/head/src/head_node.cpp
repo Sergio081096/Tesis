@@ -4,12 +4,14 @@
 #include <control_msgs/JointTrajectoryControllerState.h>
 #include <trajectory_msgs/JointTrajectory.h>
 #include <std_msgs/Float32MultiArray.h>
+#include <std_msgs/Bool.h>
 #include <ros/ros.h>
 
 float goalTilt;
 float goalPan;
 
 bool isNewData;
+bool wait_for_head_goal_pose = false;
 
 std_msgs::Float32MultiArray msg_hd_cp;
 
@@ -51,12 +53,13 @@ int main(int argc, char **argv)
 
     trajectory_msgs::JointTrajectory traj;
     controller_manager_msgs::ListControllers list_controllers;
-
+    std_msgs::Bool msg_head_goal_pose;
 
     // initalize ROS publisher
     ros::NodeHandle n;
     ros::Publisher pub_pumas_head_cp;
     ros::Publisher pub_hsr_head_gp;
+    ros::Publisher pub_head_goal_pose;
     ros::Subscriber sub_pumas_head_gp;
     ros::Subscriber sub_hsr_head_cp;
 
@@ -65,6 +68,7 @@ int main(int argc, char **argv)
 
     pub_hsr_head_gp = n.advertise<trajectory_msgs::JointTrajectory>("/hsrb/head_trajectory_controller/command", 10);
     pub_pumas_head_cp = n.advertise<std_msgs::Float32MultiArray>("/hardware/head/current_pose", 10);
+    pub_head_goal_pose = n.advertise<std_msgs::Bool>("/hardware/head/goal_reached", 10);
 
 
     sub_pumas_head_gp = n.subscribe("/hardware/head/goal_pose", 10, headGoalPoseCallback);
@@ -97,7 +101,8 @@ int main(int argc, char **argv)
             }
         }
     }
-
+    float head_pan = 0.0;
+    float head_tilt = 0.0;
 
     traj.joint_names.push_back("head_pan_joint");
     traj.joint_names.push_back("head_tilt_joint");
@@ -125,10 +130,23 @@ int main(int argc, char **argv)
 		{
             pub_hsr_head_gp.publish(traj);
 		    isNewData = false;
+            wait_for_head_goal_pose = true;            
 		}
 
         if(pub_pumas_head_cp.getNumSubscribers() > 0)
             pub_pumas_head_cp.publish(msg_hd_cp);
+
+        if(wait_for_head_goal_pose)
+        {
+            head_pan = fabs(goalPan - msg_hd_cp.data[0]);
+            head_tilt = fabs(goalTilt - msg_hd_cp.data[1]);
+            if(head_pan < 0.005 && head_tilt < 0.005)
+            {
+                msg_head_goal_pose.data=true;
+                pub_head_goal_pose.publish(msg_head_goal_pose);
+                wait_for_head_goal_pose = false;
+            }         
+        }
 
 		
         loop.sleep();

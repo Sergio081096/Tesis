@@ -26,14 +26,15 @@ bool callbackWaveFrontFromMap(navig_msgs::PathFromMap::Request &req, navig_msgs:
 
 bool callbackAStarFromMap(navig_msgs::PathFromMap::Request &req, navig_msgs::PathFromMap::Response &resp)
 {
-    std::cout << "Calculating path by A*..." << std::endl;
-    bool success = PathCalculator::AStar(req.map, req.start_pose, req.goal_pose, resp.path);
-    tracReal.path = resp.path;   
+    std::cout << "\033[1;37m Calculating path by A*...\033[0m" << std::endl;
+    std::cout << "\033[1;37m Receiving path calculatro request ------------------------------\033[0m" << std::endl;
+    bool success = PathCalculator::AStar(req.map, req.start_pose, req.goal_pose, resp.path);    
     if(success)
     {
+        tracReal.path = resp.path;   
         resp.path = PathCalculator::SmoothPath(resp.path);
         tracVer.path = resp.path;
-        tracRealGrow.path = resp.path;
+        //tracRealGrow.path = resp.path;
         real = true;
     }
     return success;
@@ -41,17 +42,17 @@ bool callbackAStarFromMap(navig_msgs::PathFromMap::Request &req, navig_msgs::Pat
 
 bool callbackRRTExt(navig_msgs::PathFromMap::Request& req, navig_msgs::PathFromMap::Response& resp)
 {    
-    std::cout << "Calculating path by RRT-Ext..." << std::endl;
-    std::cout << "Receiving path calculatro request ------------------------------" << std::endl;
+    std::cout << "\033[1;37m Calculating path by RRT-Ext...\033[0m" << std::endl;
+    std::cout << "\033[1;37m Receiving path calculatro request ------------------------------\033[0m" << std::endl;
     int* final = new int[req.map.data.size()];
-    bool success = PathCalculator::RTTEXT(req.map, req.start_pose, req.goal_pose, resp.path, final);
+    bool success = PathCalculator::RTTExt(req.map, req.start_pose, req.goal_pose, resp.path, final);
     if(success)
     {
         tracReal.path = resp.path;
         tracRealGrow.path = PathCalculator::SmoothPath(tracReal.path);
         PathCalculator::RTTPost(req.map, resp.path, final);
         tracVer.path = resp.path;
-        resp.path = PathCalculator::SmoothPath(resp.path);
+        //resp.path = PathCalculator::SmoothPath(resp.path);
         real = true;
     }
     delete[] final;    
@@ -60,17 +61,17 @@ bool callbackRRTExt(navig_msgs::PathFromMap::Request& req, navig_msgs::PathFromM
 
 bool callbackRRTConnect(navig_msgs::PathFromMap::Request& req, navig_msgs::PathFromMap::Response& resp)
 {    
-    std::cout << "Calculating path by RRT-Connect..." << std::endl;
-    std::cout << "Receiving path calculatro request ------------------------------" << std::endl;
+    std::cout << "\033[1;37m Calculating path by RRT-Connect...\033[0m" << std::endl;
+    std::cout << "\033[1;37m Receiving path calculatro request ------------------------------\033[0m" << std::endl;
     int* final = new int[req.map.data.size()];
-    bool success = PathCalculator::RTTCONNECT(req.map, req.start_pose, req.goal_pose, resp.path, final);
+    bool success = PathCalculator::RTTConnect(req.map, req.start_pose, req.goal_pose, resp.path, final);
     if(success)
     {
         tracReal.path = resp.path;
         tracRealGrow.path = PathCalculator::SmoothPath(tracReal.path);
         PathCalculator::RTTPost(req.map, resp.path, final);
         tracVer.path = resp.path;
-        resp.path = PathCalculator::SmoothPath(resp.path);
+        //resp.path = PathCalculator::SmoothPath(resp.path);
         real = true;
     }
     delete[] final;    

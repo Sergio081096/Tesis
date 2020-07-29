@@ -1194,14 +1194,14 @@ bool TakeshiTasks::getNearestRecognizedFace(std::vector<vision_msgs::VisionFaceO
 void TakeshiTasks::closeToGoalWithDistanceTHR(float goalX, float goalY, float thr, float timeout){
         float currx, curry, currtheta;
         bool finishReachedPerson = false;
-
+        int method = 0;
         float distanceToGoal;
         TakeshiKnowledge::getRobotPose(currx, curry, currtheta);
         distanceToGoal = sqrt(
                 pow(goalX - currx, 2)
                 + pow(goalY - curry, 2));
         if (distanceToGoal > thr) {
-                TakeshiNavigation::startGetClose(goalX, goalY);
+                TakeshiNavigation::startGetClose(goalX, goalY, method);
                 boost::posix_time::ptime prev = boost::posix_time::second_clock::local_time();
                 boost::posix_time::ptime curr = prev;
                 do {

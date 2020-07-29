@@ -14,17 +14,13 @@
 	<arg name="use_laser_odom" default="false" />
 	<arg name="paused" default="true" />
 	<arg name="fast_physics" default="false" />
-	<arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />
-
-	
+	<arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />	
 	
 	<include file="$(find takeshi)/hsrb/hsrb_gazebo_common.xml" pass_all_args="true">
 		<arg name="map" default="$(find takeshi)/maps/apartment/map.yaml" />
                 <arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
 		<arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />
-	</include>
-		<node unless="false" name="map_server" pkg="map_server" type="map_server" output="screen"
-		args="$(find takeshi)/maps/apartment/map.yaml"/>
+	</include>		
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
 		<node name="head" pkg="head" type="head_node" output="screen"/>
@@ -40,10 +36,12 @@
 		<param name="calculate_diagonal_paths" value="false"/>
 		</node>
 	</group>
-	
+	<group ns="navigation">
 		<node name="mvn_pln" pkg="mvn_pln" type="mvn_pln_node" output="screen">
 		<param name="move_lateral" value="false"/>
 		<param name="max_attempts" value="25"/>
 		</node>
-
+		<node unless="false" name="map_server" pkg="map_server" type="map_server" output="screen"
+		args="$(find takeshi)/maps/apartment/map.yaml"/>
+	</group>
 </launch>

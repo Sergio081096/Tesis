@@ -70,8 +70,8 @@ class TakeshiNavigation
   static void callbackGoalReached(const std_msgs::Bool::ConstPtr& msg);
 
   static void startGetClose(std::string location);
-  static void startGetClose(float x, float y);
-  static void startGetClose(float x, float y, float angle);
+  static void startGetClose(float x, float y, int method);
+  static void startGetClose(float x, float y, float angle, int method);
   static void startMovePath(nav_msgs::Path& path);
   static void startMoveDistAngle(float distance, float angle);
   static void startMoveDist(float distance);

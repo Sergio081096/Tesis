@@ -51,7 +51,7 @@ void callback_goal_dist(const std_msgs::Float32::ConstPtr& msg)
 
 void callback_goal_dist_angle(const std_msgs::Float32MultiArray::ConstPtr& msg)
 {
-    std::cout << "SimpleMove.->New move received: goal dist= " << msg->data[0] << " and goal angle= " << msg->data[1] << std::endl;
+    std::cout << "\033[1;29m     SimpleMove.->New move received: goal dist = " << msg->data[0] << " and goal angle = " << msg->data[1] << "\033[0m" << std::endl;
     goal_distance = msg->data[0];
     goal_angle    = msg->data[1];
     move_lateral  = false;
@@ -62,7 +62,7 @@ void callback_goal_dist_angle(const std_msgs::Float32MultiArray::ConstPtr& msg)
 
 void callback_goal_path(const nav_msgs::Path::ConstPtr& msg)
 {
-    std::cout << "SimpleMove.->New path received with " << msg->poses.size() << " points" << std::endl;
+    std::cout << "\033[1;29m     SimpleMove.->New path received with " << msg->poses.size() << " points\033[0m" << std::endl;
     goal_path = *msg;
     move_lateral  = false;
     new_pose = false;
@@ -234,7 +234,7 @@ int main(int argc, char** argv)
     ros::init(argc, argv, "simple_move");
     ros::NodeHandle n;
     ros::Publisher  pub_goal_reached     = n.advertise<std_msgs::Bool>("/navigation/goal_reached", 1);                           
-    ros::Publisher  pub_speeds           = n.advertise<std_msgs::Float32MultiArray>("/hardware/mobile_base/speeds", 1);          
+    //ros::Publisher  pub_speeds           = n.advertise<std_msgs::Float32MultiArray>("/hardware/mobile_base/speeds", 1);          
     ros::Publisher  pub_cmd_vel          = n.advertise<geometry_msgs::Twist>("/hsrb/command_velocity", 1);  
     ros::Publisher  pub_head             = n.advertise<std_msgs::Float32MultiArray>("/manipulation/manip_pln/hd_goto_angles", 1); 
     ros::Subscriber sub_robotStop        = n.subscribe("/hardware/robot_state/stop", 1, callback_robot_stop);               
@@ -398,7 +398,7 @@ int main(int argc, char** argv)
 
 
             case SM_GOAL_POSE_FINISH:
-                std::cout << "SimpleMove.->Successful move with dist=" << goal_distance << " angle=" << goal_angle << std::endl;
+                std::cout << "\033[1;29m     SimpleMove.->Successful move with dist->" << goal_distance << " angle->" << goal_angle << "\033[0m" << std::endl;
                 state = SM_INIT;
                 msg_goal_reached.data = true;
                 pub_goal_reached.publish(msg_goal_reached);
@@ -488,7 +488,7 @@ int main(int argc, char** argv)
 
 
             case SM_GOAL_PATH_FINISH:
-                std::cout << "SimpleMove.->Path succesfully executed. (Y)" << std::endl;
+                std::cout << "\033[1;29m     SimpleMove.->Path succesfully executed. (Y)\033[0m" << std::endl;
                 msg_goal_reached.data = true;
                 pub_cmd_vel.publish(zero_twist);
                 pub_goal_reached.publish(msg_goal_reached);

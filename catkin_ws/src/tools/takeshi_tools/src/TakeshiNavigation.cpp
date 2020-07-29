@@ -7,7 +7,7 @@ float TakeshiNavigation::currentRobotY = 0;
 float TakeshiNavigation::currentRobotTheta = 0;
 bool TakeshiNavigation::_stopReceived = false;
 bool TakeshiNavigation::_isGlobalGoalReached = false;
-bool TakeshiNavigation::_isGoalReached = false;
+bool TakeshiNavigation::_isGoalReached = true;
 bool TakeshiNavigation::_obstacleInFront = false;
 bool TakeshiNavigation::_collisionRisk;   
 
@@ -33,8 +33,8 @@ ros::Subscriber TakeshiNavigation::subCollisionRisk;
 ros::Publisher TakeshiNavigation::pubSimpleMoveDist;
 ros::Publisher TakeshiNavigation::pubSimpleMoveDistAngle;
 ros::Publisher TakeshiNavigation::pubSimpleMoveLateral;
-ros::Publisher TakeshiNavigation::pubSimpleMoveGoalPose;
-ros::Publisher TakeshiNavigation::pubSimpleMoveGoalRelPose;  
+//ros::Publisher TakeshiNavigation::pubSimpleMoveGoalPose;
+//ros::Publisher TakeshiNavigation::pubSimpleMoveGoalRelPose;  
 
 //
 //The startSomething functions, only publish the goal pose or path and return inmediately after starting movement
@@ -66,12 +66,12 @@ bool TakeshiNavigation::setNodeHandle(ros::NodeHandle* nh)
   pubMvnPlnGetCloseLoc = nh->advertise<std_msgs::String>("/navigation/mvn_pln/get_close_loc", 1);
   pubMvnPlnGetCloseXYA = nh->advertise<std_msgs::Float32MultiArray>("/navigation/mvn_pln/get_close_xya", 1);
   //Publishers and subscribers for operating the simple_move node
-  pubSimpleMoveDist = nh->advertise<std_msgs::Float32>("/navigation/path_planning/simple_move/goal_dist", 1);
-  pubSimpleMoveDistAngle=nh->advertise<std_msgs::Float32MultiArray>("/navigation/path_planning/simple_move/goal_dist_angle",1);
-  pubSimpleMoveLateral = nh->advertise<std_msgs::Float32>("/navigation/path_planning/simple_move/goal_lateral", 1);
-  pubSimpleMoveGoalPath = nh->advertise<nav_msgs::Path>("/navigation/path_planning/simple_move/goal_path", 1);
-	pubSimpleMoveGoalPose = nh->advertise<geometry_msgs::Pose2D>("/navigation/path_planning/simple_move/goal_pose", 1);
-	pubSimpleMoveGoalRelPose = nh->advertise<geometry_msgs::Pose2D>("/navigation/path_planning/simple_move/goal_rel_pose", 1);
+  pubSimpleMoveDist = nh->advertise<std_msgs::Float32>("/path_planning/simple_move/goal_dist", 1);
+  pubSimpleMoveDistAngle=nh->advertise<std_msgs::Float32MultiArray>("/path_planning/simple_move/goal_dist_angle",1);
+  pubSimpleMoveLateral = nh->advertise<std_msgs::Float32>("/path_planning/simple_move/goal_lateral", 1);
+  pubSimpleMoveGoalPath = nh->advertise<nav_msgs::Path>("/path_planning/simple_move/goal_path", 1);
+	//pubSimpleMoveGoalPose = nh->advertise<geometry_msgs::Pose2D>("/navigation/path_planning/simple_move/goal_pose", 1);
+	//pubSimpleMoveGoalRelPose = nh->advertise<geometry_msgs::Pose2D>("/navigation/path_planning/simple_move/goal_rel_pose", 1);
   //Subscribers and publishers for obstacle avoidance
 
   subObsInFront = nh->subscribe("/navigation/obs_avoid/obs_in_front", 1, &TakeshiNavigation::callbackObstacleInFront);
@@ -108,24 +108,26 @@ void TakeshiNavigation::startGetClose(std::string location)
         pubMvnPlnGetCloseLoc.publish(msg);
 }
 
-void TakeshiNavigation::startGetClose(float x, float y)
+void TakeshiNavigation::startGetClose(float x, float y, int method)
 {
         std_msgs::Float32MultiArray msg;
         msg.data.push_back(x);
         msg.data.push_back(y);
+        msg.data.push_back(method);
         TakeshiNavigation::_isGlobalGoalReached = false;
         pubMvnPlnGetCloseXYA.publish(msg);
 }
 
-void TakeshiNavigation::startGetClose(float x, float y,  float angle)
+void TakeshiNavigation::startGetClose(float x, float y,  float angle, int method)
 {
         std_msgs::Float32MultiArray msg;
         msg.data.push_back(x);
         msg.data.push_back(y);
-	msg.data.push_back(angle);
-	TakeshiManip::torsoGoTo(0.0, 1500);
-	TakeshiManip::armGoToNavigation();
-	ros::Duration(2.0).sleep();
+      	msg.data.push_back(angle);
+        msg.data.push_back(method);
+      	TakeshiManip::torsoGoTo(0.0, 1500);
+      	TakeshiManip::armGoToNavigation();
+      	ros::Duration(2.0).sleep();
         TakeshiNavigation::_isGlobalGoalReached = false;
         pubMvnPlnGetCloseXYA.publish(msg);
 }
@@ -137,7 +139,7 @@ void TakeshiNavigation::startGoToPose(float x, float y, float angle)
   msg.y = y;
   msg.theta = angle;
   TakeshiNavigation::_isGoalReached = false;
-  pubSimpleMoveGoalPose.publish(msg);
+  //pubSimpleMoveGoalPose.publish(msg);
 }
 
 void TakeshiNavigation::startGoToRelPose(float relX, float relY, float relTheta)
@@ -147,7 +149,7 @@ void TakeshiNavigation::startGoToRelPose(float relX, float relY, float relTheta)
   msg.y = relY;
   msg.theta = relTheta;
   TakeshiNavigation::_isGoalReached = false;
-  pubSimpleMoveGoalRelPose.publish(msg);
+  //pubSimpleMoveGoalRelPose.publish(msg);
 } 
 
 //These methods use the simple_move node

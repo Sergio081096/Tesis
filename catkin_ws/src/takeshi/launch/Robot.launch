@@ -6,7 +6,7 @@
 
   <node name="hsrb_mock_hardware" pkg="hsrb_mock_hardware" type="hsrb_mock_hardware_main" output="screen" />
   <node unless="false" name="map_server" pkg="map_server" type="map_server" output="screen"
-				args="$(find takeshi)/maps/biorobotica1.yaml"/>
+				args="$(find takeshi)/maps/bio/biorobotica1.yaml"/>
 
   <node name="controller_spawner"
         pkg="controller_manager"

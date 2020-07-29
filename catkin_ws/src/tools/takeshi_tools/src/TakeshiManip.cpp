@@ -3,9 +3,9 @@
 bool TakeshiManip::is_node_set = false;
 ros::Publisher TakeshiManip::pubTrGoToPose;
 bool TakeshiManip::_stopReceived = false;
-bool TakeshiManip::_isTrGoalReached = false;
-bool TakeshiManip::_isHdGoalReached = false;
-bool TakeshiManip::_isArmGoalReached = false;
+bool TakeshiManip::_isTrGoalReached = true;
+bool TakeshiManip::_isHdGoalReached = true;
+bool TakeshiManip::_isArmGoalReached = true;
 geometry_msgs::Vector3 TakeshiManip::_force_data;
 
 float TakeshiManip::forceX = 0.0;
@@ -42,17 +42,17 @@ bool TakeshiManip::setNodeHandle(ros::NodeHandle* nh)
     TakeshiManip::pubArmGoToAngles   = nh->advertise<std_msgs::Float32MultiArray>("/hardware/arm/goal_pose", 1);
     TakeshiManip::pubArmCloseGripper = nh->advertise<std_msgs::Float32>("/hardware/arm/torque_gripper", 1);
     TakeshiManip::pubArmOpenGripper  = nh->advertise<std_msgs::Float32>("/hardware/arm/goal_gripper", 1);
-    TakeshiManip::pubHdGoToAngles = nh->advertise<std_msgs::Float32MultiArray>("/hardware/head/goal_pose", 1);
-    TakeshiManip::cltIKFloatArray = nh->serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_geometric/ik_float_array");             // TAKESHI
+    TakeshiManip::pubHdGoToAngles    = nh->advertise<std_msgs::Float32MultiArray>("/hardware/head/goal_pose", 1);
+    TakeshiManip::cltIKFloatArray    = nh->serviceClient<manip_msgs::InverseKinematicsFloatArray>("/manipulation/ik_geometric/ik_float_array");             // TAKESHI
     //Subscribers for indicating that a goal pose has been reached
-    TakeshiManip::subStopRobot = nh->subscribe("/hardware/robot_state/stop", 1, &TakeshiManip::callbackRobotStop);
-    TakeshiManip::subHdGoalReached = nh->subscribe("/manipulation/hd_goal_reached", 1, &TakeshiManip::callbackHdGoalReached);
-    TakeshiManip::subTrGoalReached = nh->subscribe("/hardware/torso/goal_reached", 1, &TakeshiManip::callbackTrGoalReached);
-    TakeshiManip::subArmGoalReached = nh->subscribe("/hardware/arm/armGoalPose", 1, &TakeshiManip::callbackArmGoalReached);
+    TakeshiManip::subStopRobot       = nh->subscribe("/hardware/robot_state/stop", 1, &TakeshiManip::callbackRobotStop);
+    TakeshiManip::subHdGoalReached   = nh->subscribe("/hardware/head/goal_reached", 1, &TakeshiManip::callbackHdGoalReached);
+    TakeshiManip::subTrGoalReached   = nh->subscribe("/hardware/torso/goal_reached", 1, &TakeshiManip::callbackTrGoalReached);
+    TakeshiManip::subArmGoalReached  = nh->subscribe("/hardware/arm/armGoalPose", 1, &TakeshiManip::callbackArmGoalReached);
     TakeshiManip::subTorsoCurrentPos = nh->subscribe("/hardware/torso/current_pose", 1, &TakeshiManip::callbackTorsoCurrentPos);
-    TakeshiManip::subWristWrench = nh->subscribe("/hsrb/wrist_wrench/compensated", 1, &TakeshiManip::callbackWristWrench);
-    TakeshiManip::wrenchSub = nh->subscribe("/hsrb/wrist_wrench/compensated",2,&TakeshiManip::wristWrenchCallback);
-    TakeshiManip::cltmoveitPosition = nh->serviceClient<moveit_services::moveitPosition>("/hsrb/manipulation/moveit/position");
+    TakeshiManip::subWristWrench     = nh->subscribe("/hsrb/wrist_wrench/compensated", 1, &TakeshiManip::callbackWristWrench);
+    TakeshiManip::wrenchSub          = nh->subscribe("/hsrb/wrist_wrench/compensated",2,&TakeshiManip::wristWrenchCallback);
+    TakeshiManip::cltmoveitPosition  = nh->serviceClient<moveit_services::moveitPosition>("/hsrb/manipulation/moveit/position");
 
     TakeshiManip::is_node_set = true;
     return true;
@@ -323,6 +323,7 @@ void TakeshiManip::startTorsoGoTo(float goal)
 {
     std_msgs::Float32 msg;
     msg.data=goal;
+    TakeshiManip::_isTrGoalReached = false;
     cout << "\033[1;32m     TakeshiManip.->Start torso go to: " << goal <<"\033[0m" << endl;
     TakeshiManip::pubTrGoToPose.publish(msg);
 }
@@ -543,10 +544,11 @@ bool TakeshiManip::hdGoTo(float pan, float tilt, int timeOut_ms)
 
 void TakeshiManip::startHdGoTo(float pan, float tilt)
 {
-	cout << "\033[1;32m     TakeshiManip.->Start Head go to   pan: " << pan << " tilt: " << tilt << "\033[0m" << endl;
+	  TakeshiManip::_isHdGoalReached = false;
+    cout << "\033[1;32m     TakeshiManip.->Start Head go to pan: " << pan << " tilt: " << tilt << "\033[0m" << endl;
     std_msgs::Float32MultiArray msg;
     msg.data.push_back(pan);
-    msg.data.push_back(tilt);
+    msg.data.push_back(tilt);    
     TakeshiManip::pubHdGoToAngles.publish(msg);
 }
 

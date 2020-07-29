@@ -316,7 +316,7 @@ int main(int argc, char **argv)
     if(wait_for_torso_goal_pose){
       float torso_d=0;
       torso_d=fabs(traj_arm.points[0].positions[0] - msg_torso_current_pose.data);
-      if(torso_d < 0.01){
+      if(torso_d < 0.005){
         //std::cout << "Wait for torso goal pose: true " << torso_d << std::endl;
         msg_torso_goal_pose.data=true;
         pub_torso_goal_pose.publish(msg_torso_goal_pose);
