@@ -331,12 +331,12 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map2
       Topic: /dynamic_obstacle_map
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
@@ -442,7 +442,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.899564266204834
+      Distance: 19.26283836364746
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -471,4 +471,4 @@ Window Geometry:
   QMainWindow State: 000000ff00000000fd000000010000000000000156000002e0fc0200000001fb000000100044006900730070006c006100790073010000003d000002e0000000c900ffffff0000047d000002e000000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Width: 1497
   X: 391
-  Y: 157
+  Y: 127

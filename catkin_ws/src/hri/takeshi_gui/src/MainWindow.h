@@ -37,6 +37,8 @@ public:
     float headPan;
     float headTilt;
     float trsCurrentPos;
+    float dataX = 5;
+    float dataY = 10;
 
     std::vector<float> ikResponse_articular;
     float ikResponse_torso;
@@ -104,7 +106,11 @@ public slots:
     void ikBtnExecute_pressed();
 
     //Takeshi Arm
-    void armAnglesChanged(double);
+    void armAnglesChanged(double d);
+
+    //Data
+    void calBtnDataNumber_pressed();
+    void calPointChanged(double d);
 
     //Speech synthesis and recog
     void spgSayChanged();

@@ -56,6 +56,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //QObject::connect(ui->ikBtnExecute, SIGNAL(clicked()), this, SLOT(ikBtnExecute_pressed()));
     //Torso
     QObject::connect(ui->trsTxtSpine, SIGNAL(valueChanged(double)), this, SLOT(torsoPoseChanged(double)));
+
+    //Obtaining Data
+    QObject::connect(ui->calTxtDataNumber, SIGNAL(returnPressed()), this, SLOT(calBtnDataNumber_pressed()));
+    QObject::connect(ui->calTxtX, SIGNAL(valueChanged(double)), this, SLOT(calPointChanged(double)));
+    QObject::connect(ui->calTxtY, SIGNAL(valueChanged(double)), this, SLOT(calPointChanged(double)));
     //Speech synthesis and recog
     //QObject::connect(ui->spgTxtSay, SIGNAL(returnPressed()), this, SLOT(spgSayChanged()));
     //QObject::connect(ui->sprTxtFakeRecog, SIGNAL(returnPressed()), this, SLOT(sprFakeRecognizedChanged()));
@@ -326,6 +331,55 @@ void MainWindow::navBtnExecPath_pressed()
         this->ui->navTxtStartPose->setText("Robot");
         TakeshiNavigation::startGetClose(goal_location);
     }
+}
+
+void MainWindow::calBtnDataNumber_pressed()
+{
+    int number;
+    std::vector<std::string> part;
+    std::string str = this->ui->calTxtDataNumber->text().toStdString();
+    boost::algorithm::to_lower(str);
+    boost::split(part, str, boost::is_any_of(" ,\t\r\n"), boost::token_compress_on);
+    if(part.size() >= 1)
+    {
+        std::stringstream ssNumber(part[0]);
+        if(!(ssNumber >> number) || number <= 0)
+        {
+            this->ui->calTxtDataNumber->setText("Invalid format");
+            return;
+        }
+    }
+    srand(time(NULL));
+    int numberIni[1][2];
+    int numberFin[1][2];
+    int limitX = 2*int(dataX);
+    int limitY = 2*int(dataY);
+
+    if(limitY > 0 && limitY > 0 )
+    {  
+        int method = this->ui->calCbPlanningMethod->currentIndex();
+        int iterations = 0;         
+        std::cout << "\033[1;32m Starting data collection process \033[0m" << std::endl;
+        while(iterations < number)
+        {        
+            numberIni[0][0] = (rand()%limitX)-int(dataX);
+            numberIni[0][1] = (rand()%limitY)-int(dataY);
+        
+            numberFin[0][0] = (rand()%limitX)-int(dataX);
+            numberFin[0][1] = (rand()%limitY)-int(dataY);        
+        
+            std::cout << "\033[1;32m Status->" << iterations+1 << "/" << number << "\033[0m" << std::endl;
+            bool  success = TakeshiNavigation::planPath(numberIni[0][0], numberIni[0][1], numberFin[0][0], numberFin[0][1], this->calculatedPath, method);
+            if(success)
+                iterations ++;
+        }
+    }            
+}
+
+void MainWindow::calPointChanged(double)
+{
+    this->dataX = this->ui->calTxtX->value();
+    this->dataY = this->ui->calTxtY->value();
 }
 
 void MainWindow::navMoveChanged()
@@ -738,7 +792,7 @@ void MainWindow::updateGraphicsReceived()
         this->ui->navLblStatus->setText("Base Status: Moving to goal pose...");
 
     if(TakeshiManip::isHdGoalReached())
-        this->ui->hdLblStatus->setText("Status: Goal Pose reached (Y)");
+        this->ui->hdLblStatus->setText("Status: Goal Pose Reached (Y)");
     else
         this->ui->hdLblStatus->setText("Status: Moving to goal pose...");
 
@@ -746,6 +800,7 @@ void MainWindow::updateGraphicsReceived()
         this->ui->trsLblStatus->setText("Status: Goal Reached!");
     else
         this->ui->trsLblStatus->setText("Status: Moving to ...");
+
 
     std::string faceId = "";
     float facePosX = 0, facePosY = 0, facePosZ = 0;

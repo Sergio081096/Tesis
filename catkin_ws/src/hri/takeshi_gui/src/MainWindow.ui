@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>534</height>
+    <width>646</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,7 +55,7 @@ QRadioButton::indicator{
       <property name="geometry">
        <rect>
         <x>320</x>
-        <y>220</y>
+        <y>260</y>
         <width>301</width>
         <height>201</height>
        </rect>
@@ -190,9 +190,9 @@ QRadioButton::indicator{
       <widget class="QComboBox" name="navCbPlanningMethod">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>134</x>
          <y>80</y>
-         <width>135</width>
+         <width>161</width>
          <height>27</height>
         </rect>
        </property>
@@ -230,9 +230,9 @@ QRadioButton::indicator{
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>0</y>
         <width>271</width>
-        <height>171</height>
+        <height>161</height>
        </rect>
       </property>
       <property name="title">
@@ -504,7 +504,7 @@ QRadioButton::indicator{
         <string>Pan:</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="hdLblTilt">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -585,9 +585,9 @@ QRadioButton::indicator{
      <widget class="QGroupBox" name="gbTorso">
       <property name="geometry">
        <rect>
-        <x>320</x>
-        <y>110</y>
-        <width>301</width>
+        <x>10</x>
+        <y>170</y>
+        <width>271</width>
         <height>101</height>
        </rect>
       </property>
@@ -645,7 +645,7 @@ QRadioButton::indicator{
       <widget class="QLabel" name="trsLblStatus">
        <property name="geometry">
         <rect>
-         <x>110</x>
+         <x>60</x>
          <y>70</y>
          <width>151</width>
          <height>17</height>
@@ -669,23 +669,23 @@ QRadioButton::indicator{
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="gbDrive">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>280</y>
         <width>271</width>
-        <height>221</height>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
-       <string>Buttons for manual drive</string>
+       <string>Manual drive</string>
       </property>
       <widget class="QPushButton" name="btnLeft">
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>90</y>
+         <y>80</y>
          <width>50</width>
          <height>40</height>
         </rect>
@@ -704,7 +704,7 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>40</y>
+         <y>30</y>
          <width>50</width>
          <height>40</height>
         </rect>
@@ -723,7 +723,7 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>160</x>
-         <y>90</y>
+         <y>80</y>
          <width>50</width>
          <height>40</height>
         </rect>
@@ -742,7 +742,7 @@ QRadioButton::indicator{
        <property name="geometry">
         <rect>
          <x>100</x>
-         <y>140</y>
+         <y>130</y>
          <width>50</width>
          <height>40</height>
         </rect>
@@ -755,6 +755,163 @@ QRadioButton::indicator{
          <width>32</width>
          <height>32</height>
         </size>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="gbObtainingData">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>110</y>
+        <width>301</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Obtaining Data</string>
+      </property>
+      <widget class="QLabel" name="calLblDataNumber">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>25</y>
+         <width>101</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Data Number:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="calTxtDataNumber">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>25</y>
+         <width>185</width>
+         <height>25</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="calLblPointRange">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>91</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Point Range</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="calLblY">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>100</y>
+         <width>21</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Y:</string>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="calTxtX">
+       <property name="geometry">
+        <rect>
+         <x>126</x>
+         <y>100</y>
+         <width>69</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>5.000000000000000</double>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="calTxtY">
+       <property name="geometry">
+        <rect>
+         <x>226</x>
+         <y>100</y>
+         <width>69</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>5.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>10.000000000000000</double>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="calCbPlanningMethod">
+       <property name="geometry">
+        <rect>
+         <x>134</x>
+         <y>60</y>
+         <width>161</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>A Star</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RRT-Ext</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RRT-Connect</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="calLblPlanningMethod">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>131</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Planning Method:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="calLblX">
+       <property name="geometry">
+        <rect>
+         <x>110</x>
+         <y>100</y>
+         <width>21</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>X:</string>
        </property>
       </widget>
      </widget>

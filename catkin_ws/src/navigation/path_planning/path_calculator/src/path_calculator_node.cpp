@@ -31,10 +31,10 @@ bool callbackAStarFromMap(navig_msgs::PathFromMap::Request &req, navig_msgs::Pat
     bool success = PathCalculator::AStar(req.map, req.start_pose, req.goal_pose, resp.path);    
     if(success)
     {
-        tracReal.path = resp.path;   
+        tracReal.path = resp.path;
+        tracRealGrow.path = resp.path;   
         resp.path = PathCalculator::SmoothPath(resp.path);
         tracVer.path = resp.path;
-        //tracRealGrow.path = resp.path;
         real = true;
     }
     return success;

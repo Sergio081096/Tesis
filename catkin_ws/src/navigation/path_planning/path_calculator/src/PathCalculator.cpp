@@ -225,7 +225,7 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
     positionData[1][0] = goalPose.position.x;
     positionData[1][1] = goalPose.position.y;
 
-    ofstream archivo("/home/sergio/Tesis/data.txt",ios::app);    
+    ofstream archivo("/home/sergio/Tesis/data/AStar.xls",ios::app);    
 
     int currentCell = startCell;
 
@@ -255,11 +255,12 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
     g_values[currentCell] = 0;
     bool fail = false;
     int attempts = 0;
+    int iterations = map.data.size();
     //std::cout << "Starting search.." << std::endl;
     //std::cout << "GoalCellX: " << goalCellX << " GoalCellY: " << goalCellY << std::endl;    
     gettimeofday(&t_ini, NULL);
 
-    while(currentCell != goalCell && !fail && attempts < map.data.size())
+    while(currentCell != goalCell && !fail && attempts < iterations)
     {
         //std::cout << "Current cell: " << currentCell << std::endl;
         //4-connectivity
@@ -331,23 +332,23 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
         attempts++;
     }
 
+    if(attempts == iterations)
+        return false;
+
     gettimeofday(&t_fin, NULL);
     executionTime = (t_fin.tv_sec - t_ini.tv_sec)*1000 + (t_fin.tv_usec - t_ini.tv_usec)/1000.0;
 
-    archivo << 1.0 << " "  << executionTime << std::endl;
-    for(int i=0; i<2; i++)
-        archivo << fixed << setprecision(2) << positionData[i][0] << " " << positionData[i][1] << std::endl; 
-    archivo << " " << std::endl;   
-    archivo.flush();
-    archivo.close();
-
-    //std::cout << "PathCalculator.->A* finished after " << attempts << " attempts" << std::endl;
     if(fail)
     {
         std::cout << "PathCalculator.-> Cannot find path to goal point by A* :'(" << std::endl;
         return false;
     }
-    //std::cout << "PathCalculator.->Total path cost: " << g_values[goalCell] << std::endl;
+
+    for(int i=0; i<2; i++)
+        archivo << fixed << setprecision(2) << positionData[i][0] << " , " << positionData[i][1] << " , "; 
+    archivo << executionTime << std::endl;
+    archivo.flush();
+    archivo.close();
 
     geometry_msgs::PoseStamped p;
     currentCell = goalCell;
@@ -420,7 +421,7 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
     positionData[1][0] = goalPose.position.x;
     positionData[1][1] = goalPose.position.y;
 
-    ofstream archivo("/home/sergio/Tesis/data.txt",ios::app);
+    ofstream archivo("/home/sergio/Tesis/data/RRT-Ext.xls",ios::app);
 
     mapDim = map.info.width;
     maxDim = map.data.size() - 1;
@@ -438,7 +439,7 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
 
     int attempts = 0;
     int q_rand = 0;
-    int iterations = map.data.size();
+    int iterations = map.data.size()/160;
     initialTree[0] = currentCell;//iniciando en la posicion actual
     initialTree[maxDim] = 1;
     finalTree[0] = goalCell;//iniciando en la posicion final
@@ -470,15 +471,15 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
         attempts++; 
     }
 
+    if(attempts == iterations)
+        return false;
+
     gettimeofday(&t_fin, NULL);
     executionTime = (t_fin.tv_sec - t_ini.tv_sec)*1000 + (t_fin.tv_usec - t_ini.tv_usec)/1000.0;
 
-    archivo << 2.00 << " "  << executionTime << std::endl;
     for(int i=0; i<2; i++)
-        archivo << fixed << setprecision(2) << positionData[i][0] << " " << positionData[i][1] << std::endl;    
-    archivo << " " << std::endl;
-    archivo.flush();
-    archivo.close();
+        archivo << fixed << setprecision(2) << positionData[i][0] << " , " << positionData[i][1] << " , "; 
+    archivo << executionTime << std::endl;
 
     if(initialTree[0] != currentCell)
     {
@@ -589,7 +590,7 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
     positionData[1][0] = goalPose.position.x;
     positionData[1][1] = goalPose.position.y;
 
-    ofstream archivo("/home/sergio/Tesis/data.txt",ios::app);
+    ofstream archivo("/home/sergio/Tesis/data/RRT-Connect.xls",ios::app);
 
     mapDim = map.info.width;
     maxDim = map.data.size() - 1;
@@ -607,7 +608,7 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
 
     int attempts = 0;
     int q_rand = 0;
-    int iterations = map.data.size();
+    int iterations = map.data.size()/160;
     initialTree[0] = currentCell;//iniciando en la posicion actual
     initialTree[maxDim] = 1;
     finalTree[0] = goalCell;//iniciando en la posicion final
@@ -639,15 +640,15 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
         attempts++; 
     }
 
+    if(attempts == iterations)
+        return false;
+
     gettimeofday(&t_fin, NULL);
     executionTime = (t_fin.tv_sec - t_ini.tv_sec)*1000 + (t_fin.tv_usec - t_ini.tv_usec)/1000.0;
 
-    archivo << 3.00 << " "  << executionTime << std::endl;
     for(int i=0; i<2; i++)
-        archivo << fixed << setprecision(2) << positionData[i][0] << " " << positionData[i][1] << std::endl;    
-    archivo << " " << std::endl;
-    archivo.flush();
-    archivo.close();
+        archivo << fixed << setprecision(2) << positionData[i][0] << " , " << positionData[i][1] << " , "; 
+    archivo << executionTime << std::endl;
 
     if(initialTree[0] != currentCell)
     {
