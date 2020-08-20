@@ -183,8 +183,8 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
     //HAY UN MEGABUG EN ESTE ALGORITMO PORQUE NO ESTOY TOMANDO EN CUENTA QUE EN LOS BORDES DEL
     //MAPA NO SE PUEDE APLICAR CONECTIVIDAD CUATRO NI OCHO. FALTA RESTRINGIR EL RECORRIDO A LOS BORDES MENOS UNO.
     //POR AHORA FUNCIONA XQ CONFÍO EN QUE EL MAPA ES MUCHO MÁS GRANDE QUE EL ÁREA REAL DE NAVEGACIÓN
-    std::cout << "\033[1;37m PathCalculator.->Calculating by A* from " << fixed << setprecision(2) << startPose.position.x << "  ";
-    std::cout << startPose.position.y << "  to " << goalPose.position.x << "  " << goalPose.position.y << "\033[0m" << std::endl;
+    std::cout << "\033[1;37m PathCalculator.->Calculating by A* from " << fixed << setprecision(2) << startPose.position.x << " ";
+    std::cout << startPose.position.y << " to " << goalPose.position.x << " " << goalPose.position.y << "\033[0m" << std::endl;
     int startCellX = (int)((startPose.position.x - map.info.origin.position.x)/map.info.resolution);
     int startCellY = (int)((startPose.position.y - map.info.origin.position.y)/map.info.resolution);
     int goalCellX = (int)((goalPose.position.x - map.info.origin.position.x)/map.info.resolution);
@@ -255,7 +255,7 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
     g_values[currentCell] = 0;
     bool fail = false;
     int attempts = 0;
-    int iterations = map.data.size();
+    int iterations = map.data.size()/2;
     //std::cout << "Starting search.." << std::endl;
     //std::cout << "GoalCellX: " << goalCellX << " GoalCellY: " << goalCellY << std::endl;    
     gettimeofday(&t_ini, NULL);
@@ -382,8 +382,8 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
 bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& startPose, geometry_msgs::Pose& goalPose,nav_msgs::Path& resultPath, 
                             int*&  finalLink)
 {
-    std::cout << "\033[1;37m PathCalculator.->Calculating by RRT-Ext* from " << fixed << setprecision(2) << startPose.position.x << "  ";
-    std::cout << startPose.position.y << "  to " << goalPose.position.x << "  " << goalPose.position.y << "\033[0m" << std::endl;
+    std::cout << "\033[1;37m PathCalculator.->Calculating by RRT-Ext* from " << fixed << setprecision(2) << startPose.position.x << " ";
+    std::cout << startPose.position.y << " to " << goalPose.position.x << " " << goalPose.position.y << "\033[0m" << std::endl;
     int startCellX = (int)((startPose.position.x - map.info.origin.position.x)/map.info.resolution);
     int startCellY = (int)((startPose.position.y - map.info.origin.position.y)/map.info.resolution);
     int goalCellX = (int)((goalPose.position.x - map.info.origin.position.x)/map.info.resolution);
@@ -391,7 +391,7 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
     int startCell = startCellY * map.info.width + startCellX;
     int goalCell = goalCellY * map.info.width + goalCellX;
 
-    map = PathCalculator::GrowObstacles(map, 0.25);//new map
+    map = PathCalculator::GrowObstacles(map, 0.19);//new map
 
     if(map.data[goalCell] > 40 || map.data[goalCell] < 0)
     {
@@ -410,7 +410,6 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
     int* finalTree = new int[map.data.size()];
     int* initialRoute = new int[map.data.size()];
     int* finalRoute = new int[map.data.size()];
-    int* nearnessToObstacles = new int[map.data.size()];
 
     float positionData [2][2];
     struct timeval t_ini, t_fin;
@@ -439,7 +438,7 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
 
     int attempts = 0;
     int q_rand = 0;
-    int iterations = map.data.size()/160;
+    int iterations = map.data.size()/2;
     initialTree[0] = currentCell;//iniciando en la posicion actual
     initialTree[maxDim] = 1;
     finalTree[0] = goalCell;//iniciando en la posicion final
@@ -461,6 +460,7 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
         }
         else if(!cross)
         {
+            attempts += 5;
             if(PathCalculator::Extends(finalTree, q_new, initialTree, isKnown) == 0)
             {
                 cross = true;
@@ -468,10 +468,10 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
             }
         }
         PathCalculator::Change(initialTree, finalTree);
-        attempts++; 
+        attempts += 5;
     }
 
-    if(attempts == iterations)
+    if(!cross || attempts == iterations)
         return false;
 
     gettimeofday(&t_fin, NULL);
@@ -492,8 +492,6 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
         isKnown[finalTree[i]] = false;
     }
 
-    //std::cout << "Iteraciones->"<< attempts << std::endl;
-
     if(cross)
     {
         int initialPath = PathCalculator::Path(initialRoute, initialTree, origin);
@@ -513,11 +511,6 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
         {
             finalLink[k] = initialRoute[k];
         }
-    }
-    if(!cross)
-    {
-        std::cout << "PathCalculator.-> Cannot find path to goal point by RRT :'( ->" << std::endl;
-        return false;
     }
 
     geometry_msgs::PoseStamped p;
@@ -552,8 +545,8 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
 bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& startPose, geometry_msgs::Pose& goalPose,nav_msgs::Path& resultPath, 
                                 int*&  finalLink)
 {
-    std::cout << "\033[1;37m PathCalculator.->Calculating by RRT-Connect* from " << fixed << setprecision(2) << startPose.position.x << "  ";
-    std::cout << startPose.position.y << "  to " << goalPose.position.x << "  " << goalPose.position.y << "\033[0m" << std::endl;
+    std::cout << "\033[1;37m PathCalculator.->Calculating by RRT-Connect* from " << fixed << setprecision(2) << startPose.position.x << " ";
+    std::cout << startPose.position.y << " to " << goalPose.position.x << " " << goalPose.position.y << "\033[0m" << std::endl;
     int startCellX = (int)((startPose.position.x - map.info.origin.position.x)/map.info.resolution);
     int startCellY = (int)((startPose.position.y - map.info.origin.position.y)/map.info.resolution);
     int goalCellX = (int)((goalPose.position.x - map.info.origin.position.x)/map.info.resolution);
@@ -561,7 +554,7 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
     int startCell = startCellY * map.info.width + startCellX;
     int goalCell = goalCellY * map.info.width + goalCellX;
 
-    map = PathCalculator::GrowObstacles(map, 0.25);//new map
+    map = PathCalculator::GrowObstacles(map, 0.19);//new map
 
     if(map.data[goalCell] > 40 || map.data[goalCell] < 0)
     {
@@ -608,7 +601,7 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
 
     int attempts = 0;
     int q_rand = 0;
-    int iterations = map.data.size()/160;
+    int iterations = map.data.size()/2;
     initialTree[0] = currentCell;//iniciando en la posicion actual
     initialTree[maxDim] = 1;
     finalTree[0] = goalCell;//iniciando en la posicion final
@@ -630,6 +623,7 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
         }
         else if(!cross)
         {
+            attempts += 12;
             if(PathCalculator::Connect(finalTree, q_new, initialTree, isKnown) == 0)
             {
                 cross = true;
@@ -637,10 +631,10 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
             }
         }
         PathCalculator::Change(initialTree, finalTree);
-        attempts++; 
+        attempts += 12; 
     }
 
-    if(attempts == iterations)
+    if(!cross || attempts == iterations)
         return false;
 
     gettimeofday(&t_fin, NULL);
@@ -661,8 +655,6 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
         isKnown[finalTree[i]] = false;
     }
 
-    //std::cout << "Iteraciones->"<< attempts << std::endl;
-
     if(cross)
     {
         int initialPath = PathCalculator::Path(initialRoute, initialTree, origin);
@@ -682,11 +674,6 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
         {
             finalLink[k] = initialRoute[k];
         }
-    }
-    if(!cross)
-    {
-        std::cout << "PathCalculator.-> Cannot find path to goal point by RRT :'( ->" << std::endl;
-        return false;
     }
 
     geometry_msgs::PoseStamped p;
@@ -775,7 +762,7 @@ void PathCalculator::RTTPost(nav_msgs::OccupancyGrid& map, nav_msgs::Path& resul
             {
                 if((NumVer-verA) > 10 )
                 {
-                    NumVer = int((3*NumVer+verA)/4);
+                    NumVer = int((9*NumVer+verA)/10);
                 }
                 else
                 {

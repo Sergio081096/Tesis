@@ -81,6 +81,9 @@ def main():
         loop.sleep()
 
 if __name__ == '__main__':
+
+    import sys
+    print(sys.version)
     try:
         main()
     except rospy.ROSInterruptException:

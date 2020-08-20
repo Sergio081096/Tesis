@@ -37,7 +37,7 @@ public:
     float headPan;
     float headTilt;
     float trsCurrentPos;
-    float dataX = 5;
+    float dataX = 10;
     float dataY = 10;
 
     std::vector<float> ikResponse_articular;

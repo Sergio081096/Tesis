@@ -2,7 +2,7 @@
 <launch>
 	<arg name="namespace" default="hsrb"/>
 	<arg name="debug" default="false"/>
-	<arg name="gui" default="false" />
+	<arg name="gui" default="true" />
 	<arg name="rviz" default="true"/>
 	<arg name="gazebo_visualization" default="false" />
 	<arg name="use_manipulation" default="true" />
@@ -15,12 +15,12 @@
 	<arg name="paused" default="false" />
 	<arg name="fast_physics" default="false" />
 	<arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />
-	<arg name="mapname" default="501"/>	
+	<arg name="mapname" default="apartment"/>	
 	
 	<include file="$(find takeshi)/hsrb/hsrb_gazebo_common.xml" pass_all_args="true">
 		<arg name="map" default="$(find takeshi)/maps/$(arg mapname)/map.yaml" />
-                <!--<arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
-		<arg name="robot_pos" value="x 10 y 16.6 -z 0 -Y 0.0" />-->
+                <arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
+		<arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />
 	</include>		
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
