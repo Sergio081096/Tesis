@@ -44,8 +44,8 @@ void callback_simulated(const std_msgs::Bool::ConstPtr &msg)
     }
     if(dynamicMap){
         nav_msgs::GetMap srvGetMap;
-        ros::service::waitForService("/navigation/localization/dynamic_map");
-        srvCltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/localization/dynamic_map");
+        ros::service::waitForService("/navigation/static_map");
+        srvCltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/dynamic_map");
         srvCltGetMap.call(srvGetMap);
         map = srvGetMap.response.map;
     }
@@ -83,15 +83,15 @@ int main(int argc, char** argv)
 
     if(simulated && !dynamicMap){
         nav_msgs::GetMap srvGetMap;
-        ros::service::waitForService("/navigation/localization/static_map");
-        srvCltGetMap = n.serviceClient<nav_msgs::GetMap>("/navigation/localization/static_map");
+        ros::service::waitForService("/navigation/static_map");
+        srvCltGetMap = n.serviceClient<nav_msgs::GetMap>("/navigation/static_map");
         srvCltGetMap.call(srvGetMap);
         map = srvGetMap.response.map;
     }
     if(dynamicMap){
         nav_msgs::GetMap srvGetMap;
-        ros::service::waitForService("/navigation/localization/dynamic_map");
-        srvCltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/localization/dynamic_map");
+        ros::service::waitForService("/navigation/dynamic_map");
+        srvCltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/dynamic_map");
         srvCltGetMap.call(srvGetMap);
         map = srvGetMap.response.map;
     }
@@ -173,7 +173,11 @@ int main(int argc, char** argv)
 
             simulatedScan = *occupancy_grid_utils::simulateRangeScan(map, sensorPose, scanInfo);
             simulatedScan.header.stamp = ros::Time::now();
-            if(is_rear) simulatedScan.header.frame_id = "laser_link_rear";
+
+            if(is_rear) 
+            {
+                simulatedScan.header.frame_id = "laser_link_rear";
+            }
             pubScan.publish(simulatedScan);
         }
         else

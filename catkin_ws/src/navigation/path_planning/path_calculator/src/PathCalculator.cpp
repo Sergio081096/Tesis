@@ -379,7 +379,7 @@ bool PathCalculator::AStar(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& st
     return true;
 }
 
-bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& startPose, geometry_msgs::Pose& goalPose,nav_msgs::Path& resultPath, 
+bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& startPose, geometry_msgs::Pose& goalPose, nav_msgs::Path& resultPath, 
                             int*&  finalLink)
 {
     std::cout << "\033[1;37m PathCalculator.->Calculating by RRT-Ext* from " << fixed << setprecision(2) << startPose.position.x << " ";
@@ -542,7 +542,7 @@ bool PathCalculator::RTTExt(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& s
     return true;
 }
 
-bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& startPose, geometry_msgs::Pose& goalPose,nav_msgs::Path& resultPath, 
+bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pose& startPose, geometry_msgs::Pose& goalPose, nav_msgs::Path& resultPath, 
                                 int*&  finalLink)
 {
     std::cout << "\033[1;37m PathCalculator.->Calculating by RRT-Connect* from " << fixed << setprecision(2) << startPose.position.x << " ";
@@ -705,14 +705,14 @@ bool PathCalculator::RTTConnect(nav_msgs::OccupancyGrid& map, geometry_msgs::Pos
     return true;
 }
 
-void PathCalculator::RTTPost(nav_msgs::OccupancyGrid& map, nav_msgs::Path& resultPath, int*& newRuta)
+void PathCalculator::RTTPost(nav_msgs::OccupancyGrid& map, nav_msgs::Path& resultPath, int*& Ruta)
 {
     bool* isKnown = new bool[map.data.size()];//conocida
     int* ruta = new int[map.data.size()];
     for(int i=0; i < map.data.size(); i++)
     {
         isKnown[i] = map.data[i] > 40 || map.data[i] < 0;
-        ruta[i] = newRuta[i];
+        ruta[i] = Ruta[i];
     }
 
     int valor = resultPath.poses.size() - 2;
@@ -762,7 +762,7 @@ void PathCalculator::RTTPost(nav_msgs::OccupancyGrid& map, nav_msgs::Path& resul
             {
                 if((NumVer-verA) > 10 )
                 {
-                    NumVer = int((9*NumVer+verA)/10);
+                    NumVer = int((10*NumVer+verA)/11);
                 }
                 else
                 {

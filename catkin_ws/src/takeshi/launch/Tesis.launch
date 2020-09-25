@@ -2,7 +2,7 @@
 <launch>
 	<arg name="namespace" default="hsrb"/>
 	<arg name="debug" default="false"/>
-	<arg name="gui" default="true" />
+	<arg name="gui" default="false" />
 	<arg name="rviz" default="true"/>
 	<arg name="gazebo_visualization" default="false" />
 	<arg name="use_manipulation" default="true" />
@@ -15,16 +15,20 @@
 	<arg name="paused" default="false" />
 	<arg name="fast_physics" default="false" />
 	<arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />
-	<arg name="mapname" default="apartment"/>	
+	<arg name="mapname" default="201"/>	
 	
 	<include file="$(find takeshi)/hsrb/hsrb_gazebo_common.xml" pass_all_args="true">
 		<arg name="map" default="$(find takeshi)/maps/$(arg mapname)/map.yaml" />
-                <arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
-		<arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />
+                <!--<arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
+		<arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />-->
 	</include>		
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
 		<node name="head" pkg="head" type="head_node" output="screen"/>
+		<!--<node name="laser_manager" pkg="laser_manager" type="laser_manager_node" output="screen">
+		      <param name="simul" value="true"/>
+		      <param name="dynamic_map" value="false"/>
+		</node>-->
   	</group>
 
 	<group ns="hri">
@@ -34,15 +38,29 @@
 	<group ns="path_planning">
 		<node name="simple_move" pkg="simple_move" type="simple_move_node" output="screen" args="--move_head"/>
 		<node name="path_calculator" pkg="path_calculator" type="path_calculator_node" output="screen">
-		<param name="calculate_diagonal_paths" value="false"/>
+			<param name="calculate_diagonal_paths" value="false"/>
 		</node>
 	</group>
 	<group ns="navigation">
 		<node name="mvn_pln" pkg="mvn_pln" type="mvn_pln_node" output="screen">
-		<param name="move_lateral" value="false"/>
-		<param name="max_attempts" value="25"/>
+			<param name="move_lateral" value="false"/>
+			<param name="max_attempts" value="25"/>
 		</node>
-		<node unless="false" name="map_server" pkg="map_server" type="map_server" output="screen"
-		args="$(find takeshi)/maps/$(arg mapname)/map.yaml"/>
+		<node name="map_server" pkg="map_server" type="map_server" output="screen" args="$(find takeshi)/maps/$(arg mapname)/map.yaml"/>
+		<!--<node name="loc_amcl" pkg="amcl" type="amcl" output="screen" args="scan:=/hardware/scan">
+			<param name="odom_alpha1" value="0.6"/>
+			<param name="odom_alpha2" value="0.6"/>
+			<param name="odom_alpha3" value="0.6"/>
+			<param name="odom_alpha4" value="0.6"/>
+			<param name="odom_alpha5" value="0.6"/>
+			<param name="recovery_alpha_slow" value="0.001"/>
+			<param name="recovery_alpha_fast" value="0.1"/>
+			<param name="initial_pose_x" value="0.0"/>
+			<param name="initial_pose_y" value="0.0"/>
+			<param name="initial_pose_a" value="0.0"/>
+			<param name="update_min_a" value="0.3"/>
+			<param name="laser_min_range" value="0.3"/>
+			<param name="odom_model_type" value="omni"/>
+		</node>-->
 	</group>
 </launch>

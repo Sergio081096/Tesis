@@ -79,7 +79,7 @@ bool TakeshiNavigation::setNodeHandle(ros::NodeHandle* nh)
   pubObsAvoidEnable = nh->advertise<std_msgs::Bool>("/navigation/obs_avoid/enable", 1);
 
   //Subscribers for path planning
-  cltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/localization/static_map");
+  cltGetMap = nh->serviceClient<nav_msgs::GetMap>("/navigation/static_map");
   cltPathFromMapAStar = nh->serviceClient<navig_msgs::PathFromMap>("/navigation/path_planning/path_calculator/a_star_from_map");
 
 	//Publisher and subscribers for localization

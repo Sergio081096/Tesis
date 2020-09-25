@@ -64,7 +64,7 @@ QRadioButton::indicator{
        <string notr="true"/>
       </property>
       <property name="title">
-       <string>Mobile base and navigation</string>
+       <string>Mobile Base and Navigation</string>
       </property>
       <widget class="QPushButton" name="navBtnExecPath">
        <property name="geometry">
@@ -366,7 +366,7 @@ QRadioButton::indicator{
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>-3.140000000000000</double>
+        <double>-2.600000000000000</double>
        </property>
        <property name="maximum">
         <double>0.000000000000000</double>
@@ -679,7 +679,7 @@ QRadioButton::indicator{
        </rect>
       </property>
       <property name="title">
-       <string>Manual drive</string>
+       <string>Manual Drive</string>
       </property>
       <widget class="QPushButton" name="btnLeft">
        <property name="geometry">
