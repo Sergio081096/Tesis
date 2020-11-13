@@ -216,11 +216,11 @@ int main(int argc, char** argv)
     sensor_msgs::LaserScan scan_info = real_scan;
     scan_info.angle_increment *= LASER_DOWNSAMPLING;
 
-    int N = 1000;
-    float min_x = -1;
-    float max_x = 10;
-    float min_y = -1;
-    float max_y = 8;
+    int N = 3000;
+    float min_x = -9.5;
+    float max_x = 9.5;
+    float min_y = -9.5;
+    float max_y = 9.5;
 
     visualization_msgs::Marker mrk;
     mrk.header.frame_id = "map";

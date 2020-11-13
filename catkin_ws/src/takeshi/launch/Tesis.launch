@@ -21,13 +21,16 @@
 		<arg name="map" default="$(find takeshi)/maps/$(arg mapname)/map.yaml" />
                 <!--<arg name="world_name" value="$(find takeshi)/worlds/apartment_no_objects.world" />
 		<arg name="robot_pos" value="-x 5 -y 6.6 -z 0 -Y 0.0" />-->
-	</include>		
+	</include>
+
+	<!--<node pkg="tf" type="static_transform_publisher" name="laser_base" args="0 0 0.23 0 0 0 base_link laser_link 30" />-->
+
 	<group ns="hardware">
 		<node name="arm" pkg="arm" type="arm_node" output="screen"/>
 		<node name="head" pkg="head" type="head_node" output="screen"/>
 		<!--<node name="laser_manager" pkg="laser_manager" type="laser_manager_node" output="screen">
-		      <param name="simul" value="true"/>
-		      <param name="dynamic_map" value="false"/>
+		      	<param name="simul" value="true"/>
+		      	<param name="dynamic_map" value="false"/>
 		</node>-->
   	</group>
 

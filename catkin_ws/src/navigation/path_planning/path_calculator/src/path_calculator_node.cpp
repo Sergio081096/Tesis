@@ -35,6 +35,7 @@ bool callbackAStarFromMap(navig_msgs::PathFromMap::Request &req, navig_msgs::Pat
         tracRealGrow.path = resp.path;   
         resp.path = PathCalculator::SmoothPath(resp.path);
         tracVer.path = resp.path;
+        PathCalculator::LengthAngle(tracVer.path,req.start_pose,req.goal_pose);
         real = true;
     }
     return success;
@@ -52,7 +53,8 @@ bool callbackRRTExt(navig_msgs::PathFromMap::Request& req, navig_msgs::PathFromM
         tracRealGrow.path = PathCalculator::SmoothPath(tracReal.path);
         PathCalculator::RTTPost(req.map, resp.path, final);
         tracVer.path = resp.path;
-        //resp.path = PathCalculator::SmoothPath(resp.path);
+        resp.path = PathCalculator::SmoothPath(resp.path);
+        PathCalculator::LengthAngle(tracVer.path,req.start_pose,req.goal_pose);
         real = true;
     }
     delete[] final;    
@@ -71,7 +73,8 @@ bool callbackRRTConnect(navig_msgs::PathFromMap::Request& req, navig_msgs::PathF
         tracRealGrow.path = PathCalculator::SmoothPath(tracReal.path);
         PathCalculator::RTTPost(req.map, resp.path, final);
         tracVer.path = resp.path;
-        //resp.path = PathCalculator::SmoothPath(resp.path);
+        resp.path = PathCalculator::SmoothPath(resp.path);
+        PathCalculator::LengthAngle(tracVer.path,req.start_pose,req.goal_pose);
         real = true;
     }
     delete[] final;    
