@@ -586,7 +586,7 @@ bool TakeshiVision::detectCircles(vision_msgs::VisionObject& object){
             circle( imaBGR, center, radius, cv::Scalar(0,0,255), 3, 8, 0 );
             object.x=center.x;
             object.y=center.y;
-            cv::namedWindow( "Hough Circle", CV_WINDOW_AUTOSIZE );
+            cv::namedWindow( "Hough Circle", cv::WINDOW_AUTOSIZE );
             cv::imshow( "Hough Circle", imaBGR);
             cv::waitKey(100);
             std::cout << center.x+(radius*2) << std::endl;
@@ -598,7 +598,7 @@ bool TakeshiVision::detectCircles(vision_msgs::VisionObject& object){
             return true;
         } 
 
-        cv::namedWindow( "Hough Circle", CV_WINDOW_AUTOSIZE );
+        cv::namedWindow( "Hough Circle", cv::WINDOW_AUTOSIZE );
         cv::imshow( "Hough Circle", imaBGR);
         cv::waitKey(100);
         return false;
